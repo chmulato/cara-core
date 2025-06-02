@@ -1,20 +1,22 @@
 # Cara-Core Informática
 
-Este repositório contém o site institucional da **Cara-Core Informática**, empresa especializada em soluções Microsoft 365, automação com Python, suporte técnico, desenvolvimento personalizado e treinamentos em TI.
+Este repositório contém o site institucional da **Cara-Core Informática**, empresa especializada em soluções Microsoft 365, automação com Python, desenvolvimento de sites, suporte técnico e treinamentos em TI.
 
 ## 🚀 Serviços Oferecidos
 
 - **Consultoria Microsoft 365:** Implantação, configuração, migração e treinamento.
 - **Automação com Python:** Integração de sistemas, geração de relatórios e otimização de processos.
-- **Suporte Técnico:** Manutenção, backup, antivírus e segurança.
-- **Desenvolvimento Personalizado:** Sistemas web, bots e ferramentas sob demanda.
+- **Desenvolvimento de Sites:** Criação de sites institucionais, portfólios, blogs e landing pages responsivas.
+- **Suporte Técnico:** Backup, antivírus, segurança da informação e orientação tecnológica.
 - **Segurança Digital:** Backup em nuvem, proteção de dados e firewall.
 - **Treinamentos:** Cursos em Microsoft 365, Excel, Python e produtividade digital.
 
 ## 📂 Estrutura do Projeto
 
 - `index.html` — Página principal do site.
+- `planos.html` — Página de planos de desenvolvimento de sites.
 - `images/` — Imagens e logotipos utilizados no site.
+- `fonts/` — Fontes utilizadas no site.
 - `README.md` — Este arquivo de documentação.
 
 ## 💻 Como Visualizar
@@ -25,6 +27,11 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
    ```
 2. Abra a pasta no VS Code ou outro editor.
 3. Abra o arquivo `index.html` em seu navegador.
+
+## 💡 Observações
+
+- Para uso comercial da fonte Bellerose, adquira a licença em [harristype.com](http://www.harristype.com/fontstore.html).
+- Os valores dos planos de sites são sugestões e podem ser ajustados conforme a necessidade do projeto.
 
 ## 📞 Contato
 
