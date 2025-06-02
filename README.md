@@ -21,7 +21,7 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 
 1. Clone este repositório:
    ```sh
-   git clone https://github.com/seu-usuario/cara-core.git
+   git clone https://github.com/chmulato/cara-core.git
    ```
 2. Abra a pasta no VS Code ou outro editor.
 3. Abra o arquivo `index.html` em seu navegador.
