@@ -73,7 +73,23 @@
     #contato .contact-link:hover {
       background: #fff;
       color: #b91d73 !important;
-    }       
+    }   
+    #contato .contact-link,
+    .contact-link {
+      display: inline-block;
+      background: rgba(255,255,255,0.85);
+      color: #b91d73 !important;
+      border-radius: 8px;
+      padding: 8px 16px;
+      margin-bottom: 8px;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+    .contact-link:hover {
+      background: #fff;
+      color: #f953c6 !important;
+    }        
     /* Navbar fixo com leve transparência */
     .navbar {
       background: rgba(33,37,41,0.98) !important;
@@ -102,60 +118,6 @@
       }
     }
   </style>  
-  <!--
-  <style>
-    body {
-      background: #f8fafc; /* pastel azul muito claro */
-    }
-    section, header {
-      background: rgba(255,255,255,0.85); /* branco levemente translúcido */
-      border-radius: 18px;
-      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.03);
-      margin-bottom: 2rem;
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
-    }
-    #servicos {
-      background: #fdf6e3; /* pastel amarelo/bege */
-    }
-    #diferenciais {
-      background: #e3fde6; /* pastel verde claro */
-    }
-    #sobre {
-      background: #e3f6fd; /* pastel azul claro */
-    }
-    #contato {
-      background: #f6e3fd; /* pastel lilás claro */
-    }
-    /* Navbar fixo com leve transparência */
-    .navbar {
-      background: rgba(33,37,41,0.98) !important;
-      border-radius: 0 0 18px 18px;
-      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.06);
-    }
-    /* Suaviza o efeito dos cards de serviços */
-    .card {
-      border: none;
-      background: rgba(255,255,255,0.93);
-      border-radius: 16px;
-      transition: transform 0.15s;
-    }
-    .card:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
-    }
-    /* Responsividade para logo */
-    @media (max-width: 576px) {
-      .navbar-brand img {
-        max-width: 120px;
-      }
-      section, header {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-      }
-    }
-  </style>
-  -->
 </head>
 <body>
 
@@ -317,11 +279,11 @@
         <p>
           Atuamos desde 2010 com <strong>websites, material gráfico e soluções digitais</strong> para clientes nacionais, multinacionais e governamentais. Todos os nossos serviços são prestados com competência, seriedade e foco nas necessidades do cliente.
         </p>
-        <ul>
-          <li>Atendimento personalizado e planos flexíveis</li>
-          <li>Visitas técnicas e suporte remoto/presencial</li>
-          <li>Todos os planos incluem website profissional</li>
-        </ul>
+          <ul>
+            <li>Atendimento personalizado e <a href="#" id="mostrar-planos" class="contact-link fw-semibold" style="color: #36d1c4;">planos flexíveis</a></li>
+            <li>Visitas técnicas e suporte remoto/presencial</li>
+            <li>Todos os planos incluem website profissional</li>
+          </ul>
         <p>
           <strong>Missão:</strong> Oferecer soluções tecnológicas de qualidade, promovendo inovação, produtividade e segurança para nossos clientes.
         </p>
@@ -337,6 +299,73 @@
     </div>
   </div>
 </section> 
+<!-- Seção Planos -->
+<section id="planos" class="py-5" style="display:none;">
+  <div class="container">
+    <h2 class="text-center mb-5">Planos de Desenvolvimento de Sites</h2>
+    <!-- Cole os cards dos planos aqui -->
+    <div class="row g-4 justify-content-center">
+      <!-- Plano Essencial -->
+      <div class="col-12 col-md-4 d-flex">
+        <div class="card h-100 shadow-sm flex-fill">
+          <div class="card-body text-center">
+            <h5 class="card-title">Essencial</h5>
+            <h6 class="card-price mb-3">R$ 990</h6>
+            <ul class="list-unstyled mb-4">
+              <li><i class="bi bi-check-circle text-success"></i> Site institucional (até 4 páginas)</li>
+              <li><i class="bi bi-check-circle text-success"></i> Layout responsivo</li>
+              <li><i class="bi bi-check-circle text-success"></i> Formulário de contato</li>
+              <li><i class="bi bi-check-circle text-success"></i> Integração com WhatsApp</li>
+              <li><i class="bi bi-check-circle text-success"></i> Otimização SEO básica</li>
+              <li><i class="bi bi-check-circle text-success"></i> 1 ano de hospedagem grátis</li>
+            </ul>
+            <a href="#contato" class="btn btn-primary">Quero este plano</a>
+          </div>
+        </div>
+      </div>
+      <!-- Plano Profissional -->
+      <div class="col-12 col-md-4 d-flex">
+        <div class="card h-100 shadow flex-fill">
+          <div class="card-body text-center">
+            <h5 class="card-title">Profissional</h5>
+            <h6 class="card-price mb-3">R$ 1.790</h6>
+            <ul class="list-unstyled mb-4">
+              <li><i class="bi bi-check-circle text-success"></i> Tudo do Essencial</li>
+              <li><i class="bi bi-check-circle text-success"></i> Até 8 páginas</li>
+              <li><i class="bi bi-check-circle text-success"></i> Galeria de fotos/portfólio</li>
+              <li><i class="bi bi-check-circle text-success"></i> Blog ou área de notícias</li>
+              <li><i class="bi bi-check-circle text-success"></i> Integração com redes sociais</li>
+              <li><i class="bi bi-check-circle text-success"></i> Suporte técnico por 1 ano</li>
+            </ul>
+            <a href="#contato" class="btn btn-success">Quero este plano</a>
+          </div>
+        </div>
+      </div>
+      <!-- Plano Premium -->
+      <div class="col-12 col-md-4 d-flex">
+        <div class="card h-100 shadow-lg border-primary flex-fill">
+          <div class="card-body text-center">
+            <h5 class="card-title">Premium</h5>
+            <h6 class="card-price mb-3">R$ 2.990</h6>
+            <ul class="list-unstyled mb-4">
+              <li><i class="bi bi-check-circle text-success"></i> Tudo do Profissional</li>
+              <li><i class="bi bi-check-circle text-success"></i> Área administrativa (gerencie seu conteúdo)</li>
+              <li><i class="bi bi-check-circle text-success"></i> Integração com sistemas externos</li>
+              <li><i class="bi bi-check-circle text-success"></i> Treinamento para equipe</li>
+              <li><i class="bi bi-check-circle text-success"></i> Suporte técnico por 2 anos</li>
+              <li><i class="bi bi-check-circle text-success"></i> Personalização avançada</li>
+            </ul>
+            <a href="#contato" class="btn btn-outline-primary">Quero este plano</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fim dos cards dos planos -->
+    <div class="text-center mt-4">
+      <button id="fechar-planos" class="btn btn-outline-secondary">Fechar</button>
+    </div>
+  </div>
+</section>
 <!-- Seção Contato -->
 <section id="contato" class="py-5 bg-light">
   <div class="container">
@@ -434,5 +463,16 @@
 </footer>
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.getElementById('mostrar-planos').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('planos').style.display = 'block';
+    window.scrollTo({ top: document.getElementById('planos').offsetTop - 60, behavior: 'smooth' });
+  });
+  document.getElementById('fechar-planos').addEventListener('click', function() {
+    document.getElementById('planos').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 </body>
 </html>
