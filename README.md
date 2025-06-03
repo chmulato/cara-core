@@ -15,8 +15,10 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 
 - `index.html` — Página principal do site.
 - `planos.html` — Página de planos de desenvolvimento de sites.
+- `folders/folder_py.html` — Folder digital com opção de exportar para PDF.
 - `images/` — Imagens e logotipos utilizados no site.
 - `fonts/` — Fontes utilizadas no site.
+- `js/` — Scripts JavaScript utilizados no site.
 - `README.md` — Este arquivo de documentação.
 
 ## 💻 Como Visualizar
@@ -26,7 +28,12 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
    git clone https://github.com/chmulato/cara-core.git
    ```
 2. Abra a pasta no VS Code ou outro editor.
-3. Abra o arquivo `index.html` em seu navegador.
+3. Abra o arquivo `index.html` ou qualquer outro arquivo `.html` em seu navegador.
+
+### 📄 Como gerar o PDF do folder
+
+1. Abra o arquivo `folders/folder_py.html` em seu navegador.
+2. Clique no botão **"Baixar PDF"** para exportar o conteúdo do folder para um arquivo PDF em formato A4.
 
 ## 💡 Observações
 
