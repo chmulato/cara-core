@@ -16,6 +16,7 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 - `index.html` — Página principal do site.
 - `planos.html` — Página de planos de desenvolvimento de sites.
 - `folders/folder_py.html` — Folder digital com opção de exportar para PDF.
+- `folders/apresentacao.md` — Apresentação da Cara-Core Informática.
 - `images/` — Imagens e logotipos utilizados no site.
 - `fonts/` — Fontes utilizadas no site.
 - `js/` — Scripts JavaScript utilizados no site.
