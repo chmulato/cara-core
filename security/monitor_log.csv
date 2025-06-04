@@ -1,0 +1,114 @@
+Timestamp;Aplicativo;IP;Porta;Protocolo;Criptografia;Proto;Status
+2025_06_04_17_18_26_534;System Idle Process;136.143.190.176;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;172.183.192.109;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.75.60.91;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2a01:111:f402:f089::53;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1056:2000:28::83;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;13.107.5.93;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;204.141.43.151;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:33::10;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.189.173.14;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1056:2000:28::84;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1056:1400::c;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:42::133;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1063:b:11b::365:7ea3;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:bdf::33;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;13.107.5.93;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1056:c03:2420::2;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;204.141.42.37;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:42::132;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.190.173.67;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:bdf::33;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.96.152.55;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;13.107.5.93;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1063:b::34;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:21::16;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;204.141.42.49;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.189.173.14;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;204.79.197.203;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1063:16::5d;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1056:1400:1::e;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:bdf::33;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:a92::156;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.189.173.14;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.15.141.192;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;13.107.5.93;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.190.173.0;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;204.141.42.49;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.75.60.91;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;13.107.246.33;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.110.205.119;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;52.123.181.43;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;204.141.43.104;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.189.173.14;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;204.141.42.37;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.201.28.151;22;SSH;Acesso remoto seguro;TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;54.233.59.152;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;204.141.42.49;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1056:c03:2420::2;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1063:27:2::14;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:42::133;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;172.183.192.109;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;13.107.5.93;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;13.89.178.27;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1056:1400::f;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.189.173.14;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;20.189.173.14;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;54.233.59.152;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:bdf::33;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;54.233.59.152;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1063:27:2::14;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1063:b:116::365:7ea3;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;13.107.5.93;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1063:b:122::365:7ea3;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2620:1ec:42::132;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;57.150.129.65;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;13.107.5.93;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;System Idle Process;2603:1061:13f5:40d::365:590;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;TIME_WAIT
+2025_06_04_17_18_26_534;pwsh.exe;52.188.247.151;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;svchost.exe;2603:1030:210:f::2;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;SearchHost.exe;2603:1056:c03:1803::2;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;SearchHost.exe;2620:1ec:29:1::254;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;CLOSE_WAIT
+2025_06_04_17_18_26_534;pwsh.exe;52.179.73.52;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;140.82.114.21;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;13.107.42.18;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;140.82.114.21;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;20.42.73.26;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;2606:50c0:8000::154;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;138.91.182.224;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;13.107.5.93;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;40.71.11.167;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Microsoft.SharePoint.exe;52.182.143.211;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;23.96.180.189;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;40.79.150.121;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;2603:1030:210:f::1;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;pwsh.exe;52.179.73.52;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;FileSyncHelper.exe;20.189.173.27;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;MSPCManagerCore.exe;2603:1030:210:11::240;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;20.44.10.123;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;23.96.180.189;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;2603:1030:210:f::1;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Widgets.exe;2600:1419:6a00:1a::5f65:1fca;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Widgets.exe;2600:1419:6a00:1a::5f65:1fd6;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;ms-teams.exe;2603:1056:c03:1c39::2;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;ms-teams.exe;2603:1056:c03:1c39::2;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;ms-teams.exe;13.89.178.27;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;2603:1061:13f5:40d::365:590;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;20.135.2.0;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;57.150.43.97;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;23.96.180.189;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;20.189.173.14;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;2a01:111:f402:f089::53;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;OneDrive.exe;2603:1030:210:f::1;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;msedgewebview2.exe;2001:12e0:803:ba::c93f:5e13;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;msedgewebview2.exe;2603:1056:1400:1::1;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;msedgewebview2.exe;2603:1063:16::51;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;msedgewebview2.exe;2603:1063:16::47;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;svchost.exe;20.190.173.67;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;ms-teams.exe;13.89.178.27;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;ms-teams.exe;52.112.84.173;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;ms-teams.exe;2603:1063:b:10a::365:7ea3;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;ms-teams.exe;2603:1063:16::80;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;138.91.182.224;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;140.82.113.22;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED
+2025_06_04_17_18_26_534;Code.exe;140.82.113.22;443;HTTPS;TLS/SSL (usada para webmail, APIs e conexões seguras);TCP;ESTABLISHED

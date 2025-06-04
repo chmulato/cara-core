@@ -1,6 +1,6 @@
 # Cara-Core Informática
 
-Este repositório contém o site institucional da **Cara-Core Informática**, empresa especializada em soluções Microsoft 365, automação com Python, desenvolvimento de sites, suporte técnico e treinamentos em TI.
+Este repositório contém o site institucional da **Cara-Core Informática**, empresa especializada em soluções Microsoft 365, automação com Python, desenvolvimento de sites, suporte técnico, treinamentos em TI e segurança da informação.
 
 ## 🚀 Serviços Oferecidos
 
@@ -8,8 +8,33 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 - **Automação com Python:** Integração de sistemas, geração de relatórios e otimização de processos.
 - **Desenvolvimento de Sites:** Criação de sites institucionais, portfólios, blogs e landing pages responsivas.
 - **Suporte Técnico:** Backup, antivírus, segurança da informação e orientação tecnológica.
-- **Segurança Digital:** Backup em nuvem, proteção de dados e firewall.
+- **Segurança Digital:** Backup em nuvem, proteção de dados, firewall e monitoramento de conexões.
 - **Treinamentos:** Cursos em Microsoft 365, Excel, Python e produtividade digital.
+
+## 🔒 Área de Segurança
+
+O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede em ambientes Windows, auxiliando na identificação de acessos suspeitos, análise forense e documentação de atividades.
+
+### `monitor_exe.py` — Monitoramento de Conexões de Rede
+
+- **Descrição:** Script Python que monitora em tempo real as conexões de rede de todos os processos em execução no Windows.
+- **Funcionalidades:**
+  - Interface gráfica (Tkinter) com relatório ao vivo das conexões.
+  - Filtro dinâmico por nome do processo.
+  - Destaque visual para conexões em portas sensíveis (FTP, SSH, RDP, etc).
+  - Exportação do relatório em formato CSV, incluindo timestamp detalhado.
+  - Log automático das conexões detectadas e das interações do usuário.
+- **Relatórios Possíveis:**
+  - Relatório global (todas as conexões).
+  - Relatório filtrado por processo.
+  - Relatório por porta.
+  - Relatório temporal (com timestamp).
+  - Relatório de segurança (destaque para portas sensíveis).
+- **Local do log:** O arquivo de log (`monitor.log`) é salvo automaticamente na mesma pasta onde o script Python é executado (raiz do diretório atual do terminal/IDE).
+
+> **Requisitos:**  
+> - Python 3  
+> - Bibliotecas: `psutil`, `tkinter`, `csv`
 
 ## 📂 Estrutura do Projeto
 
@@ -20,6 +45,7 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 - `images/` — Imagens e logotipos utilizados no site.
 - `fonts/` — Fontes utilizadas no site.
 - `js/` — Scripts JavaScript utilizados no site.
+- `security/monitor_exe.py` — Script de monitoramento de conexões de rede (área de segurança).
 - `README.md` — Este arquivo de documentação.
 
 ## 💻 Como Visualizar
