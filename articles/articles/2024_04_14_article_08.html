@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrando Dados: Excel e Banco de Dados Remoto — Cara Core Informática</title>
+    <link rel="stylesheet" href="css/articles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../articles.html" class="back-link">&larr; Voltar para publicações</a>
+        <!-- Imagem principal -->
+        <img src="media/article_08_01.png" alt="A importância do teste de aplicação" style="max-width:320px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+        <h1>Integrando Dados: Excel e Banco de Dados Remoto</h1>
+        <div class="linkedin-box" style="margin-bottom: 1.5rem; display: flex; align-items: center;">
+            <img src="media/logo.png" alt="Logo Cara Core" style="width:33%; max-width:40px; margin-right:10px;">
+            <a href="https://www.linkedin.com/company/cara-core/" target="_blank" style="font-weight:bold;">
+                Cara Core Informática
+            </a>
+            <span style="margin-left: 1.5rem;">73 seguidores<br>14 de abril de 2024</span>
+        </div>
+
+        <h2>Introdução</h2>
+        <p>
+            Em um mundo cada vez mais conectado, a gestão eficiente de dados é essencial para empresas e indivíduos. Uma abordagem comum é a integração entre planilhas do Excel e bancos de dados remotos descentralizados. Vamos explorar as vantagens dessa combinação poderosa.
+        </p>
+
+        <h3>Implementação com VBA</h3>
+        <p>Vamos propor a criação de um código VBA no Excel que se conecte a um banco de dados MySQL e tenha um formulário para manipular as linhas. Aqui está um exemplo de código que você pode usar para começar:</p>
+
+        <h3>Exemplo de código VBA</h3>
+        <pre><code class="vba">
+Sub ConectarBancoDeDados()
+    Dim conn As Object
+    Dim rs As Object
+    Dim sql As String
+
+    ' Estabelecendo conexão com o banco de dados
+    Set conn = CreateObject("ADODB.Connection")
+    conn.ConnectionString = "Driver={MySQL ODBC 8.0 Driver};Server=seu_servidor;Database=seu_banco_de_dados;User=seu_usuario;Password=sua_senha;"
+    conn.Open
+
+    ' Executando uma consulta SQL
+    sql = "SELECT * FROM sua_tabela"
+    Set rs = conn.Execute(sql)
+
+    ' Exibindo os dados no Immediate Window
+    Do While Not rs.EOF
+        Debug.Print rs.Fields("nome_coluna").Value
+        rs.MoveNext
+    Loop
+
+    ' Fechando a conexão
+    rs.Close
+    conn.Close
+    Set rs = Nothing
+    Set conn = Nothing
+End Sub
+        </code></pre>
+
+        <p>
+            Este código estabelece uma conexão com um banco de dados MySQL, executa uma consulta SQL e exibe os resultados no Immediate Window do VBA. Certifique-se de ajustar os parâmetros de conexão e as consultas SQL conforme necessário para o seu caso específico.
+        </p>
+
+        <hr>
+
+        <div style="border: 1px solid #ccc; padding: 1.5rem; border-radius: 12px; background-color: #f9f9f9; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin: 2rem 0;">
+            <h3 style="margin-top: 0;">Dicas de instalação do driver MySQL</h3>
+            <p>Para instalar o driver MySQL Connector no Windows, você pode seguir os passos abaixo:</p>
+            <ol>
+                <li><b>Download do Instalador:</b> Acesse a página de download do MySQL Connector e escolha a versão adequada para o seu sistema operacional.</li>
+                <li><b>Executar o Instalador:</b> Dê um duplo clique no arquivo baixado e siga os passos da instalação. Se necessário, execute o instalador como administrador.</li>
+                <li><b>Escolher o Tipo de Instalação:</b> Durante a instalação, você terá opções como "Typical", "Complete" e "Custom". Escolha a que melhor se adequa às suas necessidades.</li>
+                <li><b>Aceitar os Termos de Licença:</b> Leia e aceite os termos de licença para prosseguir com a instalação.</li>
+                <li><b>Configuração Personalizada (Opcional):</b> Se escolher a instalação personalizada, selecione os componentes específicos que deseja instalar.</li>
+                <li><b>Instalação dos Componentes:</b> Siga as instruções para instalar os componentes necessários.</li>
+                <li><b>Concluir a Instalação:</b> Após a instalação dos componentes, finalize o processo e, se necessário, reinicie o computador.</li>
+            </ol>
+            <p>
+                Lembre-se de verificar se o driver é compatível com a versão do seu MySQL e do sistema operacional Windows. Para mais detalhes, você pode consultar a documentação oficial do MySQL.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

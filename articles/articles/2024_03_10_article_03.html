@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linguagens de Automação: VBA vs Python — Cara Core Informática</title>
+    <link rel="stylesheet" href="css/articles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../articles.html" class="back-link">&larr; Voltar para publicações</a>
+        <!-- Imagem principal do artigo -->
+        <img src="media/article_03_01.png" alt="VBA vs Python - Linguagens de Automação" style="max-width:320px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+        <h1>Linguagens de Automação: VBA vs Python</h1>
+        <div class="linkedin-box" style="margin-bottom: 1.5rem; display: flex; align-items: center;">
+            <img src="media/logo.png" alt="Logo Cara Core" style="width:33%; max-width:40px; margin-right:10px;">
+            <a href="https://www.linkedin.com/company/cara-core/" target="_blank" style="font-weight:bold;">
+                Cara Core Informática
+            </a>
+            <span style="margin-left: 1.5rem;">73 seguidores<br>10 de março de 2024</span>
+        </div>
+
+        <h2>Comparação entre VBA (Visual Basic for Applications) e Python</h2>
+
+        <ul>
+            <li>
+                <b>Linguagem:</b><br>
+                <b>VBA:</b> Usada principalmente para automação de tarefas no Microsoft Office, descendente do Visual Basic.<br>
+                <b>Python:</b> Linguagem de alto nível, interpretada, de propósito geral, conhecida pela sintaxe clara e legível.
+            </li>
+            <li>
+                <b>Uso:</b><br>
+                <b>VBA:</b> Automação de tarefas repetitivas e complexas no Excel, Access e outros produtos do Office.<br>
+                <b>Python:</b> Desenvolvimento web, ciência de dados, aprendizado de máquina, IA, automação e muito mais.
+            </li>
+            <li>
+                <b>Facilidade de Aprendizado:</b><br>
+                <b>VBA:</b> Pode ser difícil para iniciantes sem experiência prévia em programação.<br>
+                <b>Python:</b> Recomendado como primeira linguagem devido à sintaxe simples e grande suporte da comunidade.
+            </li>
+            <li>
+                <b>Comunidade e Suporte:</b><br>
+                <b>VBA:</b> Comunidade menor, mas com muitos recursos online.<br>
+                <b>Python:</b> Uma das maiores comunidades de desenvolvedores, com muitos recursos, bibliotecas e frameworks.
+            </li>
+            <li>
+                <b>Desempenho:</b><br>
+                <b>VBA:</b> Limitado para tarefas complexas e intensivas em dados.<br>
+                <b>Python:</b> Geralmente melhor desempenho, com possibilidade de integração com C/C++ para alto desempenho.
+            </li>
+        </ul>
+
+        <hr>
+
+        <h3>Exemplo de código VBA: Contagem de 1 a 10 com tratamento de erro</h3>
+        <pre><code class="vba">
+Sub ContagemComTratamentoDeErro()
+    Dim i As Integer
+    On Error GoTo ErrorHandler ' Define o local do tratamento de erro:
+    For i = 1 To 10
+        Debug.Print i ' Imprime o número no Immediate Window
+    Next i
+    Exit Sub ' Sai da subrotina antes de executar o código de erro
+ErrorHandler: ' Código de tratamento de erro
+    MsgBox "Ocorreu um erro: " & Err.Description, vbCritical, "Erro"
+End Sub
+        </code></pre>
+        <p>
+            Este código imprime os números de 1 a 10 no Immediate Window. Se ocorrer algum erro durante a execução, ele será capturado e uma mensagem de erro será exibida.
+        </p>
+
+        <h3>Exemplo de código Python: Contagem de 1 a 10 com tratamento de erro</h3>
+        <pre><code class="python">
+try:
+    for i in range(1, 11):
+        print(i) # Imprime o número
+except Exception as e:
+    print(f"Ocorreu um erro: {str(e)}")
+        </code></pre>
+        <p>
+            Este código imprime os números de 1 a 10. Se ocorrer algum erro durante a execução, ele será capturado e uma mensagem de erro será exibida.
+        </p>
+
+        <hr>
+
+        <p>
+            <b>Conclusão:</b><br>
+            A escolha entre VBA e Python depende do que você precisa realizar. Se trabalha principalmente com produtos do Office e precisa de automação, o VBA pode ser a escolha certa. Para uma linguagem mais geral, com ampla gama de usos, Python é uma excelente opção.
+        </p>
+    </div>
+</body>
+</html>
