@@ -2,6 +2,22 @@
 
 Este repositório contém o site institucional da **Cara-Core Informática**, empresa especializada em soluções Microsoft 365, automação com Python, desenvolvimento de sites, suporte técnico, treinamentos em TI e segurança da informação.
 
+---
+
+## 📋 Índice
+
+1. [Serviços Oferecidos](#-serviços-oferecidos)
+2. [Área de Segurança](#-área-de-segurança)
+   - [Monitoramento de Conexões de Rede](#monitoramento-de-conexões-de-rede)
+3. [Como Compilar o Arquivo `monitor_exe.py`](#-como-compilar-o-arquivo-monitor_exepy-em-um-executável-no-windows)
+4. [Estrutura do Projeto](#-estrutura-do-projeto)
+5. [Como Visualizar o Site](#-como-visualizar)
+6. [Como Gerar o PDF do Folder](#-como-gerar-o-pdf-do-folder)
+7. [Observações](#-observações)
+8. [Contato](#-contato)
+
+---
+
 ## 🚀 Serviços Oferecidos
 
 - **Consultoria Microsoft 365:** Implantação, configuração, migração e treinamento.
@@ -11,11 +27,13 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 - **Segurança Digital:** Backup em nuvem, proteção de dados, firewall e monitoramento de conexões.
 - **Treinamentos:** Cursos em Microsoft 365, Excel, Python e produtividade digital.
 
+---
+
 ## 🔒 Área de Segurança
 
 O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede em ambientes Windows, auxiliando na identificação de acessos suspeitos, análise forense e documentação de atividades.
 
-### `monitor_exe.py` — Monitoramento de Conexões de Rede
+### Monitoramento de Conexões de Rede
 
 - **Descrição:** Script Python que monitora em tempo real as conexões de rede de todos os processos em execução no Windows.
 - **Funcionalidades:**
@@ -36,6 +54,45 @@ O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede
 > - Python 3  
 > - Bibliotecas: `psutil`, `tkinter`, `csv`
 
+---
+
+## 🛠️ Como Compilar o Arquivo `monitor_exe.py` em um Executável no Windows
+
+Para compilar o arquivo `monitor_exe.py` em um executável no Windows, siga os passos abaixo:
+
+1. **Instale o PyInstaller**  
+   Certifique-se de que o PyInstaller está instalado. Caso não esteja, você pode instalá-lo usando o seguinte comando no terminal:
+   ```bash
+   pip install pyinstaller
+   ```
+
+2. **Compile o arquivo Python**  
+   No terminal, navegue até o diretório onde o arquivo `monitor_exe.py` está localizado e execute o seguinte comando:
+   ```bash
+   pyinstaller --onefile monitor_exe.py
+   ```
+
+   - A opção `--onefile` cria um único arquivo executável.
+   - Você pode adicionar outras opções, como `--noconsole`, se não quiser que o console seja exibido ao executar o programa.
+
+3. **Localize o executável gerado**  
+   Após a execução do comando, o executável será gerado na pasta `dist`. Você pode encontrá-lo em:
+   ```
+   dist/monitor_exe.exe
+   ```
+
+4. **Teste o executável**  
+   Execute o arquivo gerado para garantir que ele funciona como esperado:
+   ```bash
+   dist\monitor_exe.exe
+   ```
+
+### Observações
+- Certifique-se de que todas as dependências do script Python estejam instaladas no ambiente antes de compilar.
+- Caso precise incluir arquivos adicionais (como arquivos de configuração ou recursos), consulte a [documentação do PyInstaller](https://pyinstaller.org/en/stable/) para saber como configurá-los.
+
+---
+
 ## 📂 Estrutura do Projeto
 
 - `index.html` — Página principal do site.
@@ -48,6 +105,8 @@ O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede
 - `security/monitor_exe.py` — Script de monitoramento de conexões de rede (área de segurança).
 - `README.md` — Este arquivo de documentação.
 
+---
+
 ## 💻 Como Visualizar
 
 1. Clone este repositório:
@@ -57,15 +116,21 @@ O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede
 2. Abra a pasta no VS Code ou outro editor.
 3. Abra o arquivo `index.html` ou qualquer outro arquivo `.html` em seu navegador.
 
-### 📄 Como gerar o PDF do folder
+---
+
+## 📄 Como Gerar o PDF do Folder
 
 1. Abra o arquivo `folders/folder_py.html` em seu navegador.
 2. Clique no botão **"Baixar PDF"** para exportar o conteúdo do folder para um arquivo PDF em formato A4.
+
+---
 
 ## 💡 Observações
 
 - Para uso comercial da fonte Bellerose, adquira a licença em [harristype.com](http://www.harristype.com/fontstore.html).
 - Os valores dos planos de sites são sugestões e podem ser ajustados conforme a necessidade do projeto.
+
+---
 
 ## 📞 Contato
 
