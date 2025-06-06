@@ -144,21 +144,32 @@
         padding-bottom: 1rem;
       }
     }
-    /* Ajustes de cores e fontes */
-    /**
-    @font-face {
-      font-family: 'Bellerose';
-      src: url('fonts/Bellerose.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
+    /* Botão de contato */
+    .btn-contato {
+      background: linear-gradient(120deg, #8f6ed5 0%, #5f2c82 100%);
+      color: #fff !important;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-weight: 500;
+      transition: background 0.3s ease, color 0.3s ease;
     }
-    body, h1, h2, h3, h4, h5, h6, .navbar, .btn, .card, .contact-link {
-      font-family: 'Bellerose', Arial, sans-serif !important;
-    } 
-    body {
-      font-size: 1.55rem;
-    }  
-    */     
+    .btn-contato:hover {
+      background: linear-gradient(120deg, #5f2c82 0%, #8f6ed5 100%);
+      color: #fff !important;
+      text-decoration: none;
+    }
+    /* Estilo para os botões de recursos no formato de redes sociais */
+    #contato .recursos-link {
+      color: #222; /* Cor do texto */
+      font-size: 1.2rem; /* Tamanho dos ícones ajustado */
+      margin-right: 8px; /* Espaçamento entre os ícones */
+      text-decoration: none; /* Remove o sublinhado */
+      transition: color 0.3s ease; /* Transição suave para hover */
+    }
+
+    #contato .recursos-link:hover {
+      color: #007bff; /* Cor ao passar o mouse */
+    }    
   </style>  
 </head>
 <body>
@@ -210,22 +221,12 @@
           <a href="#diferenciais" class="text-decoration-none">
             <span class="badge bg-warning text-dark fs-6 px-3 py-2"><i class="bi bi-award"></i> Experiência comprovada</span>
           </a>
+          <a href="#contato" class="text-decoration-none btn-contato">
+            <span class="badge fs-6 px-3 py-2">
+              <i class="bi bi-award"></i> Fale Conosco
+            </span>
+          </a>
         </div>
-        <!-- Botão Fale Conosco -->
-        <a href="#contato" class="btn btn-outline-secondary ms-2 mt-3 d-inline-flex align-items-center" title="Fale Conosco">
-          <i class="bi bi-chat-dots fs-4 me-2"></i>
-          Fale Conosco
-        </a>
-        <!-- Botão Folder Digital -->
-        <a href="folders/folder_py.html" target="_blank" class="btn btn-outline-secondary ms-2 mt-3 d-inline-flex align-items-center" title="Ver folder digital">
-          <i class="bi bi-file-earmark-text fs-4 me-2"></i>
-          Folder Digital
-        </a>
-        <!-- Botão Publicações -->
-        <a href="publications/articles.html" target="_blank" class="btn btn-outline-secondary ms-2 mt-3 d-inline-flex align-items-center" title="Ver publicações">
-          <i class="bi bi-collection fs-4 me-2"></i>
-          Publicações
-        </a>        
       </div>
     </div>
   </div>
@@ -334,13 +335,8 @@
         <p>
           Atuamos desde 2010 com <strong>websites, material gráfico e soluções digitais</strong> para clientes nacionais, multinacionais e governamentais. Todos os nossos serviços são prestados com competência, seriedade e foco nas necessidades do cliente.
         </p>
-        <ul class="mb-4">
-          <li>Atendimento personalizado e 
-            <a href="#planos" id="mostrar-planos" class="btn btn-outline-secondary ms-2 mt-3 d-inline-flex align-items-center" title="Ver planos flexíveis">
-                <i class="bi bi-card-list fs-4 me-2"></i>
-                Planos Flexíveis
-            </a>            
-          </li>
+        <ul >
+          <li class="mb-3">Atendimento personalizado e planos flexíveis</li>
           <li class="mb-3">Visitas técnicas e suporte remoto/presencial</li>
           <li class="mb-3">Todos os planos incluem website profissional</li>
         </ul>
@@ -483,23 +479,20 @@
             </a>
           </div>
         </div>
-        <!-- Mapa Bing -->
-        <!--
-        <div class="mb-3">
-          <iframe width="100%" height="250"
-            style="border:2px solid #000; border-radius:12px;"
-            src="https://www.bing.com/maps/embed?h=250&w=1200&cp=-25.4634982~-49.5382512&lvl=17&typ=d&sty=r&pp=-25.4634982~-49.5382512~Cara%20Core%20Inform%C3%A1tica&src=SHELL&FORM=MBEDV8"
-            scrolling="no">
-          </iframe>
-          <div class="mt-2 text-end">
-            <a href="https://www.bing.com/maps?cp=-25.4634982~-49.5382512&lvl=17&style=r&sp=point.-25.4634982_-49.5382512_Cara%20Core%20Inform%C3%A1tica" 
-              target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
-              Ver mapa ampliado
-              <i class="bi bi-box-arrow-up-right"></i>
-            </a>
-          </div>
+        <!-- Recursos -->
+        <div class="mt-3">
+          <span class="fw-bold">Recursos e Planos:</span>
+          <a href="folders/folder_py.html" target="_blank" class="recursos-link" title="Ver folder digital">
+            <i class="bi bi-file-earmark-text"></i>
+          </a>
+          <a href="publications/articles.html" target="_blank" class="recursos-link" title="Ver publicações">
+            <i class="bi bi-collection"></i>
+          </a>
+          <a href="#planos" id="mostrar-planos" class="recursos-link" title="Ver planos flexíveis">
+            <i class="bi bi-card-list"></i>
+          </a>
         </div>
-        -->
+        <!-- Redes Sociais -->
         <div class="mt-3">
           <span class="fw-bold">Redes Sociais:</span>
           <a href="https://www.facebook.com/caracoreinformatica/" class="text-dark ms-2" target="_blank"><i class="bi bi-facebook"></i></a>
@@ -507,7 +500,6 @@
           <a href="https://www.youtube.com/@caracoreinformatica7704" class="text-dark ms-2" target="_blank"><i class="bi bi-youtube"></i></a>
           <a href="https://pt.linkedin.com/company/cara-core" class="text-dark ms-2" target="_blank"><i class="bi bi-linkedin"></i></a>
           <a href="https://github.com/chmulato" class="text-dark ms-2" target="_blank"><i class="bi bi-github"></i></a>
-          <a href="publications/articles.html" class="text-dark ms-2" target="_blank"><i class="bi bi-collection"></i></a>
         </div>
       </div>
     </div>
@@ -524,15 +516,21 @@
 </footer>
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Scripts -->
 <script>
+  // Adiciona evento ao botão "Planos Flexíveis"
   document.getElementById('mostrar-planos').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('planos').style.display = 'block';
-    window.scrollTo({ top: document.getElementById('planos').offsetTop - 60, behavior: 'smooth' });
+    e.preventDefault(); // Evita o comportamento padrão do link
+    const planosSection = document.getElementById('planos');
+    planosSection.style.display = 'block'; // Exibe a seção de planos
+    window.scrollTo({ top: planosSection.offsetTop - 60, behavior: 'smooth' }); // Rola suavemente até a seção
   });
+
+  // Adiciona evento ao botão "Fechar" na seção de planos
   document.getElementById('fechar-planos').addEventListener('click', function() {
-    document.getElementById('planos').style.display = 'none';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const planosSection = document.getElementById('planos');
+    planosSection.style.display = 'none'; // Oculta a seção de planos
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Rola suavemente para o topo
   });
 </script>
 </body>
