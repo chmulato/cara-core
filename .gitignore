@@ -1,6 +1,7 @@
 cv/
 security/monitor_log.csv
 security/monitor.log
+security/dist/monitor_exe.exe
 articles/articles/docx/
 articles/articles/md/
 articles/articles/images/
