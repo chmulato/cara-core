@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utilizando VBA para Otimizar a Logística e Gestão de Estoque — Cara Core Informática</title>
+    <link rel="stylesheet" href="css/articles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../articles.html" class="back-link">&larr; Voltar para publicações</a>
+        <!-- Imagem principal -->
+        <img src="media/article_22_01.png" alt="Logística e Gestão de Estoque otimizados com VBA" style="max-width:320px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+        <h1>Utilizando VBA para Otimizar a Logística e Gestão de Estoque em Empresas de Transporte de Mercadorias</h1>
+        <div class="linkedin-box" style="margin-bottom: 1.5rem; display: flex; align-items: center;">
+            <img src="media/logo.png" alt="Logo Cara Core" style="width:33%; max-width:40px; margin-right:10px;">
+            <a href="https://www.linkedin.com/company/cara-core/" target="_blank" style="font-weight:bold;">
+                Cara Core Informática
+            </a>
+            <span style="margin-left: 1.5rem;">73 seguidores<br>21 de julho de 2024</span>
+        </div>
+
+        <h2>1. Introdução ao Controle de Logística</h2>
+        <p>
+            O controle de logística é um componente crucial para o sucesso de qualquer empresa que lida com a produção, armazenamento e distribuição de mercadorias. Ele se refere à coordenação e gestão eficiente de todos os processos envolvidos na cadeia de suprimentos, desde a aquisição de matérias-primas até a entrega do produto final ao cliente. No entanto, a gestão logística enfrenta vários desafios em um ambiente de negócios cada vez mais complexo e globalizado. Entre os desafios mais comuns estão a otimização do inventário, a gestão de transporte, a gestão de armazéns, a previsão de demanda precisa e a integração de sistemas. A aplicação do <b>VBA</b> (<i>Visual Basic for Applications</i>) pode ajudar a superar muitos desses desafios, automatizando tarefas e fornecendo análises em tempo real para suportar a tomada de decisões. Portanto, o VBA é uma ferramenta valiosa que pode levar a uma maior produtividade, redução de erros e, em última análise, a uma vantagem competitiva no mercado.
+        </p>
+
+        <h2>2. Visão Geral do VBA</h2>
+        <p>
+            O VBA é uma linguagem de programação que pode ser usada no Microsoft Excel para adicionar recursos avançados às suas planilhas. Ele permite a criação de macros e a automatização de diversos processos, como a atualização automática dos níveis de estoque e a realização de cálculos complexos. Além disso, o VBA pode ser usado para criar interfaces personalizadas, melhorando a experiência do usuário.
+        </p>
+        <p>
+            O uso do VBA para automação de processos em logística e controle de estoque oferece várias vantagens. Ele permite a automatização de tarefas repetitivas, economizando tempo e reduzindo a possibilidade de erros humanos. Além disso, o VBA pode lidar com grandes volumes de dados, facilitando o gerenciamento de informações de estoque. Ele também permite a realização de cálculos complexos de forma rápida e precisa, o que é essencial para a tomada de decisões eficazes na logística. Outra vantagem é a capacidade de criar interfaces personalizadas, melhorando a experiência do usuário e a eficiência do trabalho. Por fim, o VBA permite a integração com outras ferramentas do <b>Microsoft Office</b>, como o <b>Access</b> e o <b>Outlook</b>, ampliando ainda mais suas possibilidades de uso.
+        </p>
+
+        <h2>3. Aplicações do VBA no Controle de Logística</h2>
+        <p>
+            No controle de logística, o VBA pode ser aplicado para automatizar tarefas repetitivas. Por exemplo, pode ser usado para atualizar automaticamente os níveis de estoque com base nas entradas e saídas registradas, gerando alertas quando os níveis de estoque caem abaixo de um limite predefinido. Além disso, o VBA pode ser usado para calcular automaticamente os tempos de trânsito e entrega com base em vários fatores, como a localização do fornecedor, a localização do cliente e a velocidade média de entrega.
+        </p>
+
+        <h3>Exemplo de Código VBA para Localização via GPS</h3>
+        <p>
+            Abaixo está um exemplo de como o VBA pode ser usado para integrar dados de localização via GPS em uma planilha do Excel. Este exemplo utiliza uma API de mapas para obter coordenadas de latitude e longitude com base em um endereço.
+        </p>
+        <pre><code class="vba">
+Sub ObterCoordenadasGPS()
+    Dim http As Object
+    Dim JSON As Object
+    Dim URL As String
+    Dim endereco As String
+    Dim latitude As String
+    Dim longitude As String
+
+    ' Endereço a ser pesquisado
+    endereco = "Av. Paulista, São Paulo, SP"
+
+    ' URL da API de geolocalização (exemplo com Google Maps API)
+    URL = "https://maps.googleapis.com/maps/api/geocode/json?address=" & Replace(endereco, " ", "+") & "&key=SUA_API_KEY"
+
+    ' Criar objeto HTTP para requisição
+    Set http = CreateObject("MSXML2.XMLHTTP")
+    http.Open "GET", URL, False
+    http.Send
+
+    ' Analisar resposta JSON
+    Set JSON = JsonConverter.ParseJson(http.responseText)
+    latitude = JSON("results")(1)("geometry")("location")("lat")
+    longitude = JSON("results")(1)("geometry")("location")("lng")
+
+    ' Exibir coordenadas na planilha
+    Sheets("Localizacao").Range("A1").Value = "Endereço: " & endereco
+    Sheets("Localizacao").Range("A2").Value = "Latitude: " & latitude
+    Sheets("Localizacao").Range("A3").Value = "Longitude: " & longitude
+
+    MsgBox "Coordenadas obtidas com sucesso!", vbInformation
+End Sub
+        </code></pre>
+        <p>
+            Este exemplo requer uma chave de API válida do Google Maps e a biblioteca JSON para VBA. Certifique-se de configurar as referências necessárias no Editor VBA antes de executar o código.
+        </p>
+
+        <h2>10. Conclusão</h2>
+        <p>
+            Abordamos a importância do VBA (<i>Visual Basic for Applications</i>) na logística e no controle de estoque. Ele destaca como o VBA, quando aplicado ao Excel, pode automatizar várias tarefas e processos, melhorando a eficiência e a precisão. O artigo também discute os desafios comuns na gestão logística e como o VBA pode ajudar a superá-los.
+        </p>
+        <p>
+            O VBA é apresentado como uma ferramenta poderosa para a geração de relatórios e gráficos automáticos, monitoramento de entradas e saídas de produtos, controle de níveis de estoque e alertas de reposição, e rastreamento de produtos e localização no armazém.
+        </p>
+        <p>
+            Em suma, o VBA é uma ferramenta valiosa que pode aprimorar significativamente a eficiência e a precisão no controle de logística e estoque. Embora possa haver desafios na implementação do VBA, as vantagens que ele oferece são substanciais e podem levar a melhorias significativas nos processos de logística. Portanto, a adoção e a aplicação eficaz do VBA são cruciais para qualquer empresa que deseja otimizar suas operações logísticas.
+        </p>
+
+        <h3>Notas</h3>
+        <ul>
+            <li>
+                O <b>My Maps</b> é um serviço do Google que permite criar e personalizar mapas da forma que preferir. Com o My Maps, você pode criar facilmente mapas personalizados com os lugares que são importantes para você. Para mais informações, visite: <a href="https://www.google.com/intl/pt-BR/maps/about/mymaps/" target="_blank">My Maps no Google Maps</a>.
+            </li>
+            <li>
+                <b>Entrega Last Mile</b> ou "Última Milha" é a última etapa do processo de entrega de um produto, desde o centro de distribuição até o endereço final do cliente. Representa 53% dos custos totais de transporte.
+            </li>
+            <li>
+                A <b>tecnologia Blockchain</b> é um sistema de registro descentralizado e distribuído que permite a manutenção de registros de transações seguros, transparentes e invioláveis em uma rede de computadores.
+            </li>
+            <li>
+                A <b>tecnologia do Big Data</b> na logística e controle de estoque permite a coleta, análise e utilização de grandes volumes de dados para otimizar processos e resultados.
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

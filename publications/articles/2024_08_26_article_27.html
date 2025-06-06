@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VBA com API RESTful — Cara Core Informática</title>
+    <link rel="stylesheet" href="css/articles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../articles.html" class="back-link">&larr; Voltar para publicações</a>
+        <!-- Imagem principal -->
+        <img src="media/article_27_01.png" alt="VBA com API RESTful" style="max-width:320px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+        <h1>VBA com API RESTful</h1>
+        <div class="linkedin-box" style="margin-bottom: 1.5rem; display: flex; align-items: center;">
+            <img src="media/logo.png" alt="Logo Cara Core" style="width:33%; max-width:40px; margin-right:10px;">
+            <a href="https://www.linkedin.com/company/cara-core/" target="_blank" style="font-weight:bold;">
+                Cara Core Informática
+            </a>
+            <span style="margin-left: 1.5rem;">73 seguidores<br>26 de agosto de 2024</span>
+        </div>
+
+        <h2>1. Introdução</h2>
+        <p>
+            O consumo de <b>APIs RESTful</b> tornou-se uma habilidade essencial para desenvolvedores que buscam integrar diferentes sistemas e automatizar processos. No entanto, a maioria dos exemplos e tutoriais disponíveis são voltados para linguagens de programação modernas, como Python, JavaScript e Java, deixando de lado ferramentas mais tradicionais como o <b>VBA (Visual Basic for Applications)</b>. Este artigo tem como objetivo preencher essa lacuna, apresentando uma abordagem prática para consumir APIs RESTful utilizando VBA.
+        </p>
+        <p>
+            Neste artigo, exploraremos como realizar <b>requisições HTTP (GET, POST, PUT e DELETE)</b> utilizando o objeto <b>XMLHTTP</b> ou <b>ServerXMLHTTP</b> do VBA. Além disso, abordaremos como lidar com autenticação, paginação e tratamento de erros ao consumir APIs. Com exemplos práticos e detalhados, você será capaz de integrar APIs RESTful em suas aplicações VBA, ampliando as possibilidades de automação e integração de dados.
+        </p>
+
+        <h2>2. Requisições HTTP</h2>
+        <p>
+            Para consumir uma API REST usando VBA, você pode utilizar o objeto <b>XMLHTTP</b> ou <b>ServerXMLHTTP</b>. Aqui estão os métodos básicos para realizar requisições:
+        </p>
+        <ul>
+            <li><b>GET:</b> Recuperar dados de um endpoint.</li>
+            <li><b>POST:</b> Enviar dados para um endpoint.</li>
+            <li><b>PUT:</b> Atualizar dados em um endpoint.</li>
+            <li><b>DELETE:</b> Excluir dados de um endpoint.</li>
+        </ul>
+
+        <h3>Exemplo de Código VBA para Requisição GET</h3>
+        <pre><code class="vba">
+Sub RequisicaoGET()
+    Dim http As Object
+    Dim URL As String
+    Dim resposta As String
+
+    ' Configurar a URL da API
+    URL = "https://api.exemplo.com/dados"
+
+    ' Criar o objeto HTTP
+    Set http = CreateObject("MSXML2.XMLHTTP")
+    http.Open "GET", URL, False
+    http.Send
+
+    ' Verificar a resposta
+    If http.Status = 200 Then
+        resposta = http.responseText
+        MsgBox "Dados recebidos: " & resposta, vbInformation
+    Else
+        MsgBox "Erro: " & http.Status & " - " & http.statusText, vbExclamation
+    End If
+End Sub
+        </code></pre>
+
+        <h2>3. Autenticação</h2>
+        <p>
+            Para lidar com autenticação ao consumir uma API usando VBA, você geralmente precisa adicionar cabeçalhos de autenticação às suas requisições. Os métodos mais comuns incluem:
+        </p>
+        <ul>
+            <li><b>Basic Authentication:</b> Enviar nome de usuário e senha codificados em Base64.</li>
+            <li><b>Bearer Token:</b> Enviar um token de acesso no cabeçalho.</li>
+            <li><b>API Key:</b> Enviar uma chave de API no cabeçalho ou na URL.</li>
+        </ul>
+
+        <h3>Exemplo de Código VBA para Autenticação com Bearer Token</h3>
+        <pre><code class="vba">
+Sub RequisicaoComBearerToken()
+    Dim http As Object
+    Dim URL As String
+    Dim token As String
+    Dim resposta As String
+
+    ' Configurar a URL da API e o token
+    URL = "https://api.exemplo.com/dados"
+    token = "Bearer SEU_TOKEN_AQUI"
+
+    ' Criar o objeto HTTP
+    Set http = CreateObject("MSXML2.XMLHTTP")
+    http.Open "GET", URL, False
+    http.setRequestHeader "Authorization", token
+    http.Send
+
+    ' Verificar a resposta
+    If http.Status = 200 Then
+        resposta = http.responseText
+        MsgBox "Dados recebidos: " & resposta, vbInformation
+    Else
+        MsgBox "Erro: " & http.Status & " - " & http.statusText, vbExclamation
+    End If
+End Sub
+        </code></pre>
+
+        <h2>4. Paginação</h2>
+        <p>
+            Para lidar com paginação ao consumir uma API usando VBA, você geralmente precisa fazer múltiplas requisições para obter todas as páginas de dados. A API normalmente fornece informações sobre a paginação nos cabeçalhos de resposta ou no corpo da resposta.
+        </p>
+
+        <h3>Exemplo de Código VBA para Paginação</h3>
+        <pre><code class="vba">
+Sub RequisicaoComPaginacao()
+    Dim http As Object
+    Dim URL As String
+    Dim resposta As String
+    Dim nextPage As String
+
+    ' Configurar a URL inicial da API
+    URL = "https://api.exemplo.com/dados"
+
+    Do
+        ' Criar o objeto HTTP
+        Set http = CreateObject("MSXML2.XMLHTTP")
+        http.Open "GET", URL, False
+        http.Send
+
+        ' Verificar a resposta
+        If http.Status = 200 Then
+            resposta = http.responseText
+            MsgBox "Dados recebidos: " & resposta, vbInformation
+
+            ' Obter a próxima página (exemplo fictício)
+            nextPage = "URL_DA_PROXIMA_PAGINA"
+            URL = nextPage
+        Else
+            MsgBox "Erro: " & http.Status & " - " & http.statusText, vbExclamation
+            Exit Do
+        End If
+    Loop While nextPage <> ""
+End Sub
+        </code></pre>
+
+        <h2>5. Conclusão</h2>
+        <p>
+            Integrar <b>APIs RESTful</b> em aplicações VBA pode parecer desafiador à primeira vista, especialmente devido à predominância de exemplos em linguagens de programação mais modernas. No entanto, como demonstrado ao longo deste artigo, o VBA possui todas as ferramentas necessárias para realizar requisições HTTP, lidar com autenticação, paginação e tratamento de erros de forma eficaz.
+        </p>
+        <p>
+            Utilizando os objetos <b>XMLHTTP</b> ou <b>ServerXMLHTTP</b>, é possível realizar operações <b>GET, POST, PUT e DELETE</b>, permitindo uma comunicação robusta com APIs RESTful. Ao seguir as práticas recomendadas e exemplos fornecidos, você estará bem equipado para integrar APIs RESTful em suas soluções VBA, ampliando significativamente as capacidades de automação e integração de dados de suas aplicações.
+        </p>
+    </div>
+</body>
+</html>

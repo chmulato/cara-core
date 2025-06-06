@@ -16,12 +16,12 @@
 ---
 
 ## **Dia 2 (Terça-feira)**
-- [ ] Concluir os artigos 21, 22, 23 e 24.
+- [X] Concluir os artigos 21, 22, 23 e 24.
 
 ---
 
 ## **Dia 3 (Quarta-feira)**
-- [ ] Concluir os artigos 25, 26, 27 e 28.
+- [X] Concluir os artigos 25, 26, 27 e 28.
 
 ---
 
