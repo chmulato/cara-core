@@ -325,7 +325,8 @@ def criar_interface():
             title="Salvar Relatório Como"
         )
         if arquivo:
-            with open(arquivo, "w", encoding="utf-8", newline='') as f:
+            # Adiciona BOM para garantir compatibilidade com Excel
+            with open(arquivo, "w", encoding="utf-8-sig", newline='') as f:
                 writer = csv.writer(f, delimiter=';')
                 writer.writerow(cabecalho)
                 writer.writerows(linhas)
