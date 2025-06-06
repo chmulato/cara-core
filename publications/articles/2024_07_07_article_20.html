@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatizando Cálculos Tributários no Varejo com VBA no Excel e Access — Cara Core Informática</title>
+    <link rel="stylesheet" href="css/articles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../articles.html" class="back-link">&larr; Voltar para publicações</a>
+        <!-- Imagem principal -->
+        <img src="media/article_20_01.png" alt="Cálculos Tributários no Varejo com VBA" style="max-width:320px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+        <h1>Automatizando Cálculos Tributários no Varejo com VBA no Excel e Access</h1>
+        <div class="linkedin-box" style="margin-bottom: 1.5rem; display: flex; align-items: center;">
+            <img src="media/logo.png" alt="Logo Cara Core" style="width:33%; max-width:40px; margin-right:10px;">
+            <a href="https://www.linkedin.com/company/cara-core/" target="_blank" style="font-weight:bold;">
+                Cara Core Informática
+            </a>
+            <span style="margin-left: 1.5rem;">73 seguidores<br>7 de julho de 2024</span>
+        </div>
+
+        <h2>Introdução ao VBA e suas vantagens</h2>
+        <p>
+            O VBA (*Visual Basic for Applications*) é uma linguagem de programação incorporada ao Microsoft Excel e Access. Ele permite que os usuários criem macros personalizadas e automatizem tarefas repetitivas. Com o VBA, você pode desenvolver soluções específicas para cálculos tributários no varejo, como calcular impostos, validar dados e criar relatórios personalizados. Sua flexibilidade e capacidade de interagir diretamente com as planilhas e bancos de dados tornam o VBA uma ferramenta poderosa para otimizar processos.
+        </p>
+
+        <h3>Conexão entre Excel e Access</h3>
+        <p>
+            A conexão entre o Excel e o Access usando VBA permite integrar essas duas ferramentas, facilitando o acesso a dados armazenados em um banco de dados. Para criar essa conexão, você pode seguir os seguintes passos:
+        </p>
+        <ul>
+            <li><b>Para criar o Banco de Dados no Access:</b> Primeiro, abra o Microsoft Access e crie um novo banco de dados. Defina as tabelas e colunas necessárias para armazenar os dados relevantes.</li>
+            <li><b>Ativar a Referência ADO:</b> No Excel, salve o arquivo no formato .xlsm na mesma pasta do banco de dados. Pressione ALT + F11 para abrir o editor VBA. Insira um módulo e ative a referência "Microsoft Activex Data Object Recordset 6.0 Library".</li>
+            <li><b>Exemplo de Código VBA:</b> Insira o seguinte código para criar a conexão com o banco de dados Access:</li>
+        </ul>
+        <pre><code class="vba">
+Sub ConectarBanco()
+    Dim conn As Object
+    Dim strConn As String
+    strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\dados\banco.accdb;"
+    Set conn = CreateObject("ADODB.Connection")
+    conn.Open strConn
+    MsgBox "Conexão estabelecida com sucesso!", vbInformation
+    conn.Close
+End Sub
+        </code></pre>
+
+        <h3>Automatização de cálculos tributários</h3>
+        <p>
+            A automatização de cálculos tributários no varejo usando VBA no Excel e Access pode ser muito útil para simplificar processos e evitar erros manuais. Vamos apresentar um exemplo prático de como calcular o ICMS (Imposto sobre Circulação de Mercadorias e Serviços) usando VBA:
+        </p>
+        <pre><code class="vba">
+Sub CalcularICMS()
+    Dim valorProduto As Double
+    Dim quantidade As Integer
+    Dim aliquotaICMS As Double
+    Dim totalICMS As Double
+
+    valorProduto = 100.0
+    quantidade = 5
+    aliquotaICMS = 0.18
+
+    totalICMS = valorProduto * quantidade * aliquotaICMS
+    MsgBox "O total de ICMS é: R$ " & Format(totalICMS, "0.00"), vbInformation
+End Sub
+        </code></pre>
+
+        <h3>Fórmulas Personalizadas (UDF)</h3>
+        <p>
+            As fórmulas personalizadas permitem criar funções customizadas no Excel. Você pode usar o VBA para criar suas próprias funções e usá-las como qualquer outra fórmula. Por exemplo:
+        </p>
+        <pre><code class="vba">
+Function MeuDesconto(preco As Double, desconto As Double) As Double
+    MeuDesconto = preco * (1 - desconto)
+End Function
+        </code></pre>
+
+        <h3>Validação de dados e regras de negócio</h3>
+        <p>
+            Para validar dados inseridos pelo usuário, você pode usar a validação de dados no Excel ou implementar validações personalizadas com VBA. Por exemplo:
+        </p>
+        <pre><code class="vba">
+Private Sub Worksheet_Change(ByVal Target As Range)
+    If Not Intersect(Target, Range("C16")) Is Nothing Then
+        If IsDate(Target.Value) Then
+            MsgBox "Data válida inserida!", vbInformation
+        Else
+            MsgBox "Por favor, insira uma data válida.", vbExclamation
+        End If
+    End If
+End Sub
+        </code></pre>
+
+        <h3>Integração com outras ferramentas</h3>
+        <p>
+            O VBA permite conectar-se a bancos de dados externos, como o Microsoft Access, SQL Server, Oracle ou MySQL. Além disso, ele pode se comunicar com APIs externas para buscar informações em tempo real, como taxas de câmbio ou dados geográficos.
+        </p>
+
+        <h3>Boas práticas e otimização</h3>
+        <ul>
+            <li><b>Desligue o Cálculo Automático:</b> Use <code>Application.Calculation = xlManual</code> para evitar recalculações desnecessárias.</li>
+            <li><b>Desative a Atualização de Tela:</b> Use <code>Application.ScreenUpdating = False</code> para melhorar a eficiência.</li>
+            <li><b>Declare Variáveis Explicitamente:</b> Use <code>Option Explicit</code> para evitar erros.</li>
+        </ul>
+
+        <h3>Conclusão</h3>
+        <p>
+            Neste artigo exploramos a automação de cálculos tributários no varejo usando VBA no Excel e Access. Discutimos como essa abordagem pode otimizar processos fiscais, gerar relatórios personalizados e integrar dados entre diferentes sistemas. Ao aplicar boas práticas, como comentários no código, tratamento de erros e testes rigorosos, as empresas podem alcançar eficiência e conformidade em suas operações tributárias.
+        </p>
+    </div>
+</body>
+</html>

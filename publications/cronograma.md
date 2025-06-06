@@ -10,8 +10,8 @@
 ---
 
 ## **Dia 1 (Segunda-feira)**
-- [ ] Revisar o artigo 16 e corrigir inconsistências.
-- [ ] Concluir os artigos 17, 18, 19 e 20.
+- [X] Revisar o artigo 16 e corrigir inconsistências.
+- [X] Concluir os artigos 17, 18, 19 e 20.
 
 ---
 
