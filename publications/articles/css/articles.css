@@ -164,6 +164,57 @@ code {
     color: #d63384;
 }
 
+/* Estilo para o botão Voltar */
+.btn-outline-secondary {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    color: #2d3e50;
+    border: 2px solid #4fa3ff;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-secondary:hover {
+    background: linear-gradient(120deg, #4fa3ff 0%, #2d3e50 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.btn-outline-secondary i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+
+/* Estilo para o botão Voltar no final da página */
+.back-link {
+    display: inline-block;
+    background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    color: #2d3e50;
+    border: 2px solid #4fa3ff;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 200px;
+}
+
+.back-link:hover {
+    background: linear-gradient(120deg, #4fa3ff 0%, #2d3e50 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 1rem;
