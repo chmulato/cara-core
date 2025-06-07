@@ -26,14 +26,14 @@
 ---
 
 ## **Dia 4 (Quinta-feira)**
-- [ ] Concluir os artigos 29, 30, 31 e 32.
+- [X] Concluir os artigos 29, 30, 31 e 32.
 
 ---
 
 ## **Dia 5 (Sexta-feira)**
-- [ ] Concluir o artigo 33.
+- [X] Concluir o artigo 33.
 - [ ] Revisar todos os artigos concluídos durante a semana.
-- [ ] Ajustar formatações, links e imagens.
+- [X] Ajustar formatações, links e imagens.
 
 ---
 
