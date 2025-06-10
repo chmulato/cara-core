@@ -10,13 +10,12 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 2. [Área de Segurança](#-área-de-segurança)
    - [Monitoramento de Conexões de Rede](#monitoramento-de-conexões-de-rede)
    - [Listagem de Redes Wi-Fi Salvas e Senhas](#listagem-de-redes-wi-fi-salvas-e-senhas)
-3. [Como Compilar o Arquivo `monitor_exe.py`](#-como-compilar-o-arquivo-monitor_exepy-em-um-executável-no-windows)
-4. [Como Compilar o Arquivo `get_wi_fi.py`](#-como-compilar-o-arquivo-get_wi_fipy-em-um-executável-no-windows)
-5. [Estrutura do Projeto](#-estrutura-do-projeto)
-6. [Como Visualizar o Site](#-como-visualizar)
-7. [Como Gerar o PDF do Folder](#-como-gerar-o-pdf-do-folder)
-8. [Observações](#-observações)
-9. [Contato](#-contato)
+3. [Estrutura do Projeto](#-estrutura-do-projeto)
+4. [Como Visualizar o Site](#-como-visualizar)
+5. [Como Gerar o PDF do Folder](#-como-gerar-o-pdf-do-folder)
+6. [Observações](#-observações)
+7. [Contato](#-contato)
+8. [Adendo: Como Compilar Scripts Python em Executáveis](#adendo-como-compilar-scripts-python-em-executáveis)
 
 ---
 
@@ -58,43 +57,6 @@ O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede
 
 ---
 
-## 🛠️ Como Compilar o Arquivo `monitor_exe.py` em um Executável no Windows
-
-Para compilar o arquivo `monitor_exe.py` em um executável no Windows, siga os passos abaixo:
-
-1. **Instale o PyInstaller**  
-   Certifique-se de que o PyInstaller está instalado. Caso não esteja, você pode instalá-lo usando o seguinte comando no terminal:
-   ```bash
-   pip install pyinstaller
-   ```
-
-2. **Compile o arquivo Python**  
-   No terminal, navegue até o diretório onde o arquivo `monitor_exe.py` está localizado e execute o seguinte comando:
-   ```bash
-   pyinstaller --onefile monitor_exe.py
-   ```
-
-   - A opção `--onefile` cria um único arquivo executável.
-   - Você pode adicionar outras opções, como `--noconsole`, se não quiser que o console seja exibido ao executar o programa.
-
-3. **Localize o executável gerado**  
-   Após a execução do comando, o executável será gerado na pasta `dist`. Você pode encontrá-lo em:
-   ```
-   dist/monitor_exe.exe
-   ```
-
-4. **Teste o executável**  
-   Execute o arquivo gerado para garantir que ele funciona como esperado:
-   ```bash
-   dist\monitor_exe.exe
-   ```
-
-### Observações
-- Certifique-se de que todas as dependências do script Python estejam instaladas no ambiente antes de compilar.
-- Caso precise incluir arquivos adicionais (como arquivos de configuração ou recursos), consulte a [documentação do PyInstaller](https://pyinstaller.org/en/stable/) para saber como configurá-los.
-
----
-
 ### Listagem de Redes Wi-Fi Salvas e Senhas
 
 - **Descrição:** Script Python que lista todas as redes Wi-Fi salvas no Windows e suas respectivas senhas.
@@ -111,44 +73,6 @@ Para compilar o arquivo `monitor_exe.py` em um executável no Windows, siga os p
 - **Requisitos:**
   - Python 3
   - Utilitário `netsh` disponível no Windows
-
----
-
-## 🛠️ Como Compilar o Arquivo `get_wi_fi.py` em um Executável no Windows
-
-Para compilar o arquivo `get_wi_fi.py` em um executável no Windows, siga os passos abaixo:
-
-1. **Instale o PyInstaller**  
-   Se ainda não instalou, utilize o comando:
-   ```bash
-   pip install pyinstaller
-   ```
-
-2. **Compile o arquivo Python**  
-   No terminal, navegue até o diretório onde está o arquivo `get_wi_fi.py` e execute:
-   ```bash
-   pyinstaller --onefile get_wi_fi.py
-   ```
-
-   - O executável será criado na pasta `dist`.
-   - Para ocultar o console, adicione a opção `--noconsole`:
-     ```bash
-     pyinstaller --onefile --noconsole get_wi_fi.py
-     ```
-
-3. **Localize o executável gerado**  
-   O arquivo estará em:
-   ```
-   dist/get_wi_fi.exe
-   ```
-
-4. **Execute como administrador**  
-   Para listar as senhas das redes Wi-Fi, execute o `get_wi_fi.exe` como administrador (clique com o botão direito e escolha "Executar como administrador").
-
-### Observações
-- Certifique-se de que o utilitário `netsh` está disponível no sistema.
-- O arquivo de saída `wi_fi_pwd.log` será gerado no mesmo diretório do executável.
-- Consulte a [documentação do PyInstaller](https://pyinstaller.org/en/stable/) para opções avançadas.
 
 ---
 
@@ -201,6 +125,78 @@ Para compilar o arquivo `get_wi_fi.py` em um executável no Windows, siga os pas
 - [LinkedIn](https://pt.linkedin.com/company/cara-core)
 - [GitHub](https://github.com/chmulato)
 - [Site](https://caracore.com.br)
+
+---
+
+## Adendo: Como Compilar Scripts Python em Executáveis
+
+Se desejar transformar os scripts Python deste projeto em executáveis para Windows, siga os passos abaixo (curiosidade):
+
+### Compilando `monitor_exe.py`
+
+1. **Instale o PyInstaller**  
+   ```bash
+   pip install pyinstaller
+   ```
+
+2. **Compile o arquivo Python**  
+   No terminal, navegue até o diretório onde está o arquivo `monitor_exe.py` e execute:
+   ```bash
+   pyinstaller --onefile monitor_exe.py
+   ```
+   - Para ocultar o console, adicione a opção `--noconsole`:
+     ```bash
+     pyinstaller --onefile --noconsole monitor_exe.py
+     ```
+
+3. **Localize o executável gerado**  
+   O arquivo estará em:
+   ```
+   dist/monitor_exe.exe
+   ```
+
+4. **Teste o executável**  
+   Execute o arquivo gerado para garantir que ele funciona como esperado:
+   ```bash
+   dist\monitor_exe.exe
+   ```
+
+> **Observações:**  
+> - Certifique-se de que todas as dependências do script estejam instaladas.  
+> - Consulte a [documentação do PyInstaller](https://pyinstaller.org/en/stable/) para opções avançadas.
+
+---
+
+### Compilando `get_wi_fi.py`
+
+1. **Instale o PyInstaller**  
+   ```bash
+   pip install pyinstaller
+   ```
+
+2. **Compile o arquivo Python**  
+   No terminal, navegue até o diretório onde está o arquivo `get_wi_fi.py` e execute:
+   ```bash
+   pyinstaller --onefile get_wi_fi.py
+   ```
+   - Para ocultar o console, adicione a opção `--noconsole`:
+     ```bash
+     pyinstaller --onefile --noconsole get_wi_fi.py
+     ```
+
+3. **Localize o executável gerado**  
+   O arquivo estará em:
+   ```
+   dist/get_wi_fi.exe
+   ```
+
+4. **Execute como administrador**  
+   Para listar as senhas das redes Wi-Fi, execute o `get_wi_fi.exe` como administrador (clique com o botão direito e escolha "Executar como administrador").
+
+> **Observações:**  
+> - Certifique-se de que o utilitário `netsh` está disponível no sistema.  
+> - O arquivo de saída `wi_fi_pwd.log` será gerado no mesmo diretório do executável.  
+> - Consulte a [documentação do PyInstaller](https://pyinstaller.org/en/stable/) para opções avançadas.
 
 ---
 
