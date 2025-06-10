@@ -9,12 +9,14 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 1. [Serviços Oferecidos](#-serviços-oferecidos)
 2. [Área de Segurança](#-área-de-segurança)
    - [Monitoramento de Conexões de Rede](#monitoramento-de-conexões-de-rede)
+   - [Listagem de Redes Wi-Fi Salvas e Senhas](#listagem-de-redes-wi-fi-salvas-e-senhas)
 3. [Como Compilar o Arquivo `monitor_exe.py`](#-como-compilar-o-arquivo-monitor_exepy-em-um-executável-no-windows)
-4. [Estrutura do Projeto](#-estrutura-do-projeto)
-5. [Como Visualizar o Site](#-como-visualizar)
-6. [Como Gerar o PDF do Folder](#-como-gerar-o-pdf-do-folder)
-7. [Observações](#-observações)
-8. [Contato](#-contato)
+4. [Como Compilar o Arquivo `get_wi_fi.py`](#-como-compilar-o-arquivo-get_wi_fipy-em-um-executável-no-windows)
+5. [Estrutura do Projeto](#-estrutura-do-projeto)
+6. [Como Visualizar o Site](#-como-visualizar)
+7. [Como Gerar o PDF do Folder](#-como-gerar-o-pdf-do-folder)
+8. [Observações](#-observações)
+9. [Contato](#-contato)
 
 ---
 
@@ -31,7 +33,7 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 
 ## 🔒 Área de Segurança
 
-O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede em ambientes Windows, auxiliando na identificação de acessos suspeitos, análise forense e documentação de atividades.
+O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede e redes Wi-Fi em ambientes Windows, auxiliando na identificação de acessos suspeitos, análise forense e documentação de atividades.
 
 ### Monitoramento de Conexões de Rede
 
@@ -93,6 +95,63 @@ Para compilar o arquivo `monitor_exe.py` em um executável no Windows, siga os p
 
 ---
 
+### Listagem de Redes Wi-Fi Salvas e Senhas
+
+- **Descrição:** Script Python que lista todas as redes Wi-Fi salvas no Windows e suas respectivas senhas.
+- **Funcionalidades:**
+  - Gera um arquivo `wi_fi_pwd.log` com o nome das redes (SSID) e suas senhas.
+  - Compatível com sistemas Windows (necessário executar como administrador).
+  - Suporte a sistemas em português e inglês.
+- **Como usar:**
+  1. Execute o script `get_wi_fi.py` com privilégios de administrador:
+     ```sh
+     python wi_fi/get_wi_fi.py
+     ```
+  2. O arquivo `wi_fi_pwd.log` será gerado no mesmo diretório do script.
+- **Requisitos:**
+  - Python 3
+  - Utilitário `netsh` disponível no Windows
+
+---
+
+## 🛠️ Como Compilar o Arquivo `get_wi_fi.py` em um Executável no Windows
+
+Para compilar o arquivo `get_wi_fi.py` em um executável no Windows, siga os passos abaixo:
+
+1. **Instale o PyInstaller**  
+   Se ainda não instalou, utilize o comando:
+   ```bash
+   pip install pyinstaller
+   ```
+
+2. **Compile o arquivo Python**  
+   No terminal, navegue até o diretório onde está o arquivo `get_wi_fi.py` e execute:
+   ```bash
+   pyinstaller --onefile get_wi_fi.py
+   ```
+
+   - O executável será criado na pasta `dist`.
+   - Para ocultar o console, adicione a opção `--noconsole`:
+     ```bash
+     pyinstaller --onefile --noconsole get_wi_fi.py
+     ```
+
+3. **Localize o executável gerado**  
+   O arquivo estará em:
+   ```
+   dist/get_wi_fi.exe
+   ```
+
+4. **Execute como administrador**  
+   Para listar as senhas das redes Wi-Fi, execute o `get_wi_fi.exe` como administrador (clique com o botão direito e escolha "Executar como administrador").
+
+### Observações
+- Certifique-se de que o utilitário `netsh` está disponível no sistema.
+- O arquivo de saída `wi_fi_pwd.log` será gerado no mesmo diretório do executável.
+- Consulte a [documentação do PyInstaller](https://pyinstaller.org/en/stable/) para opções avançadas.
+
+---
+
 ## 📂 Estrutura do Projeto
 
 - `index.html` — Página principal do site.
@@ -103,6 +162,7 @@ Para compilar o arquivo `monitor_exe.py` em um executável no Windows, siga os p
 - `fonts/` — Fontes utilizadas no site.
 - `js/` — Scripts JavaScript utilizados no site.
 - `security/monitor_exe.py` — Script de monitoramento de conexões de rede (área de segurança).
+- `wi_fi/get_wi_fi.py` — Script para listar redes Wi-Fi salvas e senhas (área de segurança).
 - `README.md` — Este arquivo de documentação.
 
 ---
@@ -140,6 +200,7 @@ Para compilar o arquivo `monitor_exe.py` em um executável no Windows, siga os p
 - [YouTube](https://www.youtube.com/@caracoreinformatica7704)
 - [LinkedIn](https://pt.linkedin.com/company/cara-core)
 - [GitHub](https://github.com/chmulato)
+- [Site](https://caracore.com.br)
 
 ---
 
