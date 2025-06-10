@@ -169,7 +169,46 @@
 
     #contato .recursos-link:hover {
       color: #007bff; /* Cor ao passar o mouse */
-    }    
+    }
+    /* Estilo da tabela de horários */
+    .horario-tabela {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px 0 rgba(33, 37, 41, 0.07);
+      font-size: 1.05rem;
+    }
+    .horario-tabela th, .horario-tabela td {
+      border: 1px solid #d1d5db !important;
+      padding: 0.65rem 0.75rem;
+      vertical-align: middle;
+    }
+    .horario-tabela th {
+      background: linear-gradient(120deg, #8f6ed5 0%, #5f2c82 100%);
+      color: #fff;
+      font-weight: 600;
+      text-align: left;
+      letter-spacing: 0.5px;
+    }
+    .horario-tabela tr:nth-child(even) td {
+      background: #f6f7fb;
+    }
+    .horario-tabela tr:hover td {
+      background: #ede7f6;
+      transition: background 0.2s;
+    }
+    .horario-tabela td {
+      color: #333;
+    }
+    @media (max-width: 576px) {
+      .horario-tabela th, .horario-tabela td {
+        font-size: 0.97rem;
+        padding: 0.5rem 0.4rem;
+      }
+      .horario-tabela {
+        font-size: 0.97rem;
+      }
+    }        
   </style>  
 </head>
 <body>
@@ -479,9 +518,56 @@
             </a>
           </div>
         </div>
+        <!-- Horário de Atendimento -->
+        <div class="mt-4">
+          <h5 class="mb-3">Horários de Atendimento:</h5>
+          <div class="table-responsive" style="max-width: 420px;">
+            <table class="table table-bordered horario-tabela align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Dia</th>
+                  <th>Horário</th>
+                  <th>Atendimento</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Segunda-feira</td>
+                  <td>18h às 20h</td>
+                  <td rowspan="5" class="align-middle">Com agendamento<br>ou<br>Vamos até você</td>
+                </tr>
+                <tr>
+                  <td>Terça-feira</td>
+                  <td>18h às 20h</td>
+                </tr>
+                <tr>
+                  <td>Quarta-feira</td>
+                  <td>18h às 20h</td>
+                </tr>
+                <tr>
+                  <td>Quinta-feira</td>
+                  <td>18h às 20h</td>
+                </tr>
+                <tr>
+                  <td>Sexta-feira</td>
+                  <td>18h às 20h</td>
+                </tr>
+                <tr>
+                  <td>Sábado</td>
+                  <td>8h às 17h</td>
+                  <td>Com agendamento<br>ou<br>Vamos até você</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-2 mb-0">
+            <i class="bi bi-calendar-check text-primary"></i>
+            Entre em contato para agendar seu atendimento presencial ou remoto.
+          </p>
+        </div>
         <!-- Recursos -->
         <div class="mt-3">
-          <span class="fw-bold">Recursos e Planos:</span>
+          <h5 class="mb-2">Recursos e Planos:</h5>
           <a href="folders/folder_py.html" target="_blank" class="recursos-link" title="Ver folder digital">
             <i class="bi bi-file-earmark-text"></i>
           </a>
@@ -494,7 +580,7 @@
         </div>
         <!-- Redes Sociais -->
         <div class="mt-3">
-          <span class="fw-bold">Redes Sociais:</span>
+          <h5 class="mb-2">Redes Sociais:</h5>
           <a href="https://www.facebook.com/caracoreinformatica/" class="text-dark ms-2" target="_blank"><i class="bi bi-facebook"></i></a>
           <!--<a href="#" class="text-dark ms-2"><i class="bi bi-instagram"></i></a>-->
           <a href="https://www.youtube.com/@caracoreinformatica7704" class="text-dark ms-2" target="_blank"><i class="bi bi-youtube"></i></a>
