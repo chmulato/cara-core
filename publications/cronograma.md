@@ -32,7 +32,7 @@
 
 ## **Dia 5 (Sexta-feira)**
 - [X] Concluir o artigo 33.
-- [ ] Revisar todos os artigos concluídos durante a semana.
+- [X] Revisar todos os artigos concluídos durante a semana.
 - [X] Ajustar formatações, links e imagens.
 
 ---
