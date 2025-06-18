@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Simulador de Tempo de Permanência em Restaurantes por Quilo</title>
+<style>
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0 1em;
+    background: #fafbfc;
+    color: #222;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+h1, h2, h3, h4 {
+    color: #2d3a4a;
+}
+pre, code {
+    background: #f4f4f4;
+    border-radius: 4px;
+    font-size: 0.95em;
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 1em;
+}
+th, td {
+    border: 1px solid #bbb;
+    padding: 0.5em;
+    text-align: left;
+}
+@media (max-width: 900px) {
+    body { max-width: 100vw; }
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    th, td {
+        box-sizing: border-box;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+    tr { margin-bottom: 1em; }
+}
+img, svg {
+    max-width: 100%;
+    height: auto;
+}
+</style>
+<style>
+    .back-to-sumario:hover {
+        text-decoration: underline;
+        color: #0056b3;
+    }
+    </style></head>
+<body>
+<pre><code class="language-plaintext">+---------------------------------------------------------------+
+|           SIMULADOR DE TEMPO DE PERMANÊNCIA EM                |
+|                    RESTAURANTES POR QUILO                     |
+|---------------------------------------------------------------|
+|   _______         _______         _______         _______     |
+|  |       |       |       |       |       |       |       |    |
+|  | Mesa  |       | Mesa  |       | Mesa  |       | Mesa  |    |
+|  |_______|       |_______|       |_______|       |_______|    |
+|                                                           _   |
+|   [Entrada] --&gt; [Buffet] --&gt; [Balança] --&gt; [Caixa] --&gt; [Mesa] |
+|                                                           |   |
+|                                                        [Saída]|
+|                                                               |
+| Trabalho de Conclusão de Curso - Engenharia de Processos      |
+| Autor: Christian Vladimir Uhdre Mulato                        |
+| Ano: Junho de 2025                                            |
++---------------------------------------------------------------+
+</code></pre>
+<hr/>
+<pre><code class="language-plaintext">UNIVERSIDADE MICROSOFT COPILOT
+FACULDADE DE ENGENHARIA
+CURSO DE ENGENHARIA DE PROCESSOS
+
+SIMULADOR DE TEMPO DE PERMANÊNCIA EM RESTAURANTES POR QUILO
+
+Trabalho de Conclusão de Curso apresentado ao Curso de Engenharia de Processos da Universidade Microsoft Copilot, como requisito parcial para obtenção do título de Engenheiro de Processos.
+
+Autor: Christian Vladimir Uhdre Mulato
+
+Orientador: Prof. Copilot, Dr.
+
+Cidade: Campo Largo, PR
+Ano: Junho de 2025
+</code></pre>
+<hr/>
+<pre><code class="language-plaintext">UNIVERSIDADE MICROSOFT COPILOT
+FACULDADE DE ENGENHARIA
+CURSO DE ENGENHARIA DE PROCESSOS
+
+SIMULADOR DE TEMPO DE PERMANÊNCIA EM RESTAURANTES POR QUILO
+
+Trabalho de Conclusão de Curso apresentado ao Curso de Engenharia de Processos da Universidade Microsoft Copilot, como requisito parcial para obtenção do título de Engenheiro de Processos.
+
+Autor: Christian Vladimir Uhdre Mulato
+
+Aprovado em: ____/____/2025
+
+Banca Examinadora:
+
+______________________________________
+Prof. Copilot, Dr. (Orientador)
+
+______________________________________
+Prof. GPT (Geppetto), Dr.
+
+______________________________________
+Prof. Assistente Gemini, Dr.
+
+Campo Largo, PR, 01 de Junho de 2025
+</code></pre>
+<hr/>
+<h2 id="dedicatoria">Dedicatória<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Dedico este trabalho à minha família, especialmente aos meus filhos Alexandre e Guilherme, e à minha esposa Helen, pela paciência, compreensão e apoio incondicional durante toda esta jornada. À minha neta Maria, pela alegria que traz em suas visitas, e à minha mãe Clarice, minha fortaleza, pelo apoio incondicional. Sem vocês, nada disso seria possível.</p>
+<hr/>
+<h2 id="agradecimentos">Agradecimentos<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Agradeço primeiramente à minha família, pelo incentivo constante e por compreenderem os momentos de ausência necessários para a realização deste projeto.</p>
+<p>Agradeço também à Universidade Microsoft Copilot e a todos os professores que contribuíram para minha formação acadêmica e profissional.</p>
+<p>Um agradecimento especial à tecnologia da Microsoft, que patrocinou financeiramente a OpenAI, tornando possível o acesso a ferramentas inovadoras de inteligência artificial que auxiliaram no desenvolvimento deste trabalho.</p>
+<p>A todos que, direta ou indiretamente, colaboraram para a concretização deste TCC, meu sincero muito obrigado.</p>
+<hr/>
+<h2 id="resumo">Resumo<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Este Trabalho de Conclusão de Curso apresenta o desenvolvimento de um simulador computacional para análise e otimização do tempo de permanência de clientes em restaurantes por quilo. O objetivo principal é fornecer aos gestores uma ferramenta prática e acessível para avaliar diferentes configurações operacionais, identificar gargalos, reduzir tempos de espera e melhorar a experiência do cliente. O simulador foi implementado em Python, com interface gráfica intuitiva, permitindo a entrada manual de dados ou importação de arquivos, além de gerar relatórios executivos em PDF e visualizações animadas do layout do restaurante. Foram realizados testes com dados reais e simulados, demonstrando a utilidade do sistema para apoiar a tomada de decisão baseada em evidências. Os resultados evidenciam que a simulação computacional pode contribuir significativamente para a eficiência operacional, a profissionalização da gestão e a competitividade dos restaurantes. O trabalho também discute estratégias de comercialização, possibilidades de expansão futura e recomendações para adoção e desenvolvimento contínuo da solução.</p>
+<p><strong>Palavras-chave:</strong> simulação, restaurantes por quilo, tempo de permanência, otimização, gestão operacional, Python.</p>
+<hr/>
+<hr/>
+<h2 id="abstract">Abstract<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>This Final Paper presents the development of a computational simulator for the analysis and optimization of customer dwell time in pay-by-weight restaurants. The main objective is to provide managers with a practical and accessible tool to evaluate different operational configurations, identify bottlenecks, reduce waiting times, and improve the customer experience. The simulator was implemented in Python, with an intuitive graphical interface, allowing manual data entry or file import, as well as generating executive reports in PDF and animated visualizations of the restaurant layout. Tests were carried out with real and simulated data, demonstrating the usefulness of the system to support evidence-based decision making. The results show that computational simulation can significantly contribute to operational efficiency, professional management, and restaurant competitiveness. The work also discusses commercialization strategies, future expansion possibilities, and recommendations for the adoption and continuous development of the solution.</p>
+<p><strong>Keywords:</strong> simulation, pay-by-weight restaurants, dwell time, optimization, operational management, Python.</p>
+<hr/>
+<h2 id="lista-de-figuras">Lista de Figuras<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<ol>
+<li><a href="#fluxograma-do-fluxo-do-cliente-em-um-restaurante">Fluxograma do fluxo do cliente em um restaurante</a></li>
+<li><a href="#linha-do-tempo-do-cliente-em-um-restaurante">Linha do tempo do cliente em um restaurante</a></li>
+<li>Exemplo de layout ASCII do restaurante</li>
+<li>Diagrama: Variação do fluxo de chegada de clientes ao longo do tempo</li>
+<li>Esquema do fluxo de filas em um restaurante</li>
+<li>Exemplo de histograma de clientes atendidos e não atendidos</li>
+<li>Tela esquemática da interface gráfica do simulador</li>
+<li><a href="#b4-fluxograma-da-simulacao">Fluxograma da Simulação</a></li>
+</ol>
+<hr/>
+<h2 id="lista-de-tabelas">Lista de Tabelas<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<ol>
+<li><a href="#tabela-1-parametros-utilizados-na-simulacao-layout-511">Tabela 1 – Parâmetros utilizados na simulação (layout 5.1.1)</a></li>
+<li><a href="#tabela-2-efeitos-da-variacao-dos-principais-parametros-sobre-o-desempenho-do-restaurante">Tabela 2 – Efeitos da variação dos principais parâmetros sobre o desempenho do restaurante</a></li>
+<li><a href="#tabela-3-exemplos-de-valores-para-pacotes-de-entrega-e-monetizacao">Tabela 3 – Exemplos de valores para pacotes de entrega e monetização</a></li>
+<li>Ficha 01 - Ficha de coleta de dados para simulação</li>
+<li>Ficha 02 - Ficha comparativa para análise de variação de parâmetros</li>
+</ol>
+<hr/>
+<h2 id="lista-de-abreviaturas-e-siglas">Lista de Abreviaturas e Siglas<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<ul>
+<li><strong>API</strong>: Application Programming Interface (Interface de Programação de Aplicações)</li>
+<li><strong>ASCII</strong>: American Standard Code for Information Interchange</li>
+<li><strong>DES</strong>: Discrete Event Simulation (Simulação Discreta de Eventos)</li>
+<li><strong>ERP</strong>: Enterprise Resource Planning (Sistema Integrado de Gestão Empresarial)</li>
+<li><strong>PDF</strong>: Portable Document Format</li>
+<li><strong>IoT</strong>: Internet of Things (Internet das Coisas)</li>
+<li><strong>FIFO</strong>: First In, First Out (Primeiro a Entrar, Primeiro a Sair)</li>
+<li><strong>SaaS</strong>: Software as a Service</li>
+<li><strong>YAML</strong>: YAML Ain't Markup Language (formato de arquivo de configuração)</li>
+</ul>
+<hr/>
+<h1 id="sumario">Sumário</h1>
+<ul>
+<li><a href="#capitulo-1-introducao">Capítulo 1 – Introdução</a></li>
+<li><a href="#11-contextualizacao-do-problema-enfrentado-por-restaurantes">1.1 Contextualização do problema enfrentado por restaurantes</a></li>
+<li><a href="#12-justificativa-da-escolha-pelo-desenvolvimento-de-um-simulador">1.2 Justificativa da escolha pelo desenvolvimento de um simulador</a></li>
+<li><a href="#13-objetivos">1.3 Objetivos</a></li>
+<li><a href="#14-metodologia-aplicada">1.4 Metodologia aplicada</a></li>
+<li><a href="#15-estrutura-do-trabalho">1.5 Estrutura do trabalho</a></li>
+<li>
+<p><a href="#16-consideracoes-finais">1.6 Considerações finais</a></p>
+</li>
+<li>
+<p><a href="#capitulo-2-referencial-teorico">Capítulo 2 – Referencial Teórico</a></p>
+</li>
+<li><a href="#21-breve-revisao-sobre-gestao-de-tempo-em-restaurantes">2.1 Breve revisão sobre gestão de tempo em restaurantes</a></li>
+<li><a href="#22-aplicacoes-de-simulacao-em-ambientes-de-servicos">2.2 Aplicações de simulação em ambientes de serviços</a></li>
+<li><a href="#23-sistemas-computacionais-em-apoio-a-tomada-de-decisao-em-pequenas-empresas">2.3 Sistemas computacionais em apoio à tomada de decisão em pequenas empresas</a></li>
+<li><a href="#24-abordagens-praticas-no-uso-de-python-em-engenharia-de-processos">2.4 Abordagens práticas no uso de Python em Engenharia de Processos</a></li>
+<li>
+<p><a href="#25-consideracoes-finais">2.5 Considerações finais</a></p>
+</li>
+<li>
+<p><a href="#capitulo-3-especificacao-do-sistema-de-simulacao">Capítulo 3 – Especificação do Sistema de Simulação</a></p>
+</li>
+<li><a href="#31-descricao-geral-da-aplicacao">3.1 Descrição geral da aplicação</a></li>
+<li><a href="#32-funcionalidades-principais">3.2 Funcionalidades principais</a></li>
+<li>
+<p><a href="#33-consideracoes-finais">3.3 Considerações finais</a></p>
+</li>
+<li>
+<p><a href="#capitulo-4-fundamentos-matematicos-e-conceituais-da-simulacao">Capítulo 4 – Fundamentos matemáticos e conceituais da simulação</a></p>
+</li>
+<li><a href="#41-teoria-das-filas-aplicadas-ao-fluxo-de-clientes">4.1 Teoria das Filas aplicadas ao fluxo de clientes</a><ul>
+<li><a href="#411-esquema-do-fluxo-de-filas-em-um-restaurante">4.1.1 Esquema do fluxo de filas em um restaurante</a></li>
+</ul>
+</li>
+<li><a href="#42-analise-do-layout-e-calculo-do-deslocamento-interno">4.2 Análise do layout e cálculo do deslocamento interno</a><ul>
+<li><a href="#421-exemplo-pratico-de-representacao-do-layout">4.2.1 Exemplo prático de representação do layout</a></li>
+</ul>
+</li>
+<li><a href="#43-simulacao-discreta-de-eventos-des-logica-e-implementacao">4.3 Simulação Discreta de Eventos (DES): lógica e implementação</a><ul>
+<li><a href="#431-exemplo-de-eventos-e-transicoes">4.3.1 Exemplo de eventos e transições</a></li>
+</ul>
+</li>
+<li><a href="#44-estatistica-aplicada-aos-tempos-de-atendimento-e-consumo">4.4 Estatística aplicada aos tempos de atendimento e consumo</a><ul>
+<li><a href="#441-distribuicoes-estatisticas-aplicadas-aos-tempos-de-atendimento-e-consumo">4.4.1 Distribuições estatísticas aplicadas aos tempos de atendimento e consumo</a></li>
+</ul>
+</li>
+<li><a href="#45-equacao-geral-do-tempo-de-residencia-dos-clientes-no-sistema-restaurante">4.5 Equação geral do tempo de residência dos clientes no sistema (restaurante)</a><ul>
+<li><a href="#451-fluxo-implementado-no-codigo-simuladorpy">4.5.1 Fluxo implementado no código simulador.py</a></li>
+</ul>
+</li>
+<li><a href="#46-justificativa-da-abordagem-pratica-e-realista-adotada">4.6 Justificativa da abordagem prática e realista adotada</a></li>
+<li>
+<p><a href="#47-conclusao">4.7 Conclusão</a></p>
+</li>
+<li>
+<p><a href="#capitulo-5-estudo-de-caso-e-simulacoes">Capítulo 5 – Estudo de Caso e Simulações</a></p>
+</li>
+<li><a href="#51-parametros-utilizados-na-simulacao-layout-numero-de-mesas-tempo-medio">5.1 Parâmetros utilizados na simulação (layout, número de mesas, tempo médio)</a><ul>
+<li><a href="#511-layout-de-exemplo-utilizado-na-simulacao">5.1.1 Layout de exemplo utilizado na simulação</a></li>
+<li><a href="#512-extrapolacao-analise-da-variacao-do-fluxo-de-chegada-de-clientes">5.1.2 Extrapolação: análise da variação do fluxo de chegada de clientes</a></li>
+</ul>
+</li>
+<li><a href="#52-teste-com-dados-reaissimulados">5.2 Teste com dados reais/simulados</a></li>
+<li><a href="#53-analise-dos-resultados-gargalos-otimizacoes-sugeridas">5.3 Análise dos resultados: gargalos, otimizações sugeridas</a></li>
+<li><a href="#54-discussao-sobre-os-efeitos-da-variacao-de-parametros">5.4 Discussão sobre os efeitos da variação de parâmetros</a><ul>
+<li><a href="#541-exemplo-de-ficha-para-analise-dos-efeitos-da-variacao-de-parametros-ao-longo-dos-dias-simulados">5.4.1 Exemplo de ficha para análise dos efeitos da variação de parâmetros ao longo dos dias simulados</a></li>
+</ul>
+</li>
+<li><a href="#55-modelos-de-documentacao-entregue-ao-cliente">5.5 Modelos de documentação entregue ao cliente</a></li>
+<li>
+<p><a href="#56-consideracoes-finais">5.6 Considerações finais</a></p>
+</li>
+<li>
+<p><a href="#capitulo-6-estrategia-de-negocio-e-aplicabilidade-comercial">Capítulo 6 – Estratégia de Negócio e Aplicabilidade Comercial</a></p>
+</li>
+<li><a href="#61-publico-alvo-donos-de-restaurantes-e-arrendatarios">6.1 Público-alvo: donos de restaurantes e arrendatários</a></li>
+<li><a href="#62-proposta-de-valor-do-sistema">6.2 Proposta de valor do sistema</a></li>
+<li><a href="#63-modelos-de-entrega-e-monetizacao-do-produto">6.3 Modelos de entrega e monetização do produto</a></li>
+<li><a href="#64-limitacoes-e-formas-de-fidelizacao-sem-aprisionamento-explicito">6.4 Limitações e formas de fidelização sem aprisionamento explícito</a></li>
+<li><a href="#65-possibilidades-de-expansao-futura-do-produto">6.5 Possibilidades de expansão futura do produto</a></li>
+<li>
+<p><a href="#66-consideracoes-finais">6.6 Considerações finais</a></p>
+</li>
+<li>
+<p><a href="#capitulo-7-conclusao-e-consideracoes-finais">Capítulo 7 – Conclusão e Considerações Finais</a></p>
+</li>
+<li><a href="#71-sintese-dos-principais-resultados-e-contribuicoes-do-trabalho">7.1 Síntese dos principais resultados e contribuições do trabalho</a></li>
+<li><a href="#72-contribuicoes-tecnicas-e-praticas-do-projeto">7.2 Contribuições técnicas e práticas do projeto</a></li>
+<li><a href="#73-recomendacoes-para-adocao-e-desenvolvimento-continuo">7.3 Recomendações para adoção e desenvolvimento contínuo</a></li>
+<li><a href="#74-trabalhos-futuros">7.4 Trabalhos futuros</a></li>
+<li>
+<p><a href="#75-consideracoes-finais-do-trabalho">7.5 Considerações finais do trabalho</a></p>
+</li>
+<li>
+<p><a href="#referencias-bibliograficas">Referências Bibliográficas</a></p>
+</li>
+<li>
+<p><a href="#anexo-a-documentacao-de-uso-do-simulador">Anexo A – Documentação de Uso do Simulador</a></p>
+</li>
+<li><a href="#a1-interface-grafica-do-simulador">A.1 Interface Gráfica do Simulador</a></li>
+<li><a href="#a2-importacao-de-arquivos">A.2 Importação de Arquivos</a></li>
+<li><a href="#a3-exportacao-de-relatorios-pdf">A.3 Exportação de Relatórios PDF</a></li>
+<li><a href="#a4-exportacao-do-gif-animado">A.4 Exportação do GIF Animado</a></li>
+<li><a href="#a5-exemplos-de-arquivos">A.5 Exemplos de Arquivos</a></li>
+<li>
+<p><a href="#a6-exemplo-de-histograma-de-clientes-atendidos-e-nao-atendidos">A.6 Exemplo de Histograma de Clientes Atendidos e Não Atendidos</a></p>
+</li>
+<li>
+<p><a href="#anexo-b-fichas-e-relatorios-auxiliares">Anexo B – Fichas e Relatórios Auxiliares</a></p>
+</li>
+<li><a href="#b1-ficha-01-ficha-de-coleta-de-dados-em-campo">B.1 Ficha 01 - Ficha de Coleta de Dados em Campo</a></li>
+<li><a href="#b2-ficha-02-ficha-comparativa-para-analise-de-variacao-de-parametros">B.2 Ficha 02 - Ficha Comparativa para Análise de Variação de Parâmetros</a></li>
+<li><a href="#b3-modelo-de-relatorio-executivo-para-o-cliente">B.3 Modelo de Relatório Executivo para o Cliente</a></li>
+<li><a href="#b4-fluxograma-da-simulacao">B.4 Fluxograma da Simulação</a></li>
+</ul>
+<hr/>
+<h1 id="capitulo-1-introducao">Capítulo 1 – Introdução<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h1>
+<p>A gestão eficiente do tempo de permanência dos clientes em restaurantes é um fator determinante para o sucesso operacional e financeiro desses estabelecimentos. Com o aumento da concorrência e a busca constante por excelência no atendimento, torna-se fundamental compreender os desafios enfrentados no dia a dia dos restaurantes, especialmente em relação à formação de filas, ocupação de mesas e fluxo de clientes.</p>
+<p>Este capítulo apresenta a contextualização do problema, justificativa para o desenvolvimento de um simulador, os objetivos do trabalho, a metodologia adotada e a estrutura geral do projeto, fornecendo uma visão inicial sobre a importância do tema e o propósito deste estudo.</p>
+<hr/>
+<h2 id="11-contextualizacao-do-problema-enfrentado-por-restaurantes">1.1 Contextualização do problema enfrentado por restaurantes<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O setor de restaurantes enfrenta desafios constantes relacionados à gestão eficiente do tempo de permanência dos clientes em seus estabelecimentos. Em horários de pico, é comum a formação de filas, atrasos no atendimento e insatisfação dos clientes devido à espera excessiva por mesas, buffet ou pagamento. Esses gargalos impactam diretamente a experiência do consumidor, a rotatividade das mesas e, consequentemente, a receita do negócio.</p>
+<p>Além disso, muitos restaurantes, especialmente de pequeno e médio porte, não dispõem de ferramentas adequadas para analisar e otimizar o fluxo de clientes em seu ambiente físico. A falta de dados e de simulações realistas dificulta a tomada de decisões estratégicas, como o dimensionamento do número de mesas, a disposição do buffet e a quantidade de caixas de pagamento.</p>
+<p>Em um cenário de alta competitividade, a capacidade de prever e minimizar tempos de espera torna-se um diferencial importante para a fidelização dos clientes e a sustentabilidade do negócio.</p>
+<p>Diante desse contexto, torna-se fundamental o desenvolvimento de soluções que permitam aos gestores de restaurantes visualizar, simular e analisar o impacto de diferentes configurações operacionais sobre o tempo de residência dos clientes, possibilitando intervenções mais assertivas e baseadas em evidências.</p>
+<h3 id="fluxograma-do-fluxo-do-cliente-em-um-restaurante">Fluxograma do fluxo do cliente em um restaurante<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<pre><code class="language-plaintext">   Entrada do Cliente
+        |
+        v
+   Fila de Espera
+        |
+        v
+   Buffet/Serviço (Serve-se)
+        |
+        v
+   Balança (Pesa)
+        |
+        v
+   Caixa (Paga)
+        |
+        v
+   Ocupa Mesa (Come)
+        |
+        v
+     Saída
+</code></pre>
+<hr/>
+<h2 id="12-justificativa-da-escolha-pelo-desenvolvimento-de-um-simulador">1.2 Justificativa da escolha pelo desenvolvimento de um simulador<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>A escolha pelo desenvolvimento de um simulador para restaurantes se justifica pela necessidade de oferecer aos gestores uma ferramenta prática e acessível para análise e tomada de decisão. Métodos tradicionais de avaliação, como observação direta ou planilhas, muitas vezes não conseguem capturar a complexidade do fluxo de clientes, a dinâmica das filas e o impacto de diferentes configurações do ambiente físico.</p>
+<p>O simulador permite testar cenários variados sem riscos operacionais, antecipando gargalos e avaliando o efeito de mudanças no layout, número de mesas, buffets ou caixas de pagamento. Dessa forma, é possível identificar oportunidades de otimização e melhorar a experiência do cliente, reduzindo tempos de espera e aumentando a rotatividade das mesas.</p>
+<p>Além disso, a simulação computacional democratiza o acesso a técnicas avançadas de gestão, tradicionalmente restritas a grandes redes, tornando-as viáveis para pequenos e médios restaurantes. O desenvolvimento deste simulador visa, portanto, preencher uma lacuna no mercado, promovendo eficiência operacional e embasando decisões estratégicas de forma objetiva e baseada em dados.</p>
+<hr/>
+<h2 id="13-objetivos">1.3 Objetivos<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<h3 id="objetivo-geral">Objetivo Geral<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>Desenvolver um simulador computacional capaz de analisar e otimizar o tempo de permanência de clientes em restaurantes, permitindo a avaliação de diferentes configurações operacionais e auxiliando gestores na tomada de decisões estratégicas.</p>
+<h3 id="objetivos-especificos">Objetivos Específicos<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<ul>
+<li>Mapear e modelar o fluxo de clientes em ambientes de restaurante, considerando filas, mesas, buffets e caixas de pagamento.</li>
+<li>Implementar algoritmos de simulação que representem de forma realista o comportamento dos clientes e a dinâmica do atendimento.</li>
+<li>Permitir a personalização de parâmetros como número de mesas, cadeiras, buffets, caixas e tempo médio de refeição.</li>
+<li>Gerar relatórios executivos em PDF com indicadores de desempenho, gráficos e visualização do layout do restaurante.</li>
+<li>Validar o simulador por meio de testes e análise de cenários, demonstrando sua utilidade para a gestão operacional.</li>
+</ul>
+<hr/>
+<h2 id="14-metodologia-aplicada">1.4 Metodologia aplicada<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>A metodologia adotada neste trabalho envolve o desenvolvimento de um simulador computacional baseado em técnicas de simulação por eventos discretos, amplamente utilizadas para modelar sistemas dinâmicos e complexos, como o ambiente de um restaurante. O processo metodológico seguiu as seguintes etapas principais:</p>
+<ul>
+<li><strong>Levantamento de requisitos</strong>: Identificação dos principais desafios operacionais enfrentados por restaurantes, com foco no fluxo de clientes, formação de filas e ocupação de mesas.</li>
+<li><strong>Modelagem do sistema</strong>: Representação do ambiente do restaurante por meio de layouts ASCII e definição dos parâmetros de simulação, como número de mesas, cadeiras, buffets, caixas e tempos médios de atendimento.</li>
+<li><strong>Implementação do simulador</strong>: Desenvolvimento do software utilizando a linguagem Python, com módulos específicos para leitura de parâmetros, processamento do layout, execução da simulação e geração de relatórios.</li>
+<li><strong>Validação e testes</strong>: Realização de simulações em diferentes cenários para verificar a aderência do modelo à realidade e avaliar o impacto de alterações nos parâmetros operacionais.</li>
+<li><strong>Análise dos resultados</strong>: Interpretação dos dados gerados pelo simulador, com apoio de gráficos e relatórios em PDF, para subsidiar recomendações de melhorias na gestão do restaurante.</li>
+</ul>
+<p>A escolha pela simulação por eventos discretos se deve à sua capacidade de representar com fidelidade a dinâmica do atendimento em restaurantes, permitindo a análise detalhada de gargalos, tempos de espera e utilização dos recursos disponíveis.</p>
+<h3 id="diagrama-de-componentes-do-simulador">Diagrama de componentes do simulador<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<pre><code class="language-plaintext">+-------------------+
+| Interface Gráfica |
++-------------------+
+         |
+         v
++-------------------+
+|   Simulador.py    |
++-------------------+
+   |     |     |
+   v     v     v
+YAML  Excel  Layout
+Loader Loader Parser
+</code></pre>
+<hr/>
+<h2 id="15-estrutura-do-trabalho">1.5 Estrutura do trabalho<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Este trabalho está organizado em capítulos que abordam, de forma sequencial e lógica, o desenvolvimento, a fundamentação e a aplicação do simulador de tempo de permanência em restaurantes:</p>
+<ul>
+<li><strong>Capítulo 1 – Introdução:</strong> Apresenta a contextualização do problema, a justificativa para o desenvolvimento do simulador, os objetivos do estudo, a metodologia aplicada e a estrutura geral do trabalho.</li>
+<li><strong>Capítulo 2 – Referencial Teórico:</strong> Explora os principais conceitos sobre gestão de tempo em restaurantes, aplicações de simulação em ambientes de serviço, sistemas computacionais de apoio à decisão em pequenas empresas e o uso prático do Python em Engenharia de Processos.</li>
+<li><strong>Capítulo 3 – Especificação do Sistema de Simulação:</strong> Detalha a aplicação desenvolvida, suas funcionalidades principais (entrada de dados, importação de planilhas e arquivos ASCII, exportação de resultados em PDF, interface gráfica, visualização do layout e animação), além da arquitetura modular e organização do projeto.</li>
+<li><strong>Capítulo 4 – Fundamentos Matemáticos e Conceituais da Simulação:</strong> Apresenta os fundamentos teóricos e matemáticos que embasam o simulador, incluindo Teoria das Filas, análise do layout e deslocamento interno, lógica da Simulação Discreta de Eventos (DES), estatística aplicada aos tempos de atendimento e consumo, equação geral do tempo de residência e justificativa da abordagem prática adotada.</li>
+<li><strong>Capítulo 5 – Estudo de Caso e Simulações:</strong> Descreve os parâmetros utilizados na simulação, testes com dados reais ou simulados, análise dos resultados (gargalos, otimizações sugeridas), discussão sobre os efeitos da variação de parâmetros, modelos de documentação entregue ao cliente e conclusão do capítulo.</li>
+<li><strong>Capítulo 6 – Estratégia de Negócio e Aplicabilidade Comercial:</strong> Apresenta o público-alvo do sistema, proposta de valor, pacotes de entrega e monetização, limitações, estratégias de fidelização, possibilidades de expansão futura e conclusão do capítulo.</li>
+<li><strong>Capítulo 7 – Conclusão e Considerações Finais:</strong> Sintetiza os resultados obtidos, destaca as contribuições técnicas e práticas do projeto, traz recomendações para adoção e desenvolvimento contínuo, sugestões para trabalhos futuros (como integração com sensores ou aplicativos móveis) e as considerações finais do trabalho.</li>
+<li><strong>Anexo A – Documentação de Uso do Simulador:</strong> Inclui instruções de uso, exemplos de interface gráfica, procedimentos de importação e exportação de arquivos, exemplos de arquivos de configuração, histogramas e orientações para o usuário.</li>
+<li><strong>Anexo B – Fichas e Relatórios Auxiliares:</strong> Reúne modelos de fichas de coleta de dados em campo, fichas comparativas para análise de variação de parâmetros, modelo de relatório executivo entregue ao cliente e o fluxograma da simulação.</li>
+</ul>
+<p>Essa estrutura visa proporcionar uma compreensão clara e progressiva do tema, desde a identificação do problema até a apresentação dos resultados, aplicações práticas e perspectivas futuras, facilitando o entendimento do leitor sobre o desenvolvimento e a aplicação do simulador proposto.</p>
+<hr/>
+<h2 id="16-consideracoes-finais">1.6 Considerações finais<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Este capítulo apresentou a fundamentação inicial para o desenvolvimento deste trabalho, destacando a relevância da gestão eficiente do tempo de permanência dos clientes em restaurantes e os desafios enfrentados pelo setor. A justificativa para a criação de um simulador foi embasada na necessidade de ferramentas que auxiliem gestores na tomada de decisões estratégicas, proporcionando maior eficiência operacional e melhor experiência ao cliente.</p>
+<p>Foram definidos os objetivos geral e específicos, que orientam o desenvolvimento do simulador, bem como a metodologia aplicada, baseada em simulação por eventos discretos. Por fim, a estrutura do trabalho foi detalhada, oferecendo ao leitor uma visão clara do percurso a ser seguido nos próximos capítulos. Dessa forma, estabelece-se o contexto e a motivação para as etapas seguintes, que aprofundarão a fundamentação teórica, o desenvolvimento da solução proposta e a análise dos resultados obtidos.</p>
+<hr/>
+<h1 id="capitulo-2-referencial-teorico">Capítulo 2 – Referencial Teórico<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h1>
+<p>Aqui vamos apresentaros principais conceitos e estudos que fundamentam o desenvolvimento do simulador de tempo de permanência em restaurantes. São abordados temas como gestão de tempo em ambientes de serviço, aplicações de simulação, sistemas computacionais de apoio à decisão em pequenas empresas e o uso prático do Python em Engenharia de Processos.</p>
+<hr/>
+<h2 id="21-breve-revisao-sobre-gestao-de-tempo-em-restaurantes">2.1 Breve revisão sobre gestão de tempo em restaurantes<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>A gestão do tempo de permanência dos clientes em restaurantes é tema recorrente na literatura de operações e serviços (BALLOU, 2006; SOUZA &amp; CUNHA, 2012). Diversos estudos apontam que o controle do tempo de espera, da ocupação das mesas e do fluxo de atendimento impacta diretamente a satisfação do cliente e a rentabilidade do negócio (SILVA &amp; OLIVEIRA, 2006; PIDD, 2004).</p>
+<p>Segundo Ballou (2006), a eficiência na gestão de filas e recursos é fundamental para evitar gargalos e maximizar a utilização do espaço físico. Laurindo e Carvalho (2012) destacam que a análise do tempo de permanência permite identificar pontos críticos no atendimento e propor melhorias operacionais.</p>
+<p>Além disso, pesquisas recentes mostram que a adoção de tecnologias e métodos quantitativos, como simulação e análise de dados, tem contribuído para a profissionalização da gestão em restaurantes, tornando possível prever cenários e tomar decisões mais assertivas (BANKS et al., 2010; LAW &amp; KELTON, 2015).</p>
+<h3 id="linha-do-tempo-do-cliente-em-um-restaurante">Linha do tempo do cliente em um restaurante<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>Abaixo, uma representação simplificada da trajetória típica do cliente:</p>
+<pre><code class="language-plaintext">[Entrada] --(fila)--&gt; [Buffet/Serve] --(pesa)--&gt; [Caixa/Paga] --(mesa/come)--&gt; [Saída]
+</code></pre>
+<hr/>
+<h2 id="22-aplicacoes-de-simulacao-em-ambientes-de-servicos">2.2 Aplicações de simulação em ambientes de serviços<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>A simulação computacional é uma ferramenta amplamente utilizada para analisar e otimizar processos em ambientes de serviços, como restaurantes. Por meio da modelagem de eventos e fluxos de clientes, é possível prever gargalos, testar diferentes configurações operacionais e avaliar o impacto de mudanças no layout ou na quantidade de recursos disponíveis. A simulação por eventos discretos (DES) destaca-se por sua capacidade de representar sistemas dinâmicos e complexos.</p>
+<hr/>
+<h2 id="23-sistemas-computacionais-em-apoio-a-tomada-de-decisao-em-pequenas-empresas">2.3 Sistemas computacionais em apoio à tomada de decisão em pequenas empresas<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O uso do computador como ferramenta de apoio à gestão revolucionou a forma como pequenas empresas tomam decisões. Com o avanço da tecnologia e a popularização dos computadores pessoais, tornou-se possível acessar sistemas de informação e softwares de análise que antes eram restritos a grandes organizações.</p>
+<p>Sistemas computacionais permitem o armazenamento, processamento e análise de grandes volumes de dados de maneira rápida e precisa. Em restaurantes, por exemplo, o computador pode ser utilizado para registrar vendas, monitorar o fluxo de clientes, controlar estoques e gerar relatórios gerenciais. Essas informações, quando bem organizadas e analisadas, subsidiam decisões estratégicas, como o ajuste do quadro de funcionários, a definição de horários de pico e a otimização do layout do salão.</p>
+<p>Além disso, ferramentas de simulação e modelagem, como o simulador desenvolvido neste trabalho, tornam-se acessíveis graças ao uso do computador. Elas permitem que gestores de pequenas empresas testem cenários, avaliem o impacto de mudanças operacionais e identifiquem oportunidades de melhoria sem a necessidade de investimentos elevados ou riscos ao negócio real.</p>
+<p>Dessa forma, o computador não apenas automatiza tarefas rotineiras, mas também amplia a capacidade analítica e estratégica dos gestores, promovendo uma gestão mais eficiente, baseada em dados e alinhada às melhores práticas do mercado.</p>
+<hr/>
+<h2 id="24-abordagens-praticas-no-uso-de-python-em-engenharia-de-processos">2.4 Abordagens práticas no uso de Python em Engenharia de Processos<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Dentre as diversas ferramentas computacionais disponíveis para Engenharia de Processos, destaca-se o Python, tanto no meio acadêmico quanto na indústria. A linguagem é frequentemente utilizada em disciplinas de Engenharia de Processos, Engenharia Química e Engenharia de Produção, sendo recomendada por instituições de ensino e adotada em projetos de pesquisa e desenvolvimento.</p>
+<p>Souza (2019) apresenta exemplos práticos de automação, análise de dados e simulação utilizando Python, ressaltando sua sintaxe acessível e a vasta disponibilidade de bibliotecas especializadas. Essa facilidade de aprendizado contribui para sua popularidade nos meios acadêmicos, onde é amplamente utilizada em disciplinas de programação, análise de dados, simulação e automação de processos.</p>
+<p>Segundo Law e Kelton (2015), Python tornou-se uma alternativa viável para simulação de eventos discretos, devido à sua flexibilidade e integração com ferramentas gráficas e de análise estatística. O uso de bibliotecas como NumPy, SciPy, SimPy e Matplotlib permite a modelagem de sistemas complexos, visualização de resultados e automação de rotinas de cálculo, tornando Python uma escolha estratégica para engenheiros que buscam eficiência e inovação em suas atividades.</p>
+<p>No mundo dos negócios, Python consolidou-se como uma das principais linguagens para automação de tarefas, integração de sistemas e desenvolvimento de soluções personalizadas. Sua vasta coleção de bibliotecas e frameworks permite a rápida implementação de rotinas para manipulação de dados, geração de relatórios, simulação de cenários e otimização de processos industriais e administrativos.</p>
+<p>No contexto da Engenharia de Processos, Python oferece recursos poderosos para modelagem matemática, análise estatística, simulação por eventos discretos e visualização de resultados. A escolha por essa linguagem no desenvolvimento do simulador proposto neste trabalho deve-se à sua flexibilidade, facilidade de manutenção e à grande comunidade de usuários, que garante suporte contínuo e evolução constante das ferramentas disponíveis.</p>
+<hr/>
+<h2 id="25-consideracoes-finais">2.5 Considerações finais<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O referencial teórico apresentado neste capítulo evidencia a importância da gestão eficiente do tempo em restaurantes e o papel fundamental da simulação computacional como ferramenta de apoio à tomada de decisão, especialmente em pequenas empresas. Destacou-se também como o uso do computador e de sistemas computacionais democratizou o acesso a técnicas avançadas de análise e otimização de processos, tornando-as viáveis para negócios de diferentes portes.</p>
+<p>Além disso, foi ressaltada a relevância do Python como linguagem de programação acessível, flexível e amplamente utilizada tanto no meio acadêmico quanto no mundo dos negócios, facilitando a implementação de soluções inovadoras em Engenharia de Processos.</p>
+<p>Esses fundamentos teóricos sustentam as escolhas metodológicas e tecnológicas adotadas no desenvolvimento do simulador proposto, que será detalhado nos próximos capítulos.</p>
+<hr/>
+<h2 id="capitulo-3-especificacao-do-sistema-de-simulacao">Capítulo 3 – Especificação do Sistema de Simulação<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Este capítulo apresenta a especificação detalhada do sistema de simulação desenvolvido para análise do tempo de permanência de clientes em restaurantes. O objetivo é descrever, de forma clara e estruturada, as principais características da aplicação, suas funcionalidades, fluxos de entrada e saída de dados, bem como os aspectos relacionados à interface e à organização do projeto.</p>
+<p>Inicialmente, é apresentada uma visão geral da aplicação, destacando seu propósito, público-alvo e os benefícios proporcionados aos gestores de restaurantes. Em seguida, são detalhadas as funcionalidades principais do sistema, incluindo as opções de entrada de dados (manual e importação de arquivos), os mecanismos de exportação de resultados em formato PDF, e os recursos de visualização gráfica do layout do restaurante.</p>
+<p>O capítulo também aborda a interface gráfica do simulador, enfatizando aspectos de usabilidade e acessibilidade, fundamentais para garantir uma experiência intuitiva ao usuário. Por fim, é apresentada a arquitetura do sistema, com a descrição da estrutura de pastas e módulos que compõem o projeto, facilitando a compreensão do funcionamento interno e a manutenção futura da aplicação.</p>
+<p>Esta especificação serve como referência para o desenvolvimento, validação e evolução do simulador, assegurando que todos os requisitos levantados sejam contemplados de maneira eficiente e alinhada às necessidades do setor de restaurantes.</p>
+<hr/>
+<h2 id="31-descricao-geral-da-aplicacao">3.1 Descrição geral da aplicação<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>A aplicação desenvolvida consiste em um simulador computacional voltado para a análise e otimização do tempo de permanência de clientes em restaurantes. Seu principal objetivo é fornecer aos gestores uma ferramenta prática e intuitiva para avaliar o desempenho operacional do estabelecimento sob diferentes configurações de layout, número de mesas, cadeiras, buffets e caixas de pagamento.</p>
+<p>O sistema permite a simulação do fluxo de clientes desde a entrada no restaurante até a saída, considerando etapas como fila de espera, serviço no buffet, pesagem, pagamento no caixa e ocupação das mesas. Por meio da modelagem detalhada desses processos, o simulador possibilita a identificação de gargalos, o cálculo de tempos médios de espera, a taxa de ocupação das mesas e a estimativa de clientes não atendidos devido à lotação máxima.</p>
+<p>A aplicação foi projetada para ser flexível e acessível, permitindo a entrada de dados tanto de forma manual quanto por meio da importação de arquivos (planilhas Excel ou arquivos YAML). Os resultados das simulações são apresentados de maneira clara, incluindo relatórios em PDF, gráficos e visualizações do layout do restaurante, além de um GIF animado que ilustra a dinâmica de ocupação das mesas ao longo do tempo.</p>
+<p>Com uma interface gráfica amigável, o simulador busca democratizar o acesso a técnicas avançadas de análise operacional, tornando-as viáveis para restaurantes de diferentes portes. Dessa forma, a aplicação contribui para a tomada de decisões estratégicas baseadas em dados, promovendo maior eficiência, redução de tempos de espera e melhoria da experiência do cliente.</p>
+<hr/>
+<h2 id="32-funcionalidades-principais">3.2 Funcionalidades principais<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O simulador de tempo de permanência em restaurantes foi desenvolvido para oferecer um conjunto abrangente de funcionalidades que atendem tanto às necessidades operacionais quanto à facilidade de uso por parte dos gestores. As principais funcionalidades do sistema incluem:</p>
+<ul>
+<li>
+<p><strong>Entrada de dados manuais:</strong><br/>
+  O usuário pode inserir manualmente os parâmetros da simulação, como número de mesas, cadeiras por mesa, tempo médio de refeição, quantidade de buffets, número de caixas, capacidade máxima da fila, entre outros. Essa flexibilidade permite a rápida configuração de diferentes cenários operacionais.</p>
+</li>
+<li>
+<p><strong>Importação de planilhas e arquivos ASCII:</strong><br/>
+  O sistema possibilita a importação de dados a partir de planilhas Excel (.xlsx) e arquivos de configuração no formato YAML, além do layout físico do restaurante em arquivos ASCII (.txt). Essa funcionalidade facilita a integração com dados já existentes e agiliza o processo de configuração da simulação.</p>
+</li>
+<li>
+<p><strong>Exportação de resultados em PDF:</strong><br/>
+  Após a execução da simulação, o sistema gera automaticamente relatórios executivos em formato PDF. Esses relatórios apresentam indicadores de desempenho, gráficos, tabelas e visualizações do layout, permitindo uma análise detalhada dos resultados e facilitando a comunicação com outros membros da equipe.</p>
+</li>
+<li>
+<p><strong>Interface gráfica e usabilidade:</strong><br/>
+  O simulador conta com uma interface gráfica intuitiva, projetada para facilitar a navegação e a configuração dos parâmetros. Elementos visuais, como botões, menus e campos de entrada, tornam o uso acessível mesmo para usuários sem experiência prévia em simulação computacional.</p>
+</li>
+<li>
+<p><strong>Visualização do layout e animação:</strong><br/>
+  O sistema gera imagens do layout do restaurante destacando a ocupação das mesas ao longo do tempo, além de criar um GIF animado que ilustra a dinâmica do ambiente durante o período simulado. Essa visualização auxilia na identificação de gargalos e na compreensão do fluxo de clientes.</p>
+</li>
+<li>
+<p><strong>Arquitetura modular e estrutura de pastas organizadas:</strong><br/>
+  O projeto foi estruturado de forma modular, com separação clara entre os componentes de entrada de dados, processamento da simulação, geração de relatórios e visualização. A organização das pastas facilita a manutenção, a evolução do sistema e a integração de novas funcionalidades no futuro.</p>
+</li>
+</ul>
+<p>Essas funcionalidades tornam o simulador uma ferramenta completa para análise, planejamento e otimização de operações em restaurantes, promovendo decisões mais assertivas e baseadas em dados reais ou simulados.</p>
+<hr/>
+<h2 id="33-consideracoes-finais">3.3 Considerações finais<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Apresentamos a especificação detalhada do sistema de simulação desenvolvido para análise do tempo de permanência de clientes em restaurantes. Foram descritas as principais funcionalidades da aplicação, destacando a flexibilidade na entrada de dados, a integração com diferentes formatos de arquivos, a geração automática de relatórios e visualizações, além do cuidado com a usabilidade e a organização modular do projeto.</p>
+<p>A abordagem adotada visa proporcionar aos gestores uma ferramenta robusta, intuitiva e adaptável a diferentes realidades operacionais, permitindo a avaliação de cenários variados e a identificação de oportunidades de melhoria no atendimento e na utilização dos recursos do restaurante. A estrutura modular e a clareza na organização dos componentes facilitam a manutenção e a evolução futura do sistema, assegurando sua relevância e aplicabilidade prática.</p>
+<p>Com a especificação apresentada neste capítulo, estabelece-se uma base sólida para o desenvolvimento, validação e aplicação do simulador, que será detalhadamente explorado nos capítulos seguintes, incluindo a implementação, os testes realizados e a análise dos resultados obtidos.</p>
+<hr/>
+<h2 id="capitulo-4-fundamentos-matematicos-e-conceituais-da-simulacao">Capítulo 4 – Fundamentos matemáticos e conceituais da simulação<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Este capítulo apresenta os fundamentos teóricos e matemáticos que embasam o desenvolvimento do simulador de tempo de permanência em restaurantes. O objetivo é contextualizar e justificar as escolhas metodológicas adotadas, demonstrando como conceitos clássicos da Engenharia de Processos, Estatística e Pesquisa Operacional foram aplicados para modelar o fluxo de clientes e o funcionamento do ambiente simulado.</p>
+<p>Inicialmente, são abordados os princípios da Teoria das Filas, essenciais para compreender o comportamento dos clientes em ambientes de serviço sujeitos a restrições de capacidade e variabilidade na demanda. Em seguida, discute-se a importância da análise do layout físico do restaurante e o impacto do deslocamento interno dos clientes sobre o tempo total de permanência.</p>
+<p>O capítulo também detalha a lógica da Simulação Discreta de Eventos (DES), explicando como eventos como chegada, atendimento, espera e saída são representados e processados ao longo do tempo. Aspectos estatísticos relacionados à variabilidade dos tempos de atendimento e consumo são explorados, evidenciando a necessidade de incorporar incertezas e flutuações reais ao modelo.</p>
+<p>Por fim, é apresentada a equação geral do tempo de residência dos clientes no sistema, integrando os diferentes componentes do processo, e justifica-se a adoção de uma abordagem prática e realista para a simulação, alinhada às necessidades do setor de restaurantes e à busca por resultados aplicáveis à tomada de decisão gerencial.</p>
+<p>Esta fundamentação teórica serve de base para a implementação do simulador e para a análise crítica dos resultados apresentados nos capítulos seguintes.</p>
+<hr/>
+<h2 id="41-teoria-das-filas-aplicadas-ao-fluxo-de-clientes">4.1 Teoria das Filas aplicadas ao fluxo de clientes<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>A Teoria das Filas é um ramo da Pesquisa Operacional que estuda o comportamento de sistemas nos quais entidades (como clientes, produtos ou informações) aguardam na fila para serem atendidas por um ou mais servidores. Em ambientes de serviços, como restaurantes, a formação de filas é um fenômeno comum, especialmente em horários de pico, quando a demanda supera momentaneamente a capacidade de atendimento.</p>
+<p>No contexto deste simulador, a Teoria das Filas fornece a base matemática para modelar e analisar o fluxo de clientes desde a chegada ao restaurante até a saída, passando por etapas como espera por mesas, atendimento no buffet, pesagem e pagamento no caixa. Cada uma dessas etapas pode ser representada como um sistema de filas, com características próprias de chegada, atendimento e capacidade.</p>
+<p>Os principais parâmetros analisados em sistemas de filas incluem:</p>
+<ul>
+<li><strong>Taxa de chegada (λ):</strong> número médio de clientes que chegam ao sistema por unidade de tempo.</li>
+<li><strong>Taxa de atendimento (μ):</strong> número médio de clientes que podem ser atendidos por unidade de tempo.</li>
+<li><strong>Número de servidores:</strong> quantidade de recursos disponíveis para atendimento (mesas, buffets, caixas).</li>
+<li><strong>Capacidade do sistema:</strong> número máximo de clientes que podem estar simultaneamente no sistema ou na fila.</li>
+<li><strong>Disciplina de atendimento:</strong> ordem em que os clientes são atendidos (por exemplo, FIFO – First In, First Out).</li>
+</ul>
+<p>A aplicação da Teoria das Filas permite calcular métricas importantes, como o tempo médio de espera, o tamanho médio da fila, a taxa de ocupação dos recursos e a probabilidade de rejeição de clientes por falta de capacidade. Essas informações são fundamentais para o dimensionamento adequado do restaurante, identificação de gargalos e tomada de decisões estratégicas visando a melhoria do atendimento e a maximização da satisfação dos clientes.</p>
+<p>No simulador desenvolvido, os conceitos de filas são incorporados tanto na lógica de simulação determinística quanto na simulação por eventos discretos, permitindo avaliar o impacto de diferentes configurações operacionais sobre o desempenho do restaurante.</p>
+<hr/>
+<h2 id="411-esquema-do-fluxo-de-filas-em-um-restaurante">4.1.1 Esquema do fluxo de filas em um restaurante<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Para ilustrar a aplicação da Teoria das Filas no contexto de restaurantes, apresenta-se abaixo um diagrama esquemático do fluxo típico de um cliente, destacando os principais pontos de formação de filas e atendimento:</p>
+<pre><code class="language-plaintext">+-------------------+
+| Entrada do Cliente|
++-------------------+
+          |
+          v
++-------------------+
+|   Fila de Espera  | &lt;--- (Capacidade limitada)
++-------------------+
+          |
+          v
++-------------------+
+|      Buffet       | &lt;--- (Atendimento/Serviço)
++-------------------+
+          |
+          v
++-------------------+
+|     Balança       | &lt;--- (Fila para pesagem)
++-------------------+
+          |
+          v
++-------------------+
+|      Caixa        | &lt;--- (Fila para pagamento)
++-------------------+
+          |
+          v
++-------------------+
+|   Ocupa Mesa      | &lt;--- (Fila se todas as mesas ocupadas)
++-------------------+
+          |
+          v
++-------------------+
+|      Saída        |
++-------------------+
+</code></pre>
+<p><strong>Legenda</strong>:</p>
+<ul>
+<li>Cada bloco representa uma etapa do atendimento, onde podem ocorrer filas.</li>
+<li>As setas indicam o fluxo sequencial do cliente pelo sistema.</li>
+<li>Os pontos de fila (espera, buffet, balança, caixa, mesas) são modelados no simulador para calcular tempos de espera, ocupação e possíveis rejeições.</li>
+</ul>
+<p>Este esquema auxilia na visualização dos gargalos potenciais e reforça a importância da Teoria das Filas para o dimensionamento e otimização dos recursos do restaurante.</p>
+<hr/>
+<h2 id="42-analise-do-layout-e-calculo-do-deslocamento-interno">4.2 Análise do layout e cálculo do deslocamento interno<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>A disposição física dos elementos em um restaurante — como mesas, buffets, caixas e áreas de circulação — exerce influência direta sobre o tempo de permanência dos clientes e a eficiência operacional do estabelecimento. A análise do layout é fundamental para identificar possíveis gargalos, otimizar o fluxo de pessoas e minimizar deslocamentos desnecessários, contribuindo para uma melhor experiência do cliente e maior rotatividade das mesas.</p>
+<p>No simulador desenvolvido, o layout do restaurante é representado por meio de uma matriz ASCII, na qual cada célula indica um elemento do ambiente (mesa, buffet, caixa, parede ou espaço livre). Essa representação permite a modelagem flexível de diferentes configurações físicas, facilitando a avaliação de cenários alternativos e o teste de melhorias no arranjo do espaço.</p>
+<p>O cálculo do deslocamento interno dos clientes é realizado considerando as distâncias percorridas entre os principais pontos do restaurante, como a entrada, o buffet, a balança, o caixa e as mesas. Para cada etapa do atendimento, o simulador estima o tempo gasto no deslocamento com base na posição dos elementos no layout e em parâmetros como velocidade média de caminhada e eventuais obstáculos.</p>
+<p>Essa abordagem possibilita analisar o impacto de diferentes layouts sobre o tempo total de permanência dos clientes, identificando, por exemplo, se a localização do buffet ou do caixa está provocando acúmulo de pessoas em determinados pontos ou aumentando o tempo de espera. Com isso, gestores podem tomar decisões embasadas para reorganizar o espaço físico, reduzir deslocamentos e melhorar o fluxo operacional do restaurante.</p>
+<p>A integração da análise do layout ao modelo de simulação torna o sistema mais realista e alinhado à dinâmica dos ambientes de alimentação, permitindo que o simulador seja utilizado como uma ferramenta prática de apoio ao planejamento e à otimização do espaço interno</p>
+<hr/>
+<h3 id="421-exemplo-pratico-de-representacao-do-layout">4.2.1 Exemplo prático de representação do layout<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>Para facilitar a modelagem e a análise do ambiente físico do restaurante, o simulador utiliza uma matriz ASCII como representação do layout. Cada caractere ou símbolo na matriz corresponde a um elemento do restaurante, permitindo a visualização e manipulação flexível da disposição dos recursos.</p>
+<p>Abaixo, apresenta-se um exemplo real de layout utilizado no simulador:</p>
+<pre><code class="language-plaintext">###########
+# B   M M #
+#     M M #
+# C       #
+###########
+</code></pre>
+<p><strong>Legenda dos símbolos:</strong>
+'#' : Parede
+'M' : Mesa
+'B' : Buffet
+'C' : Caixa
+Espaço em branco: área livre/circulação</p>
+<p>Neste exemplo, o restaurante possui:</p>
+<p>Um buffet próximo à parede superior esquerda, Quatro mesas distribuídas no salão, Um caixa localizado na parede inferior esquerda, Áreas de circulação amplas, Paredes delimitando o ambiente.
+Essa abordagem permite ao usuário editar facilmente o layout, testar diferentes configurações e visualizar o impacto das mudanças no fluxo de clientes e nos tempos de deslocamento. O simulador interpreta essa matriz para calcular distâncias, identificar obstáculos e estimar o tempo de percurso entre os pontos-chave do atendimento.</p>
+<p>A flexibilidade da representação ASCII torna o sistema adaptável a diferentes formatos e tamanhos de restaurantes, promovendo análises mais realistas e personalizadas conforme a necessidade de cada gestor.</p>
+<p>Além da possibilidade de criar layouts personalizados, o simulador disponibiliza alguns layouts padrão que representam configurações típicas de restaurantes de autosserviço. Esses layouts foram elaborados para facilitar o início das simulações e servir como referência para comparação de resultados. Entre os modelos padrão, destacam-se arranjos com diferentes quantidades de mesas, posicionamento variado de buffets e caixas, e áreas de circulação otimizadas para minimizar deslocamentos. O uso desses layouts permite ao usuário avaliar rapidamente o impacto de alterações no ambiente físico e identificar boas práticas de organização espacial, servindo como ponto de partida para adaptações conforme a realidade de cada estabelecimento.</p>
+<hr/>
+<h2 id="43-simulacao-discreta-de-eventos-discrete-event-simulation-des-logica-e-implementacao">4.3 Simulação Discreta de Eventos (Discrete Event Simulation – DES): lógica e implementação<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<blockquote>
+<p><strong>Nota:</strong> Neste trabalho, a sigla DES (do inglês Discrete Event Simulation) será utilizada para se referir à Simulação Discreta de Eventos.</p>
+</blockquote>
+<p>A Simulação Discreta de Eventos (Discrete Event Simulation – DES) é uma abordagem poderosa para modelar sistemas dinâmicos nos quais o estado muda em pontos específicos do tempo, denominados eventos. No contexto de restaurantes, essa técnica permite representar com realismo o fluxo de clientes, a ocupação das mesas, a formação de filas e a utilização dos recursos disponíveis.</p>
+<p><strong>Lógica da Simulação</strong></p>
+<p>Na DES, o sistema é descrito por uma lista de eventos futuros, cada um associado a um instante de tempo e a uma ação (por exemplo, chegada de cliente, início de atendimento, liberação de mesa). O simulador processa os eventos em ordem cronológica, atualizando o estado do sistema a cada ocorrência. Entre os principais eventos modelados no simulador de restaurantes, destacam-se:</p>
+<ul>
+<li><strong>Chegada de cliente</strong>: inclusão do cliente na fila ou alocação direta a uma mesa, caso haja disponibilidade.</li>
+<li><strong>Início do atendimento no buffet</strong>: o cliente se dirige ao buffet para servir-se.</li>
+<li><strong>Ocupação da mesa</strong>: o cliente ocupa uma mesa e permanece por um tempo determinado.</li>
+<li><strong>Liberação da mesa</strong>: ao término da refeição, a mesa é liberada para outro cliente.</li>
+<li><strong>Pagamento no caixa</strong>: o cliente realiza o pagamento antes de sair do restaurante.</li>
+<li><strong>Saída do cliente</strong>: o cliente deixa o sistema, liberando recursos.</li>
+</ul>
+<p>A cada evento, o simulador verifica as condições do sistema (por exemplo, disponibilidade de mesas ou tamanho da fila) e agenda novos eventos futuros conforme as regras definidas. Esse ciclo se repete até o término do período de simulação.</p>
+<p><strong>Implementação no simulador</strong></p>
+<p>No sistema desenvolvido, a lógica da DES foi implementada utilizando estruturas de dados como filas de prioridade (heap) para gerenciar a agenda de eventos. Cada evento é representado por um objeto contendo o tipo de evento, o instante de ocorrência e informações relevantes (como o identificador do cliente).</p>
+<p>O simulador percorre a agenda de eventos, processando-os em ordem crescente de tempo. A cada processamento, o estado do restaurante é atualizado: mesas são ocupadas ou liberadas, filas são incrementadas ou reduzidas, e estatísticas de desempenho (como tempo médio de espera e taxa de ocupação) são registradas.</p>
+<p>Além disso, a implementação permite a coleta de dados minuto a minuto, possibilitando a geração de gráficos, relatórios e animações que ilustram a dinâmica do restaurante ao longo do tempo. Essa abordagem torna o simulador uma ferramenta robusta para análise operacional, permitindo a avaliação de diferentes cenários e a identificação de gargalos e oportunidades de melhoria.</p>
+<p>A DES, portanto, oferece uma representação fiel da operação real de um restaurante, incorporando a variabilidade dos processos e a interação entre clientes e recursos, o que seria inviável em modelos puramente determinísticos.</p>
+<h2 id="431-exemplo-de-eventos-e-transicoes">4.3.1 Exemplo de eventos e transições<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Para ilustrar o funcionamento da Simulação Discreta de Eventos (Discrete Event Simulation – DES), apresenta-se abaixo um exemplo simplificado do ciclo de eventos e transições típicos no simulador de restaurantes. Cada evento representa uma mudança de estado no sistema, desencadeando novas ações e agendando futuros eventos.</p>
+<pre><code class="language-plaintext">[Chegada do Cliente]
+          |
+          v
+[Verifica disponibilidade de mesa]
+      |                |
+     Sim              Não
+      |                |
+      v                v
+[Ocupação da mesa]   [Entra na fila de espera]
+      |                |
+      v                v
+[Serve-se no Buffet]  [Aguarda mesa]
+      |                |
+      v                |
+[Pagamento no Caixa]   |
+      |                |
+      v                |
+[Saída do Cliente] &lt;---+
+
+</code></pre>
+<p><strong>Descrição dos principais eventos e transições:</strong></p>
+<ul>
+<li><strong>Chegada do Cliente:</strong> O cliente chega ao restaurante e o sistema verifica se há mesa disponível.</li>
+<li><strong>Ocupação da mesa:</strong> Se houver mesa livre, o cliente ocupa a mesa e inicia o atendimento.</li>
+<li><strong>Entra na fila de espera:</strong> Caso todas as mesas estejam ocupadas, o cliente entra na fila de espera.</li>
+<li><strong>Serve-se no Buffet:</strong> Após ocupar a mesa, o cliente se dirige ao buffet para servir-se.</li>
+<li><strong>Pagamento no Caixa:</strong> Após a refeição, o cliente realiza o pagamento no caixa.</li>
+<li><strong>Saída do Cliente:</strong> O cliente deixa o restaurante, liberando a mesa para o próximo da fila.</li>
+</ul>
+<p>Este ciclo se repete para cada cliente, com o simulador processando os eventos em ordem cronológica e atualizando o estado do sistema a cada transição. A flexibilidade da DES permite incorporar diferentes regras de atendimento, tempos de serviço variáveis e múltiplos recursos, tornando a simulação realista e adaptável a diversos cenários operacionais.</p>
+<hr/>
+<h2 id="44-estatistica-aplicada-aos-tempos-de-atendimento-e-consumo">4.4 Estatística aplicada aos tempos de atendimento e consumo<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>A estatística desempenha um papel fundamental na modelagem realista dos processos de atendimento e consumo em restaurantes. Em ambientes reais, os tempos de chegada dos clientes, de atendimento no buffet, de permanência nas mesas e de pagamento no caixa não são constantes, mas apresentam variabilidade devido a fatores humanos, operacionais e ambientais.</p>
+<p>No simulador desenvolvido, essa variabilidade é incorporada por meio da utilização de distribuições estatísticas para representar os tempos de atendimento e consumo. Por exemplo, o tempo de permanência de um cliente na mesa pode ser modelado por uma distribuição normal ou exponencial, considerando uma média e um desvio padrão definidos pelo usuário ou obtidos a partir de dados históricos do restaurante. Da mesma forma, os tempos de atendimento no buffet e no caixa podem ser sorteados a cada evento, refletindo a aleatoriedade observada no mundo real.</p>
+<p>A aplicação de conceitos estatísticos permite ao simulador gerar cenários mais próximos da realidade, possibilitando a análise de indicadores como:</p>
+<ul>
+<li><strong>Tempo médio de atendimento:</strong> média dos tempos gastos pelos clientes em cada etapa do processo.</li>
+<li><strong>Desvio padrão dos tempos:</strong> medida da dispersão dos tempos de atendimento e consumo.</li>
+<li><strong>Distribuição dos tempos de espera:</strong> análise da frequência com que os clientes enfrentam diferentes tempos de espera nas filas.</li>
+<li><strong>Probabilidade de ocorrência de filas longas ou tempos de espera elevados.</strong></li>
+</ul>
+<p>Essas análises estatísticas são essenciais para identificar gargalos, dimensionar recursos de forma adequada e propor melhorias operacionais. Além disso, permitem ao gestor avaliar o impacto de mudanças nos processos ou no layout do restaurante, testando diferentes cenários e quantificando os benefícios de cada intervenção.</p>
+<p>Ao incorporar a estatística à simulação, o sistema torna-se uma ferramenta robusta para tomada de decisão baseada em dados, promovendo maior eficiência, redução de tempos de espera e melhoria da experiência do cliente.</p>
+<h2 id="441-distribuicoes-estatisticas-aplicadas-aos-tempos-de-atendimento-e-consumo">4.4.1 Distribuições estatísticas aplicadas aos tempos de atendimento e consumo<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Na matemática estatística, a variabilidade dos tempos de atendimento e consumo é representada por distribuições de probabilidade. No simulador, as principais distribuições utilizadas são:</p>
+<p><strong>Distribuição Normal (Gaussiana):</strong></p>
+<p>Usada quando os tempos variam em torno de uma média, com dispersão simétrica.
+Exemplo: tempo médio de refeição com pequenas variações para mais ou para menos.</p>
+<pre><code class="language-plaintext">X ~ N(mu, sigma²)
+</code></pre>
+<p>Onde:
+- mu = média dos tempos
+- sigma² = variância dos tempos</p>
+<p><strong>Distribuição Exponencial:</strong></p>
+<p>Usada para modelar tempos entre eventos aleatórios, como o tempo até o próximo cliente chegar ou o tempo de atendimento quando a chance de terminar é constante a cada instante.</p>
+<pre><code class="language-plaintext">f(t) = lambda * exp(-lambda * t)
+</code></pre>
+<p>Onde: 
+- lambda = taxa média de atendimento</p>
+<p><strong>Distribuição Uniforme:</strong></p>
+<p>Quando qualquer valor dentro de um intervalo é igualmente provável.</p>
+<pre><code class="language-plaintext">X ~ U(a, b)
+</code></pre>
+<p>Onde:
+- a = limite inferior do intervalo
+- b = limite superior do intervalo</p>
+<p><strong>Distribuição Empírica:</strong></p>
+<p>Quando se utiliza dados históricos reais para construir a distribuição dos tempos.</p>
+<p><strong>Exemplo prático I: Aplicação da Distribuição Normal ao Tempo de Refeição</strong></p>
+<p>Imagine que, a partir de observações reais em um restaurante, constatou-se que o tempo médio de permanência dos clientes na mesa durante a refeição é de 30 minutos, com um desvio padrão de 5 minutos. Para representar essa variabilidade no simulador, utiliza-se a distribuição normal:</p>
+<pre><code class="language-plaintext">T_refeicao ~ N(30, 5²)
+</code></pre>
+<p>Na prática, isso significa que, a cada simulação, o tempo de refeição de cada cliente será sorteado aleatoriamente a partir dessa distribuição. Por exemplo, enquanto alguns clientes podem terminar a refeição em 25 minutos, outros podem levar 35 minutos ou mais, refletindo diferenças individuais de comportamento, conversas ou ritmo de alimentação.</p>
+<p>Ao aplicar essa abordagem estatística, o simulador consegue reproduzir de forma mais realista o fluxo de ocupação das mesas. Isso permite, por exemplo, analisar como a variabilidade no tempo de refeição impacta a formação de filas de espera por mesas em horários de pico, ajudando o gestor a identificar gargalos e a dimensionar melhor os recursos do restaurante.</p>
+<p>Assim, a estatística não apenas representa a incerteza dos tempos de atendimento e consumo, mas também fornece subsídios para decisões mais precisas e fundamentadas na gestão operacional do restaurante.</p>
+<p><strong>Exemplo prático II: Tempo médio de espera na fila do caixa</strong></p>
+<p>Suponha que, em determinado restaurante, a taxa média de chegada de clientes ao caixa seja de 12 clientes por hora (λ = 12) e a taxa média de atendimento do caixa seja de 15 clientes por hora (μ = 15). Considerando que há apenas um caixa (modelo de fila M/M/1), o tempo médio de espera na fila pode ser calculado pela fórmula:</p>
+<p>Tempo médio de espera na fila (Wq):</p>
+<pre><code class="language-plaintext">Wq = λ / [μ * (μ - λ)]
+</code></pre>
+<p>Substituindo os valores:</p>
+<p>Wq = 12 / [15 * (15 - 12)]
+Wq = 12 / [15 * 3]
+Wq = 12 / 45
+Wq ≈ 0,267 horas ≈ 16 minutos</p>
+<p>Ou seja, em média, cada cliente espera cerca de 16 minutos na fila do caixa. Esse cálculo permite ao gestor avaliar se a quantidade de caixas é suficiente e, se necessário, simular o impacto da adição de mais um caixa para reduzir o tempo de espera.</p>
+<hr/>
+<h2 id="45-equacao-geral-do-tempo-de-residencia-dos-clientes-no-sistema-restaurante">4.5 Equação geral do tempo de residência dos clientes no sistema (restaurante)<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O tempo de residência, também chamado de tempo total de permanência do cliente no restaurante, é um dos principais indicadores de desempenho operacional analisados pelo simulador. Ele representa o intervalo entre a chegada do cliente ao estabelecimento e sua saída, englobando todas as etapas do atendimento, deslocamentos internos e eventuais períodos de espera em filas.</p>
+<p>Matematicamente, o tempo de residência (T_res) pode ser expresso como a soma dos tempos gastos em cada etapa do processo:</p>
+<pre><code class="language-plaintext">T_res = T_entrada_fila + T_fila_mesa + T_deslocamento_buffet + T_fila_buffet + T_atendimento_buffet
+      + T_deslocamento_balcao + T_fila_balcao + T_atendimento_balcao
+      + T_deslocamento_caixa + T_fila_caixa + T_atendimento_caixa
+      + T_deslocamento_mesa + T_refeicao + T_deslocamento_saida
+</code></pre>
+<p>Onde:</p>
+<ul>
+<li><strong>T_entrada_fila:</strong> tempo de espera na fila de entrada (se houver)</li>
+<li><strong>T_fila_mesa:</strong> tempo de espera por mesa disponível</li>
+<li><strong>T_deslocamento_buffet:</strong> tempo de deslocamento até o buffet</li>
+<li><strong>T_fila_buffet:</strong> tempo de espera na fila do buffet</li>
+<li><strong>T_atendimento_buffet:</strong> tempo de atendimento/serviço no buffet</li>
+<li><strong>T_deslocamento_balcao:</strong> tempo de deslocamento até a balança (se houver)</li>
+<li><strong>T_fila_balcao:</strong> tempo de espera na fila da balança</li>
+<li><strong>T_atendimento_balcao:</strong> tempo de pesagem/atendimento na balança</li>
+<li><strong>T_deslocamento_caixa:</strong> tempo de deslocamento até o caixa</li>
+<li><strong>T_fila_caixa:</strong> tempo de espera na fila do caixa</li>
+<li><strong>T_atendimento_caixa:</strong> tempo de atendimento/pagamento no caixa</li>
+<li><strong>T_deslocamento_mesa:</strong> tempo de deslocamento até a mesa</li>
+<li><strong>T_refeicao:</strong> tempo de permanência na mesa (consumo da refeição)</li>
+<li><strong>T_deslocamento_saida:</strong> tempo de deslocamento até a saída</li>
+</ul>
+<p>Nem todos os componentes precisam estar presentes em todos os restaurantes, mas a equação geral permite adaptar o modelo a diferentes realidades e fluxos operacionais.</p>
+<p>No simulador, cada termo dessa equação pode ser modelado por uma distribuição estatística apropriada, conforme discutido no item anterior, refletindo a variabilidade real dos processos. O cálculo do tempo de residência permite avaliar o impacto de mudanças no layout, no número de recursos ou nas regras de atendimento, subsidiando decisões para otimizar o fluxo de clientes e melhorar a experiência no restaurante.</p>
+<hr/>
+<h2 id="451-fluxo-implementado-no-codigo-simuladorpy">4.5.1 Fluxo implementado no código simulador.py<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>No arquivo simulador.py, o cálculo do tempo de residência de cada cliente é realizado de acordo com o fluxo operacional modelado no simulador. O código implementa uma sequência de eventos que reflete as etapas reais do atendimento em um restaurante de autosserviço, considerando filas, deslocamentos e tempos de serviço em cada recurso.</p>
+<p>O fluxo básico implementado pode ser representado da seguinte forma:</p>
+<pre><code class="language-plaintext">[Chegada do Cliente]
+        |
+        v
+[Fila do Buffet]
+        |
+        v
+[Serve-se no Buffet]
+        |
+        v
+[Balança (Pesa)]
+        |
+        v
+[Caixa (Paga)]
+        |
+        v
+[Procura mesa disponível]
+    |                |
+   Sim              Não
+    |                |
+    v                v
+[Ocupação da mesa] [Aguarda mesa]
+    |                |
+    v                |
+[Consome refeição]   |
+    |                |
+    v                |
+[Saída do Cliente] &lt;-+
+</code></pre>
+<p>No código, cada etapa é tratada por meio de eventos agendados em uma fila de prioridade (agenda de eventos). Para cada cliente, o tempo de residência é acumulado somando:</p>
+<ul>
+<li>Tempo de deslocamento até o buffet</li>
+<li>Tempo de espera na fila do buffet</li>
+<li>Tempo de atendimento/serviço no buffet</li>
+<li>Tempo de deslocamento até a balança (se houver)</li>
+<li>Tempo de espera na fila da balança (se houver)</li>
+<li>Tempo de atendimento/pesagem na balança (se houver)</li>
+<li>Tempo de deslocamento até o caixa</li>
+<li>Tempo de espera na fila do caixa</li>
+<li>Tempo de atendimento/pagamento no caixa</li>
+<li>Tempo de procura/espera por mesa (se houver fila)</li>
+<li>Tempo de permanência na mesa (refeição)</li>
+<li>Tempo de deslocamento até a saída</li>
+</ul>
+<p>Em termos de variáveis e funções do código, o tempo total de residência é calculado como:</p>
+<pre><code class="language-plaintext">tempo_residencia = tempo_fila_buffet
+                + tempo_atendimento_buffet
+                + tempo_fila_balcao
+                + tempo_atendimento_balcao
+                + tempo_fila_caixa
+                + tempo_atendimento_caixa
+                + tempo_espera_mesa
+                + tempo_refeicao
+                + tempo_deslocamento_saida
+</code></pre>
+<p>Cada um desses tempos pode ser sorteado a partir de uma distribuição estatística (normal, exponencial, uniforme ou empírica), conforme parametrizado pelo usuário ou definido no início da simulação.</p>
+<p>O simulador permite ainda ativar ou desativar etapas específicas (por exemplo, balança ou fila de entrada), adaptando o fluxo conforme o layout e as regras do restaurante modelado. Dessa forma, o código reflete fielmente o fluxo operacional descrito na equação geral, garantindo flexibilidade e realismo na análise do tempo de permanência dos clientes.</p>
+<hr/>
+<h2 id="46-justificativa-da-abordagem-pratica-e-realista-adotada">4.6 Justificativa da abordagem prática e realista adotada<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>A escolha por uma abordagem prática e realista na modelagem e simulação do tempo de permanência em restaurantes se fundamenta na necessidade de representar fielmente a dinâmica operacional desses ambientes. Diferentemente de modelos puramente teóricos ou excessivamente simplificados, o simulador desenvolvido busca incorporar as principais variáveis e incertezas presentes no dia a dia dos restaurantes, como a formação de filas, a variabilidade dos tempos de atendimento, a disposição física dos recursos e o comportamento dos clientes.</p>
+<p>Ao utilizar a Simulação Discreta de Eventos (<em>Discrete Event Simulation</em> – <em>DES</em>), o sistema permite que cada cliente percorra um fluxo individualizado, sujeito a eventos aleatórios e interações com outros clientes e recursos. Essa abordagem possibilita a análise detalhada de gargalos, o dimensionamento adequado de mesas, buffets e caixas, e a avaliação do impacto de mudanças no layout ou nas regras de atendimento.</p>
+<p>Além disso, a integração de distribuições estatísticas para os tempos de atendimento e consumo garante que a simulação reflita a variabilidade real observada em restaurantes, tornando os resultados mais confiáveis e úteis para a tomada de decisão. A possibilidade de personalizar parâmetros, importar layouts reais e visualizar o funcionamento do restaurante por meio de gráficos e animações contribui para a aplicabilidade prática do simulador em diferentes contextos.</p>
+<p>Portanto, a abordagem adotada neste trabalho alia rigor técnico à flexibilidade e à aderência à realidade operacional, tornando o simulador uma ferramenta efetiva para gestores que buscam otimizar processos, reduzir tempos de espera e melhorar a experiência dos clientes em restaurantes.</p>
+<hr/>
+<h3 id="47-conclusao">4.7 Conclusão<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>Este capítulo apresentou os fundamentos matemáticos e conceituais que sustentam o desenvolvimento do simulador de tempo de permanência em restaurantes. Foram discutidos os principais conceitos da Teoria das Filas, a importância da análise do layout e do deslocamento interno, a lógica da Simulação Discreta de Eventos (DES), bem como a aplicação de estatística para representar a variabilidade dos tempos de atendimento e consumo.</p>
+<p>A equação geral do tempo de residência dos clientes foi detalhada, mostrando como cada etapa do atendimento pode ser modelada e analisada individualmente. Também foi evidenciado como o fluxo implementado no código reflete fielmente a dinâmica operacional dos restaurantes de autosserviço, permitindo a adaptação a diferentes cenários e regras de funcionamento.</p>
+<p>Por fim, justificou-se a adoção de uma abordagem prática e realista, que alia rigor técnico à flexibilidade e à aderência à realidade do setor, tornando o simulador uma ferramenta robusta para análise, planejamento e tomada de decisão. Os conceitos apresentados neste capítulo formam a base teórica para a realização dos estudos de caso e das simulações que serão explorados nos capítulos seguintes</p>
+<hr/>
+<h2 id="capitulo-5-estudo-de-caso-e-simulacoes">Capítulo 5 – Estudo de Caso e Simulações<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Este capítulo apresenta a aplicação prática do simulador desenvolvido, por meio de um estudo de caso representativo do funcionamento de um restaurante por quilo. Inicialmente, são detalhados os principais parâmetros utilizados na simulação, como o layout do ambiente, o número de mesas disponíveis, o tempo médio de refeição dos clientes e a taxa de chegada ao restaurante. Em seguida, são realizados testes com dados reais e/ou simulados, buscando reproduzir situações típicas do cotidiano operacional.</p>
+<p>A análise dos resultados obtidos permite identificar gargalos no atendimento, avaliar o impacto de diferentes configurações do ambiente e propor otimizações para o fluxo de clientes. Por fim, discute-se como a variação de parâmetros-chave — como o aumento do número de mesas, a redução do tempo médio de permanência ou a alteração do layout — pode influenciar o desempenho do restaurante, fornecendo subsídios para a tomada de decisão gerencial baseada em evidências quantitativas.</p>
+<p>O objetivo deste capítulo é demonstrar, de forma clara e objetiva, o potencial do simulador como ferramenta de apoio à gestão, evidenciando sua utilidade na identificação de oportunidades de melhoria e na avaliação de cenários alternativos para o negócio.</p>
+<hr/>
+<h3 id="51-parametros-utilizados-na-simulacao-layout-numero-de-mesas-tempo-medio">5.1 Parâmetros utilizados na simulação (layout, número de mesas, tempo médio)<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>Para garantir a representatividade e a precisão dos resultados obtidos, a simulação foi configurada com base em parâmetros que refletem as principais características operacionais de um restaurante por quilo típico. Os parâmetros adotados abrangem tanto aspectos físicos do ambiente quanto variáveis relacionadas ao comportamento dos clientes e à dinâmica do atendimento.</p>
+<p>Entre os principais parâmetros utilizados destacam-se:</p>
+<ul>
+<li><strong>Layout do restaurante:</strong> O arranjo físico do salão, incluindo a disposição das mesas, o posicionamento do buffet, balança, caixa e áreas de circulação, foi modelado a partir de um layout realista, permitindo avaliar o impacto do espaço na fluidez do atendimento e no tempo de permanência dos clientes.</li>
+<li><strong>Número de mesas e cadeiras:</strong> A quantidade total de mesas disponíveis e o número de cadeiras por mesa foram definidos conforme a capacidade máxima do estabelecimento, influenciando diretamente a taxa de ocupação e a formação de filas de espera.</li>
+<li><strong>Tempo médio de refeição:</strong> O tempo que cada cliente permanece na mesa foi modelado a partir de dados históricos e/ou observações reais, utilizando distribuições estatísticas para refletir a variabilidade natural do comportamento dos clientes.</li>
+<li><strong>Taxa de chegada de clientes:</strong> A frequência com que novos clientes chegam ao restaurante durante o período simulado, expressa em clientes por minuto, foi ajustada para representar diferentes cenários de demanda, como horários de pico e períodos de menor movimento.</li>
+<li><strong>Tempos médios de atendimento:</strong> Foram considerados os tempos médios de atendimento em cada etapa do processo (buffet, balança, caixa), também modelados com variabilidade estatística.</li>
+</ul>
+<p>Esses parâmetros foram definidos a partir de dados reais, quando disponíveis, ou de estimativas baseadas em referências do setor. A seguir, são apresentados os valores adotados para cada parâmetro na simulação principal, bem como o racional para sua escolha.</p>
+<hr/>
+<h4 id="511-layout-de-exemplo-utilizado-na-simulacao">5.1.1 Layout de exemplo utilizado na simulação<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h4>
+<p>Para ilustrar a aplicação do simulador, foi utilizado um layout representativo de restaurante por quilo, modelado em matriz ASCII. Essa abordagem permite visualizar de forma clara a disposição dos principais elementos do ambiente, como mesas, buffet, caixa e áreas de circulação.</p>
+<p>Abaixo está um exemplo de layout utilizado em uma das simulações:</p>
+<pre><code class="language-plaintext">###########
+# B   M M #
+#     M M #
+# C       #
+###########
+</code></pre>
+<p><strong>Legenda dos símbolos:</strong>
+- <code>#</code> : Parede
+- <code>M</code> : Mesa
+- <code>B</code> : Buffet
+- <code>C</code> : Caixa
+- Espaço em branco: área livre/circulação</p>
+<p>Neste exemplo, o restaurante possui:
+- Um buffet próximo à parede superior esquerda,
+- Quatro mesas distribuídas no salão,
+- Um caixa localizado na parede inferior esquerda,
+- Áreas de circulação amplas,
+- Paredes delimitando o ambiente.</p>
+<p>A utilização desse layout permite avaliar o impacto da disposição física dos recursos no fluxo de clientes, nos tempos de deslocamento e na formação de filas, fornecendo subsídios para a análise dos resultados e para a proposição de melhorias operacionais.</p>
+<h4 id="tabela-1-parametros-utilizados-na-simulacao-layout-511">Tabela 1 – Parâmetros utilizados na simulação (layout 5.1.1)<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h4>
+<pre><code class="language-plaintext">|------------------------------|--------------------|--------------------------------------------|
+| Parâmetro                    | Valor adotado      | Observação                                 |
+|------------------------------|--------------------|--------------------------------------------|
+| Número de mesas              | 4                  | Conforme layout ASCII                      |
+| Cadeiras por mesa            | 4                  | Capacidade total: 16 lugares               |
+| Número de buffets            | 1                  | Próximo à parede superior esquerda         |
+| Número de caixas             | 1                  | Próximo à parede inferior esquerda         |
+| Tempo médio de refeição      | 30 min             | Distribuição normal (desvio padrão: 5 min) |
+| Tempo médio no buffet        | 2 min              | Por cliente                                |
+| Tempo médio na balança       | 1 min              | Por cliente                                |
+| Tempo médio no caixa         | 2 min              | Por cliente                                |
+| Taxa de chegada de clientes  | 2 clientes/minuto  | Horário de pico                            |
+| Tempo total de simulação     | 120 min            | Período do almoço                          |
+|------------------------------|--------------------|--------------------------------------------|
+</code></pre>
+<p>Esses parâmetros foram escolhidos para representar um cenário típico de funcionamento de um restaurante por quilo durante o horário de almoço, permitindo analisar o desempenho do sistema e identificar possíveis gargalos no atendimento.</p>
+<blockquote>
+<p><strong>Nota:</strong> Os valores apresentados na Tabela 1 são exemplificativos e foram definidos para fins de ilustração da aplicação do simulador. Em situações reais, recomenda-se a coleta de dados diretamente no restaurante para parametrização mais precisa do modelo.</p>
+</blockquote>
+<hr/>
+<h4 id="512-extrapolacao-analise-da-variacao-do-fluxo-de-chegada-de-clientes">5.1.2 Extrapolação: análise da variação do fluxo de chegada de clientes<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h4>
+<p>Além da configuração de parâmetros fixos, o simulador desenvolvido permite explorar cenários mais realistas e avançados, nos quais a taxa de chegada de clientes varia ao longo do tempo. Essa extrapolação é fundamental para representar o comportamento típico de restaurantes, especialmente durante o horário de almoço, quando há picos de demanda seguidos por períodos de menor movimento.</p>
+<p>Ao incorporar diferentes padrões de chegada — como aumento gradual do fluxo próximo ao meio-dia, pico entre 12h e 13h, e queda após esse intervalo —, o simulador possibilita avaliar de forma detalhada:</p>
+<ul>
+<li>A formação e dissipação de filas em diferentes horários;</li>
+<li>O impacto dos picos de demanda sobre o tempo de espera, a taxa de ocupação das mesas e o atendimento no buffet e no caixa;</li>
+<li>A eficiência das estratégias operacionais adotadas para lidar com variações bruscas no fluxo de clientes;</li>
+<li>A necessidade de ajustes no layout, número de mesas ou escala de funcionários para acomodar as flutuações de demanda.</li>
+</ul>
+<p>Por meio dessa abordagem, gestores podem antecipar gargalos, testar políticas de incentivo para horários alternativos, planejar melhor a alocação de recursos e tomar decisões baseadas em dados sobre o funcionamento do restaurante ao longo do dia.</p>
+<p>A análise da variação do fluxo de chegada de clientes amplia o potencial do simulador, tornando-o uma ferramenta robusta para o planejamento operacional e estratégico, capaz de apoiar a gestão em diferentes cenários e contribuir para a melhoria contínua do atendimento e da experiência do cliente.</p>
+<hr/>
+<h5 id="exemplo-de-diagrama-variacao-do-fluxo-de-chegada-de-clientes-ao-longo-do-tempo">Exemplo de diagrama: Variação do fluxo de chegada de clientes ao longo do tempo<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h5>
+<pre><code class="language-plaintext">Clientes
+  ^ 
+  |         *
+  |        * *
+  |       *   *
+  |      *     *
+  |     *       *
+  |    *         *
+  |   *           *
+  |  *             *
+  | *               *
+  +--------------------------&gt; Horário
+   11h   12h   13h   14h
+
+Legenda:
+* O eixo vertical representa o número de clientes chegando por minuto.
+* O eixo horizontal representa o horário do almoço.
+* O pico ocorre entre 12h e 13h, ilustrando o aumento e a queda do fluxo de chegada.
+</code></pre>
+<p>Esse diagrama mostra como o simulador pode modelar cenários realistas, com picos de chegada no horário de maior movimento e menor fluxo antes e depois do almoço. Isso permite analisar o impacto dessas variações sobre filas, ocupação e desempenho do restaurante.</p>
+<hr/>
+<h3 id="52-teste-com-dados-reaissimulados">5.2 Teste com dados reais/simulados<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>Para validar o funcionamento e a aplicabilidade do simulador, foram realizados testes utilizando tanto dados reais coletados em um restaurante por quilo quanto dados simulados, representando diferentes cenários operacionais. Essa abordagem permite avaliar a aderência do modelo à realidade e explorar situações hipotéticas que auxiliam na tomada de decisão.</p>
+<p><strong>Dados reais:</strong><br/>
+Os dados reais foram obtidos por meio de observação direta do fluxo de clientes, registro dos horários de chegada, tempos médios de atendimento em cada etapa (buffet, balança, caixa) e tempo de permanência nas mesas. Esses dados serviram de base para parametrizar o simulador, garantindo maior realismo nas análises e permitindo a comparação dos resultados simulados com o desempenho observado no restaurante.</p>
+<p><strong>Dados simulados:</strong><br/>
+Além dos dados reais, foram criados cenários simulados para testar o comportamento do sistema sob diferentes condições, como aumento da demanda em horários de pico, redução do número de mesas ou alteração do layout. Os parâmetros foram ajustados para representar situações extremas ou alternativas, possibilitando a análise de gargalos, a identificação de limites operacionais e a avaliação de estratégias de otimização.</p>
+<p><strong>Execução dos testes:</strong><br/>
+Os testes consistiram na configuração dos parâmetros no simulador, execução das simulações e análise dos resultados gerados, incluindo indicadores como tempo médio de espera, taxa de ocupação das mesas, número de clientes atendidos e rejeitados, e formação de filas em diferentes etapas do atendimento.</p>
+<p>A utilização de dados reais e simulados demonstra a flexibilidade do simulador e sua capacidade de apoiar gestores na avaliação de cenários diversos, contribuindo para a melhoria contínua dos processos e para a tomada de decisões baseadas em evidências.</p>
+<hr/>
+<h4 id="ficha-01-exemplo-de-ficha-de-coleta-de-dados-para-simulacao">Ficha 01 - Exemplo de ficha de coleta de dados para simulação<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h4>
+<pre><code class="language-plaintext">|------------------------------------|-------------------|----------------------------------------------|------------------|
+| Parâmetro                          | Unidade           | Método de Coleta / Observação                | Exemplo de Valor |
+|------------------------------------|-------------------|----------------------------------------------|------------------|
+| Data da coleta                     | -                 | Registro manual                              | 01/06/2025       |
+| Horário de início/fim              | hh:mm             | Observação direta                            | 11:30 - 14:00    |
+| Número de mesas                    | unidades          | Contagem                                     | 4                |
+| Cadeiras por mesa                  | unidades          | Contagem                                     | 4                |
+| Número de buffets                  | unidades          | Contagem                                     | 1                |
+| Número de caixas                   | unidades          | Contagem                                     | 1                |
+| Tempo médio de refeição            | minutos           | Cronometragem de clientes                    | 30               |
+| Desvio padrão do tempo de refeição | minutos           | Cálculo estatístico                          | 5                |
+| Tempo médio no buffet              | minutos           | Cronometragem                                | 2                |
+| Tempo médio na balança             | minutos           | Cronometragem                                | 1                |
+| Tempo médio no caixa               | minutos           | Cronometragem                                | 2                |
+| Taxa de chegada de clientes        | clientes/minuto   | Contagem de chegadas por intervalo de tempo  | 2                |
+| Distribuição de chegada            | -                 | Observação (constante, pico, etc.)           | Pico 12h-13h     |
+| Capacidade máxima do salão         | clientes          | Cálculo (mesas × cadeiras)                   | 16               |
+| Tempo total de simulação           | minutos           | Definido pelo período de análise             | 120              |
+| Layout do restaurante              | ASCII/matriz      | Desenho ou foto convertida                   | (ver exemplo)    |
+|------------------------------------|-------------------|----------------------------------------------|------------------|
+</code></pre>
+<blockquote>
+<p><strong>Instruções de uso:</strong><br/>
+Esta ficha deve ser preenchida com os dados coletados durante a observação do restaurante. Os valores devem ser registrados de forma precisa e detalhada, a fim de garantir a qualidade das simulações.</p>
+<p><strong>Observação:</strong><br/>
+Recomenda-se coletar dados em diferentes dias e horários para capturar variações de demanda e comportamento dos clientes.</p>
+</blockquote>
+<p><strong>Exemplo de uso:</strong><br/>
+Esta ficha pode ser impressa e preenchida durante a observação em campo, ou utilizada como checklist para parametrizar cenários simulados no sistema.</p>
+<hr/>
+<h3 id="53-analise-dos-resultados-gargalos-otimizacoes-sugeridas">5.3 Análise dos resultados: gargalos, otimizações sugeridas<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>A análise dos resultados obtidos a partir das simulações, tanto com dados reais quanto simulados, permite identificar de forma objetiva os principais gargalos operacionais do restaurante e propor estratégias de otimização para o fluxo de clientes.</p>
+<p>Durante os testes, observou-se que os maiores pontos de congestionamento tendem a ocorrer em etapas críticas do processo, como o atendimento no buffet, a espera por mesas disponíveis e o pagamento no caixa, especialmente nos períodos de pico de chegada de clientes. O simulador possibilitou quantificar o tempo médio de espera em cada etapa, a taxa de ocupação das mesas e a frequência de formação de filas, fornecendo uma visão detalhada do desempenho do sistema sob diferentes configurações.</p>
+<p>Com base nesses resultados, foram sugeridas algumas otimizações, tais como:</p>
+<ul>
+<li><strong>Ajuste no número de mesas e cadeiras:</strong> Aumentar a quantidade de mesas disponíveis pode reduzir significativamente o tempo de espera dos clientes por assentos, especialmente em horários de maior demanda.</li>
+<li><strong>Redução do tempo médio de permanência:</strong> Incentivar a rotatividade das mesas, seja por meio de melhorias no atendimento ou estratégias de autosserviço, contribui para aumentar a capacidade de atendimento sem necessidade de grandes alterações estruturais.</li>
+<li><strong>Reorganização do layout:</strong> Alterações na disposição do buffet, caixa e áreas de circulação podem facilitar o fluxo de clientes, minimizar cruzamentos e reduzir o tempo de deslocamento interno.</li>
+<li><strong>Gestão de filas e atendimento:</strong> Implementar sistemas de senha, otimizar o atendimento no caixa ou reforçar o número de funcionários em horários críticos pode diminuir gargalos e melhorar a experiência do cliente.</li>
+</ul>
+<p>A utilização do simulador demonstrou ser fundamental para testar previamente essas alternativas, permitindo ao gestor avaliar o impacto de cada mudança antes de implementá-la no ambiente real. Dessa forma, é possível tomar decisões mais assertivas, baseadas em evidências quantitativas, e promover melhorias contínuas na operação do restaurante.</p>
+<hr/>
+<h3 id="54-discussao-sobre-os-efeitos-da-variacao-de-parametros">5.4 Discussão sobre os efeitos da variação de parâmetros<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>A realização de simulações com diferentes configurações de parâmetros permitiu analisar de forma aprofundada como pequenas alterações no ambiente ou no comportamento dos clientes podem impactar significativamente o desempenho do restaurante. Entre os principais parâmetros avaliados destacam-se: número de mesas, tempo médio de refeição, taxa de chegada de clientes, disposição do layout e tempos médios de atendimento em cada etapa.</p>
+<p>Os resultados demonstraram que:</p>
+<h4 id="tabela-2-efeitos-da-variacao-dos-principais-parametros-sobre-o-desempenho-do-restaurante">Tabela 2 – Efeitos da variação dos principais parâmetros sobre o desempenho do restaurante<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h4>
+<pre><code class="language-plaintext">
+|-----------------------------------|----------------------------------------------------------------|----------------------------------------|
+| Parâmetro Variado                | Efeito Observado no Sistema                                     | Possíveis Otimizações                  |
+|-----------------------------------|----------------------------------------------------------------|----------------------------------------|
+| Número de mesas                   | Reduz tempo de espera por assento; diminui rejeição de clientes| Ajustar layout para acomodar mais mesas|
+| Tempo médio de refeição           | Reduzindo, aumenta rotatividade e capacidade de atendimento    | Incentivar rotatividade, autosserviço  |
+| Taxa de chegada de clientes       | Picos aumentam filas e tempo de espera                         | Promoções em horários alternativos     |
+| Layout do restaurante             | Layout ruim aumenta deslocamento e cruzamentos                 | Reorganizar buffet, caixa, circulação  |
+| Tempos médios de atendimento      | Atendimentos lentos geram filas em etapas específicas          | Treinamento, reforço de equipe        |
+|-----------------------------------|---------------------------------------------------------------|----------------------------------------|
+</code></pre>
+<p>Essas análises reforçam a utilidade do simulador como ferramenta de apoio à decisão, permitindo ao gestor testar virtualmente diferentes cenários antes de implementar mudanças no ambiente real. A possibilidade de avaliar os efeitos da variação de parâmetros de forma quantitativa contribui para uma gestão mais eficiente, baseada em dados e focada na melhoria contínua dos processos e da experiência do cliente.</p>
+<hr/>
+<h4 id="541-exemplo-de-ficha-para-analise-dos-efeitos-da-variacao-de-parametros-ao-longo-dos-dias-simulados">5.4.1 Exemplo de ficha para análise dos efeitos da variação de parâmetros ao longo dos dias simulados<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h4>
+<p>Para avaliar de forma sistemática como as variações de parâmetros impactam o desempenho do restaurante em diferentes dias ou cenários, recomenda-se o uso de uma ficha de análise comparativa. Essa ficha permite registrar, lado a lado, os principais indicadores de desempenho para cada configuração testada, facilitando a identificação de tendências, gargalos e oportunidades de melhoria.</p>
+<p>Abaixo, um exemplo de ficha para análise dos efeitos das variações de parâmetros:</p>
+<pre><code class="language-plaintext">|---------------------------|---------------|------------------------|---------------|------------------------|---------------|------------------------|
+| Parâmetro Variado         | Dia 1 (Valor) | Dia 1 (Resultado)      | Dia 2 (Valor) | Dia 2 (Resultado)      | Dia 3 (Valor) | Dia 3 (Resultado)      |
+|---------------------------|---------------|------------------------|---------------|------------------------|---------------|------------------------|
+| Número de mesas           | 4             | 8 clientes rejeitados  | 6             | 2 clientes rejeitados  | 8             | 0 clientes rejeitados  |
+| Tempo médio de refeição   | 30 min        | 92% ocupação           | 25 min        | 85% ocupação           | 20 min        | 78% ocupação           |
+| Taxa de chegada (pico)    | 2/min         | 16 min espera máxima   | 3/min         | 25 min espera máxima   | 1.5/min       | 8 min espera máxima    |
+| Layout                    | Padrão        | 7 filas formadas       | Otimizado     | 3 filas formadas       | Otimizado     | 2 filas formadas       |
+| Tempo médio no caixa      | 2 min         | 5 min fila caixa       | 1.5 min       | 3 min fila caixa       | 1 min         | 1 min fila caixa       |
+|---------------------------|---------------|------------------------|---------------|------------------------|---------------|------------------------|
+</code></pre>
+<blockquote>
+<p><strong>Observação:</strong><br/>
+Os resultados podem incluir indicadores como: número de clientes rejeitados, tempo médio de espera, taxa de ocupação das mesas, tamanho máximo das filas, entre outros relevantes para a análise.</p>
+</blockquote>
+<p>Essa ficha pode ser adaptada para incluir mais dias, diferentes parâmetros ou cenários específicos (ex: promoções, mudanças de layout, variação de equipe). O uso sistemático desse tipo de registro facilita a comparação dos efeitos das variações e embasa recomendações de otimização para o gestor do restaurante.</p>
+<hr/>
+<h3 id="55-modelos-de-documentacao-entregue-ao-cliente">5.5 Modelos de documentação entregue ao cliente<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>A documentação dos parâmetros utilizados e dos resultados obtidos na simulação é fundamental para garantir a transparência, a rastreabilidade e a utilidade prática do simulador para gestores de restaurantes. O sistema desenvolvido gera automaticamente relatórios executivos em formato PDF, que podem ser entregues ao cliente como produto final da análise.</p>
+<p>A seguir, apresenta-se um modelo simplificado de relatório, elaborado para fins ilustrativos. Embora o simulador exporte um relatório com informações semelhantes, o formato e o conteúdo podem ser facilmente adaptados conforme a necessidade do cliente, incluindo ou removendo seções, gráficos, tabelas e recomendações específicas.</p>
+<h4 id="exemplo-de-estrutura-de-relatorio-entregue-ao-cliente">Exemplo de estrutura de relatório entregue ao cliente<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h4>
+<pre><code class="language-plaintext">---------------------------------------------------------------
+RELATÓRIO EXECUTIVO DE SIMULAÇÃO – RESTAURANTE POR QUILO
+---------------------------------------------------------------
+
+1. Dados do Estabelecimento
+   - Nome: Restaurante Exemplo
+   - Data da Simulação: 01/06/2025
+
+2. Parâmetros Utilizados na Simulação
+   |-----------------------------|-----------------|---------------------------------|
+   | Parâmetro                   | Valor           | Observação                      |
+   |-----------------------------|-----------------|---------------------------------|
+   | Número de mesas             | 4               | Conforme layout ASCII           |
+   | Cadeiras por mesa           | 4               | Capacidade total: 16 lugares    |
+   | Tempo médio de refeição     | 30 min          | Normal (desvio padrão: 5 min)   |
+   | Tempo médio no buffet       | 2 min           | Por cliente                     |
+   | Tempo médio na balança      | 1 min           | Por cliente                     |
+   | Tempo médio no caixa        | 2 min           | Por cliente                     |
+   | Taxa de chegada de clientes | 2 clientes/min  | Horário de pico                 |
+   | Tempo total de simulação    | 120 min         | Período do almoço               |
+   |-----------------------------|-----------------|---------------------------------|
+
+3. Resultados Principais
+   - Clientes atendidos: 220
+   - Clientes rejeitados (por lotação): 8
+   - Tempo médio de espera por mesa: 4,2 min
+   - Tempo médio total no restaurante: 38,5 min
+   - Taxa média de ocupação das mesas: 92%
+   - Tamanho máximo da fila: 7 clientes
+
+4. Análise e Recomendações
+   - O principal gargalo identificado foi a formação de filas para mesas entre 12h e 13h.
+   - Recomenda-se avaliar a possibilidade de aumentar o número de mesas ou incentivar a rotatividade.
+   - O tempo médio de atendimento no caixa está adequado, sem formação de filas significativas.
+
+5. Visualizações
+   - Gráfico do fluxo de chegada de clientes ao longo do tempo.
+   - GIF animado do layout do restaurante durante a simulação.
+   - Tabela de ocupação das mesas minuto a minuto.
+
+---------------------------------------------------------------
+Este relatório é um modelo adaptável, podendo ser customizado conforme a necessidade do cliente. O simulador exporta automaticamente um relatório em PDF com informações semelhantes, e pode incluir gráficos, tabelas adicionais, recomendações específicas e anexos com os dados brutos da simulação.
+---------------------------------------------------------------
+</code></pre>
+<blockquote>
+<p><strong>Observação:</strong> O modelo acima serve como referência e pode ser ajustado para atender diferentes demandas de apresentação dos resultados ao cliente.</p>
+</blockquote>
+<p>Esse modelo demonstra como o simulador pode entregar valor ao cliente, documentando de forma clara os parâmetros utilizados, os resultados alcançados e as recomendações para otimização do restaurante, com flexibilidade para personalização do relatório final.</p>
+<hr/>
+<h3 id="56-consideracoes-finais">5.6 Considerações finais<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>O estudo de caso apresentado neste capítulo demonstrou, de forma prática, a flexibilidade e a utilidade do simulador desenvolvido para análise e otimização do funcionamento de restaurantes por quilo. A partir da configuração de parâmetros realistas, da realização de testes com dados reais e simulados e da análise detalhada dos resultados, foi possível identificar gargalos operacionais, propor melhorias e avaliar o impacto de diferentes cenários sobre o desempenho do sistema.</p>
+<p>A possibilidade de variar parâmetros como número de mesas, tempo médio de refeição, layout do ambiente e taxa de chegada de clientes evidenciou o potencial do simulador como ferramenta de apoio à tomada de decisão gerencial. Os resultados reforçam a importância de uma abordagem quantitativa e baseada em dados para o planejamento e a gestão de restaurantes, permitindo antecipar problemas, testar soluções e promover melhorias contínuas nos processos.</p>
+<p>Além disso, a documentação estruturada dos parâmetros e resultados, por meio de relatórios executivos e visualizações gráficas, facilita a comunicação dos achados e recomendações aos gestores, tornando o simulador uma ferramenta prática e acessível para o dia a dia do negócio.</p>
+<p>Dessa forma, o simulador se consolida como um recurso valioso para gestores que buscam aumentar a eficiência operacional, melhorar a experiência do cliente e adaptar o negócio a diferentes demandas e desafios do mercado, promovendo uma gestão mais eficiente, inovadora e orientada por dados.</p>
+<hr/>
+<h2 id="capitulo-6-estrategia-de-negocio-e-aplicabilidade-comercial">Capítulo 6 – Estratégia de Negócio e Aplicabilidade Comercial<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>A adoção de soluções tecnológicas inovadoras é cada vez mais essencial para a competitividade e sustentabilidade dos restaurantes no cenário atual. Neste capítulo, são discutidos os aspectos estratégicos relacionados à comercialização e aplicação prática do simulador de tempo de permanência em restaurantes por quilo, com foco em seu potencial de mercado e valor agregado para os gestores do setor.</p>
+<p>O público-alvo principal deste sistema são os donos de restaurantes e arrendatários, que buscam ferramentas acessíveis e eficientes para otimizar suas operações, reduzir gargalos e melhorar a experiência dos clientes. A proposta de valor do simulador está fundamentada na capacidade de transformar dados operacionais em informações estratégicas, permitindo decisões mais assertivas e baseadas em evidências.</p>
+<p>Serão apresentados os possíveis modelos de entrega e monetização do produto, considerando diferentes pacotes de serviços e formas de acesso ao sistema. Também serão abordadas as limitações do simulador e estratégias para fidelização dos clientes, priorizando a transparência e evitando práticas de aprisionamento explícito. Por fim, discute-se o potencial de expansão futura do produto, incluindo integrações com outras tecnologias e a adaptação para diferentes segmentos do setor de alimentação.</p>
+<p>Este capítulo visa demonstrar como o simulador pode se consolidar como uma solução comercial viável, inovadora e alinhada às reais necessidades do mercado de restaurantes.</p>
+<hr/>
+<h2 id="61-publico-alvo-donos-de-restaurantes-e-arrendatarios">6.1 Público-alvo: donos de restaurantes e arrendatários<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O público-alvo principal do simulador de tempo de permanência em restaurantes por quilo é composto por donos de restaurantes e arrendatários responsáveis pela gestão operacional desses estabelecimentos. Esses profissionais enfrentam diariamente desafios relacionados à otimização do fluxo de clientes, redução de filas, aumento da rotatividade das mesas e melhoria da experiência do consumidor.</p>
+<p>Muitos gestores de restaurantes, especialmente de pequeno e médio porte, não dispõem de ferramentas acessíveis para analisar de forma quantitativa o desempenho do seu negócio. Nesse contexto, o simulador se apresenta como uma solução inovadora, prática e de fácil utilização, permitindo que decisões estratégicas sejam tomadas com base em dados reais ou simulados.</p>
+<p>Além disso, o sistema pode ser útil para arrendatários que assumem a administração de restaurantes em shoppings, praças de alimentação ou empresas, onde a eficiência operacional e a satisfação dos clientes são fatores críticos para o sucesso do empreendimento. Ao utilizar o simulador, esses profissionais podem identificar gargalos, testar diferentes configurações de layout e atendimento, e implementar melhorias de forma segura e fundamentada.</p>
+<p>Portanto, o simulador atende tanto gestores experientes que buscam aprimorar seus processos quanto novos empreendedores que desejam iniciar suas operações com maior segurança e embasamento analítico, contribuindo para a profissionalização e a competitividade do setor de alimentação.</p>
+<hr/>
+<h2 id="62-proposta-de-valor-do-sistema">6.2 Proposta de valor do sistema<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O simulador de tempo de permanência em restaurantes por quilo oferece uma proposta de valor centrada na transformação de dados operacionais em informações estratégicas, acessíveis e acionáveis para gestores do setor de alimentação. Ao proporcionar uma visão clara e quantitativa do fluxo de clientes, ocupação de mesas, formação de filas e gargalos operacionais, o sistema permite que decisões sejam tomadas com maior segurança, rapidez e embasamento.</p>
+<p>Entre os principais diferenciais do simulador destacam-se:</p>
+<ul>
+<li><strong>Acessibilidade e facilidade de uso:</strong> Interface intuitiva, permitindo que gestores sem conhecimento técnico aprofundado possam utilizar a ferramenta de forma autônoma.</li>
+<li><strong>Personalização:</strong> Possibilidade de simular diferentes cenários, layouts e parâmetros, adaptando-se à realidade de cada restaurante.</li>
+<li><strong>Redução de riscos:</strong> Permite testar alterações operacionais virtualmente antes de implementá-las no ambiente real, minimizando custos e impactos negativos.</li>
+<li><strong>Apoio à tomada de decisão:</strong> Geração de relatórios executivos, gráficos e animações que facilitam a análise dos resultados e a comunicação com equipes e sócios.</li>
+<li><strong>Foco em resultados:</strong> Identificação de oportunidades de otimização, aumento da eficiência operacional e melhoria da experiência do cliente.</li>
+<li><strong>Custo-benefício:</strong> Solução mais acessível do que consultorias tradicionais ou sistemas complexos de gestão, especialmente para pequenos e médios estabelecimentos.</li>
+</ul>
+<p>Dessa forma, o simulador agrega valor ao negócio ao transformar dados em vantagem competitiva, promovendo uma gestão mais eficiente, inovadora e orientada por evidências.</p>
+<hr/>
+<h2 id="63-modelos-de-entrega-e-monetizacao-do-produto">6.3 Modelos de entrega e monetização do produto<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Para viabilizar a adoção do simulador por diferentes perfis de restaurantes, é possível estruturar pacotes de entrega e estratégias de monetização flexíveis, adaptadas às necessidades e ao porte de cada cliente. A seguir, são apresentados exemplos de modelos comerciais que podem ser adotados:</p>
+<p><strong>1. Licença de uso avulsa:</strong><br/>
+O cliente adquire uma licença permanente do simulador, com direito a atualizações básicas e suporte técnico por um período determinado. Indicado para restaurantes que desejam autonomia total sobre o sistema.</p>
+<p><strong>2. Assinatura mensal ou anual (SaaS):</strong><br/>
+O simulador é disponibilizado como serviço (Software as a Service), com pagamento recorrente. Inclui atualizações automáticas, suporte contínuo e possibilidade de acesso remoto. Ideal para estabelecimentos que preferem diluir o investimento e contar com melhorias constantes.</p>
+<p><strong>3. Pacote consultoria + simulação:</strong><br/>
+Além do acesso ao simulador, o cliente recebe um serviço de consultoria personalizada, com análise dos dados reais, parametrização do sistema, treinamento da equipe e entrega de relatórios executivos. Indicado para restaurantes que buscam apoio especializado na interpretação dos resultados.</p>
+<p><strong>4. Pacote básico e pacote premium:</strong><br/>
+- <strong>Básico:</strong> Inclui funcionalidades essenciais (simulação, relatórios PDF, exportação de GIF animado).
+- <strong>Premium:</strong> Acrescenta recursos avançados, como integração com sistemas de gestão, relatórios customizados, suporte prioritário e módulos de expansão.</p>
+<p><strong>5. Licenciamento para redes/franquias:</strong><br/>
+Condições especiais para grupos empresariais ou franquias, permitindo uso em múltiplas unidades com gestão centralizada dos dados e relatórios.</p>
+<p>A definição do modelo de monetização deve considerar o perfil do público-alvo, o valor percebido pelo cliente e a sustentabilidade do negócio, buscando sempre alinhar acessibilidade, qualidade do serviço e viabilidade financeira para ambas as partes.</p>
+<hr/>
+<h4 id="tabela-3-exemplos-de-valores-para-pacotes-de-entrega-e-monetizacao">Tabela 3 – Exemplos de valores para pacotes de entrega e monetização<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h4>
+<pre><code class="language-plaintext">|------------------------------------|-----------------------------------------------------------------|--------------------------|----------------------------------------------|
+| Pacote/Modelo                      | Descrição resumida                                              | Valor sugerido (R$)      | Observações                                  |
+|------------------------------------|-----------------------------------------------------------------|--------------------------|----------------------------------------------|
+| Licença de uso avulsa              | Licença permanente, suporte básico                              | 2.500,00 (único)         | Inclui 1 ano de suporte e atualizações       |
+| Assinatura mensal (SaaS)           | Uso via assinatura, atualizações e suporte contínuos            | 180,00/mês               | Cancelamento a qualquer momento              |
+| Assinatura anual (SaaS)            | Uso via assinatura anual, desconto sobre mensal                 | 1.800,00/ano             | Equivale a 2 meses grátis                    |
+| Pacote consultoria + simulação     | Simulador + análise personalizada e treinamento                 | 4.500,00 (projeto)       | Inclui relatório executivo e capacitação     |
+| Pacote básico                      | Simulação, PDF, GIF animado                                     | 2.000,00 (único)         | Suporte e atualizações por 6 meses           |
+| Pacote premium                     | Todos recursos do básico + integrações e relatórios avançados   | 3.500,00 (único)         | Suporte e atualizações por 1 ano             |
+| Licenciamento para redes/franquias | Uso em múltiplas unidades, gestão centralizada                  | Sob consulta             | Valor negociado conforme número de unidades  |
+|------------------------------------|-----------------------------------------------------------------|--------------------------|----------------------------------------------|
+
+</code></pre>
+<blockquote>
+<p><strong>Observação:</strong><br/>
+Os valores acima são apenas exemplos para fins acadêmicos. Recomenda-se realizar pesquisa de mercado para definição dos preços finais, considerando custos de desenvolvimento, suporte, perfil do público-alvo e diferenciais do produto.</p>
+</blockquote>
+<hr/>
+<h2 id="64-limitacoes-e-formas-de-fidelizacao-sem-aprisionamento-explicito">6.4 Limitações e formas de fidelização sem aprisionamento explícito<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Apesar dos benefícios e diferenciais oferecidos pelo simulador, é importante reconhecer suas limitações e adotar estratégias de fidelização que respeitem a autonomia do cliente, evitando práticas de aprisionamento explícito (lock-in).</p>
+<p><strong>Limitações do sistema:</strong>
+- <strong>Modelagem simplificada:</strong> O simulador busca representar a dinâmica operacional dos restaurantes de forma realista, mas não contempla todas as variáveis possíveis do ambiente real, como comportamento individualizado de clientes, sazonalidade extrema ou eventos imprevisíveis.
+- <strong>Dependência de dados de entrada:</strong> A qualidade dos resultados depende diretamente da precisão dos dados fornecidos pelo usuário. Parâmetros desatualizados ou estimativas imprecisas podem comprometer a análise.
+- <strong>Escalabilidade:</strong> Embora adaptável a diferentes portes de restaurantes, o sistema pode demandar ajustes para operações muito grandes ou com fluxos altamente complexos.
+- <strong>Integração limitada:</strong> A integração com outros sistemas de gestão ou ERPs pode exigir desenvolvimento adicional, dependendo das necessidades do cliente.</p>
+<p><strong>Formas de fidelização sem aprisionamento explícito:</strong>
+- <strong>Transparência:</strong> O cliente tem acesso total aos dados inseridos, resultados e relatórios gerados, podendo exportá-los em formatos abertos (PDF, CSV, imagens).
+- <strong>Atualizações e melhorias contínuas:</strong> Oferta de atualizações regulares, com novas funcionalidades e correções, agregando valor ao longo do tempo.
+- <strong>Suporte consultivo:</strong> Disponibilização de suporte técnico e consultoria para interpretação dos resultados e aplicação das recomendações.
+- <strong>Treinamento e capacitação:</strong> Oferta de treinamentos presenciais ou online para capacitar o cliente no uso do sistema, promovendo autonomia.
+- <strong>Flexibilidade contratual:</strong> Possibilidade de cancelamento ou migração entre pacotes sem penalidades, reforçando a confiança e o compromisso com a satisfação do cliente.
+- <strong>Customização:</strong> Adaptação do sistema conforme demandas específicas, sem obrigar o cliente a adquirir módulos desnecessários.</p>
+<p>Essas estratégias visam construir uma relação de confiança e parceria com o cliente, promovendo a fidelização pelo valor percebido e pela qualidade do serviço, e não por restrições artificiais ou barreiras à saída.</p>
+<hr/>
+<h2 id="65-possibilidades-de-expansao-futura-do-produto">6.5 Possibilidades de expansão futura do produto<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O simulador de tempo de permanência em restaurantes por quilo possui grande potencial de evolução, podendo incorporar novas funcionalidades e atender a demandas crescentes do setor de alimentação. Entre as principais possibilidades de expansão futura do produto, destacam-se:</p>
+<ul>
+<li><strong>Integração com sistemas de gestão (ERP):</strong> Permitir a troca automática de dados com softwares de gestão já utilizados pelos restaurantes, facilitando o uso de informações reais e a atualização dos parâmetros de simulação.</li>
+<li><strong>Módulo de previsão de demanda:</strong> Implementar algoritmos de previsão baseados em séries temporais ou inteligência artificial para estimar o fluxo de clientes em diferentes dias e horários, tornando as simulações ainda mais precisas.</li>
+<li><strong>Aplicativo móvel para coleta de dados:</strong> Desenvolver um app que permita a coleta rápida de dados operacionais em campo, integrando-se diretamente ao simulador.</li>
+<li><strong>Simulação de cenários avançados:</strong> Incluir variáveis como promoções, eventos sazonais, mudanças no cardápio ou alterações no quadro de funcionários, ampliando o realismo das análises.</li>
+<li><strong>Visualização 3D do layout:</strong> Evoluir a visualização do restaurante para modelos tridimensionais, facilitando o entendimento do fluxo de pessoas e da ocupação dos espaços.</li>
+<li><strong>Relatórios customizáveis:</strong> Permitir que o usuário personalize os relatórios gerados, escolhendo indicadores, gráficos e formatos de exportação.</li>
+<li><strong>Integração com sensores IoT:</strong> Possibilitar a leitura automática de dados de ocupação e fluxo de clientes por meio de sensores instalados no ambiente, tornando o sistema ainda mais automatizado e preciso.</li>
+<li><strong>Expansão para outros segmentos:</strong> Adaptar o simulador para outros tipos de estabelecimentos de alimentação, como cafeterias, fast-foods, praças de alimentação e eventos.</li>
+</ul>
+<p>Essas possibilidades demonstram que o simulador pode acompanhar as tendências tecnológicas e as necessidades do mercado, mantendo-se relevante e competitivo a longo prazo.</p>
+<hr/>
+<h2 id="66-consideracoes-finais">6.6 Considerações finais<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Este capítulo apresentou a estratégia de negócio e a aplicabilidade comercial do simulador de tempo de permanência em restaurantes por quilo, destacando seu potencial como solução inovadora para o setor de alimentação. Foram discutidos o público-alvo, a proposta de valor, os diferentes modelos de entrega e monetização, as limitações do sistema e as formas de fidelização baseadas em transparência e qualidade de serviço.</p>
+<p>A análise demonstrou que o simulador atende tanto gestores experientes quanto novos empreendedores, oferecendo uma ferramenta acessível, flexível e orientada por dados para otimizar operações, reduzir gargalos e melhorar a experiência do cliente. A flexibilidade nos pacotes de entrega e a ausência de práticas de aprisionamento explícito reforçam o compromisso com a autonomia e a satisfação do cliente.</p>
+<p>Além disso, as possibilidades de expansão futura, como integração com sistemas de gestão, previsão de demanda, coleta automatizada de dados e adaptação para outros segmentos, evidenciam o potencial de evolução contínua do produto, mantendo-o relevante diante das tendências tecnológicas e das necessidades do mercado.</p>
+<p>Dessa forma, o simulador se consolida como uma solução comercial viável, capaz de agregar valor ao negócio, promover a profissionalização da gestão e contribuir para a competitividade e sustentabilidade dos restaurantes no cenário atual e futuro.</p>
+<hr/>
+<h2 id="capitulo-7-conclusao-e-consideracoes-finais">Capítulo 7 – Conclusão e Considerações Finais<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Este capítulo final apresenta uma síntese dos principais resultados alcançados ao longo do desenvolvimento do simulador de tempo de permanência em restaurantes por quilo, destacando as contribuições técnicas e práticas do projeto para a gestão operacional desses estabelecimentos. São discutidas as recomendações para adoção e evolução contínua da solução, bem como sugestões para trabalhos futuros que possam ampliar o escopo e a aplicabilidade do sistema.</p>
+<p>A conclusão busca consolidar os aprendizados obtidos, evidenciar o impacto do simulador como ferramenta de apoio à tomada de decisão e reforçar sua relevância para a melhoria da eficiência, da experiência do cliente e da competitividade no setor de alimentação.</p>
+<hr/>
+<h2 id="71-sintese-dos-principais-resultados-e-contribuicoes-do-trabalho">7.1 Síntese dos principais resultados e contribuições do trabalho<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O desenvolvimento do simulador de tempo de permanência em restaurantes por quilo proporcionou avanços significativos tanto do ponto de vista técnico quanto prático. Ao longo do trabalho, foi possível:</p>
+<ul>
+<li>Modelar de forma realista o fluxo de clientes em restaurantes, incorporando etapas como filas, atendimento no buffet, pesagem, pagamento e ocupação das mesas.</li>
+<li>Implementar uma ferramenta flexível, com interface gráfica intuitiva, que permite a configuração de diferentes cenários operacionais e a personalização de parâmetros conforme a realidade de cada estabelecimento.</li>
+<li>Validar o simulador por meio de testes com dados reais e simulados, demonstrando sua aderência à dinâmica dos restaurantes e sua utilidade para a identificação de gargalos, análise de filas e avaliação do impacto de mudanças no layout ou nos processos.</li>
+<li>Gerar relatórios executivos em PDF e visualizações gráficas, incluindo GIF animado do layout, facilitando a comunicação dos resultados e recomendações aos gestores.</li>
+<li>Oferecer uma solução acessível para pequenos e médios restaurantes, democratizando o uso de técnicas avançadas de simulação e análise operacional.</li>
+</ul>
+<p>Esses resultados evidenciam que o simulador desenvolvido é capaz de apoiar gestores na tomada de decisões estratégicas, promovendo a eficiência operacional, a melhoria da experiência do cliente e a sustentabilidade do negócio. O trabalho contribui ainda para a disseminação de ferramentas quantitativas no setor de alimentação, incentivando a profissionalização da gestão e a adoção de práticas baseadas em dados.</p>
+<hr/>
+<h2 id="72-contribuicoes-tecnicas-e-praticas-do-projeto">7.2 Contribuições técnicas e práticas do projeto<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O projeto desenvolvido trouxe contribuições relevantes tanto no âmbito técnico quanto na aplicação prática para o setor de restaurantes por quilo. Entre as principais contribuições, destacam-se:</p>
+<ul>
+<li><strong>Desenvolvimento de um simulador customizável:</strong> O sistema permite a modelagem detalhada do ambiente de um restaurante, com flexibilidade para ajustar parâmetros, layout e regras operacionais conforme diferentes realidades e necessidades dos gestores.</li>
+<li><strong>Integração de múltiplas tecnologias:</strong> A solução combina interface gráfica intuitiva (Tkinter), processamento de dados (Python), geração de relatórios em PDF e visualizações animadas (GIF), promovendo uma experiência completa e acessível ao usuário.</li>
+<li><strong>Facilidade de uso e acessibilidade:</strong> O simulador foi projetado para ser utilizado por gestores sem conhecimento técnico avançado, democratizando o acesso a ferramentas de simulação e análise operacional.</li>
+<li><strong>Apoio à tomada de decisão baseada em dados:</strong> A ferramenta possibilita a análise quantitativa de cenários, identificação de gargalos, avaliação de alternativas e comunicação clara dos resultados por meio de relatórios e gráficos.</li>
+<li><strong>Padronização e documentação dos processos:</strong> O projeto inclui modelos de fichas de coleta de dados, relatórios executivos e documentação de uso, facilitando a replicação da metodologia em outros estabelecimentos.</li>
+<li><strong>Potencial de expansão e adaptação:</strong> A arquitetura modular e a documentação detalhada permitem a evolução do sistema, com possibilidade de integração a outros softwares, inclusão de novos módulos e adaptação para diferentes segmentos do setor de alimentação.</li>
+</ul>
+<p>Essas contribuições reforçam o papel do simulador como uma ferramenta inovadora e prática para a gestão de restaurantes, promovendo a profissionalização do setor, a eficiência operacional e a melhoria contínua dos processos.</p>
+<hr/>
+<h2 id="73-recomendacoes-para-adocao-e-desenvolvimento-continuo">7.3 Recomendações para adoção e desenvolvimento contínuo<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Para que o simulador de tempo de permanência em restaurantes por quilo alcance seu pleno potencial e gere valor sustentável para os gestores, recomenda-se:</p>
+<ul>
+<li><strong>Capacitação dos usuários:</strong> Promover treinamentos práticos para que os gestores e equipes compreendam o funcionamento do simulador, saibam interpretar os resultados e possam ajustar os parâmetros conforme a realidade do restaurante.</li>
+<li><strong>Coleta sistemática de dados reais:</strong> Incentivar a coleta periódica de dados operacionais (fluxo de clientes, tempos de atendimento, ocupação das mesas) para garantir a precisão das simulações e a atualização constante dos cenários analisados.</li>
+<li><strong>Adoção gradual e validação dos resultados:</strong> Implementar o simulador inicialmente em cenários-piloto, comparando os resultados simulados com os dados reais do restaurante, ajustando o modelo conforme necessário para aumentar sua aderência à operação.</li>
+<li><strong>Integração com processos de gestão:</strong> Utilizar os relatórios e análises gerados pelo simulador como apoio à tomada de decisão, planejamento de recursos, dimensionamento de equipes e reorganização do layout físico.</li>
+<li><strong>Atualização e evolução do sistema:</strong> Manter o simulador atualizado com novas funcionalidades, correções e melhorias sugeridas pelos usuários, acompanhando as tendências tecnológicas e as demandas do setor.</li>
+<li><strong>Abertura para customizações:</strong> Adaptar o sistema para diferentes perfis de restaurantes, permitindo a inclusão de módulos específicos, integrações com outros softwares e personalização dos relatórios conforme as necessidades do cliente.</li>
+</ul>
+<p>Ao seguir essas recomendações, os gestores poderão extrair o máximo benefício do simulador, promovendo uma gestão mais eficiente, inovadora e orientada por dados, além de garantir a evolução contínua da ferramenta em sintonia com as mudanças do mercado e as necessidades do setor de alimentação.</p>
+<hr/>
+<h2 id="74-trabalhos-futuros">7.4 Trabalhos futuros<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O simulador desenvolvido neste trabalho representa um avanço significativo para a gestão operacional de restaurantes por quilo, mas ainda há diversas oportunidades para aprimoramento e expansão de suas funcionalidades. Entre as principais sugestões para trabalhos futuros, destacam-se:</p>
+<ul>
+<li><strong>Integração com sensores IoT:</strong> Incorporar sensores de presença, contadores de pessoas ou dispositivos de monitoramento em tempo real para coletar automaticamente dados de fluxo de clientes, ocupação de mesas e formação de filas, tornando as simulações ainda mais precisas e dinâmicas.</li>
+<li><strong>Desenvolvimento de aplicativos móveis:</strong> Criar aplicativos para smartphones e tablets que facilitem a coleta de dados em campo, o acompanhamento das simulações e a visualização dos resultados, ampliando o acesso e a usabilidade do sistema para gestores e equipes operacionais.</li>
+<li><strong>Expansão para outros segmentos de alimentação:</strong> Adaptar o simulador para diferentes tipos de estabelecimentos, como cafeterias, fast-foods, praças de alimentação e eventos, considerando as particularidades de cada operação.</li>
+<li><strong>Módulos de previsão de demanda:</strong> Implementar algoritmos de previsão baseados em inteligência artificial ou séries temporais para estimar o fluxo de clientes em diferentes dias e horários, permitindo simulações mais realistas e planejamento antecipado de recursos.</li>
+<li><strong>Visualização avançada e relatórios customizáveis:</strong> Desenvolver novas formas de visualização dos resultados, como dashboards interativos, gráficos 3D e relatórios personalizáveis conforme as necessidades do usuário.</li>
+<li><strong>Integração com sistemas de gestão (ERP):</strong> Permitir a troca automática de informações entre o simulador e softwares de gestão já utilizados pelos restaurantes, facilitando a atualização de parâmetros e o uso de dados reais nas simulações.</li>
+<li><strong>Simulação de cenários avançados:</strong> Incluir variáveis como promoções, sazonalidade, mudanças no cardápio ou alterações no quadro de funcionários, ampliando o realismo e a aplicabilidade do simulador para a tomada de decisão estratégica.</li>
+</ul>
+<p>Essas direções apontam para a evolução contínua do simulador, tornando-o cada vez mais robusto, flexível e alinhado às demandas do setor de alimentação, além de abrir novas possibilidades de pesquisa e inovação para a área de Engenharia de Processos e Gestão de Serviços.</p>
+<hr/>
+<h2 id="75-consideracoes-finais-do-trabalho">7.5 Considerações finais do trabalho<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>O desenvolvimento e aplicação do simulador de tempo de permanência em restaurantes por quilo demonstraram a importância de ferramentas quantitativas e acessíveis para a gestão eficiente de operações no setor de alimentação. Ao longo deste trabalho, foi possível evidenciar que a simulação computacional, aliada à coleta e análise de dados reais, pode transformar a tomada de decisão dos gestores, tornando-a mais embasada, ágil e orientada para resultados.</p>
+<p>O simulador proposto se destacou por sua flexibilidade, facilidade de uso e capacidade de adaptação a diferentes cenários, permitindo a identificação de gargalos, a avaliação de alternativas operacionais e a comunicação clara dos resultados por meio de relatórios e visualizações. A validação com dados reais e simulados reforçou sua utilidade prática, enquanto a documentação detalhada e os exemplos de aplicação facilitaram sua replicação e adoção por outros estabelecimentos.</p>
+<p>Além das contribuições técnicas e práticas, o trabalho abre caminho para futuras inovações, como integração com sensores, aplicativos móveis e módulos de previsão de demanda, ampliando ainda mais o potencial de impacto do simulador no setor.</p>
+<p>Conclui-se que a adoção de soluções como a desenvolvida neste projeto pode promover a profissionalização da gestão, a melhoria contínua dos processos e a sustentabilidade dos restaurantes, contribuindo para a competitividade e excelência no atendimento ao cliente.</p>
+<p>Portanto, o simulador não apenas representa uma ferramenta valiosa para os gestores de restaurantes por quilo, mas também um passo importante na direção de uma gestão mais eficiente, inovadora e orientada por dados no setor de alimentação. Acredita-se que, com a continuidade do desenvolvimento e a adoção das recomendações apresentadas, o simulador poderá se consolidar como um recurso indispensável para a melhoria da experiência do cliente e a otimização das operações nos restaurantes.</p>
+<hr/>
+<h1 id="referencias-bibliograficas">Referências Bibliográficas<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h1>
+<p>BALLOU, R. H. Logística Empresarial: Transportes, Administração de Materiais e Distribuição Física. 2006.</p>
+<p>BANKS, J.; CARSON, J. S.; NELSON, B. L.; NICOL, D. M. Discrete-Event System Simulation. 2010.</p>
+<p>LAW, A. M.; KELTON, W. D. Simulation Modeling and Analysis. 2015.</p>
+<p>SOUZA, J. R.; CUNHA, C. B. Gestão de Operações em Serviços. 2012.</p>
+<p>SILVA, M. A.; OLIVEIRA, L. C. Gestão de Restaurantes: Teoria e Prática. 2006.</p>
+<p>LAURINDO, F. J. B.; CARVALHO, M. M. Sistemas de Informação: Planejamento e Alinhamento Estratégico. 2012.</p>
+<hr/>
+<h2 id="anexo-a-documentacao-de-uso-do-simulador">Anexo A – Documentação de Uso do Simulador<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<h3 id="a1-interface-grafica-do-simulador">A.1 Interface Gráfica do Simulador<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>A interface gráfica foi desenvolvida em Tkinter para facilitar a interação do usuário com o simulador. Abaixo, estão descritos os principais elementos da interface:</p>
+<ul>
+<li><strong>Campos de entrada:</strong> Permitem inserir manualmente parâmetros como número de mesas, cadeiras, tempo médio de refeição, etc.</li>
+<li><strong>Botões de importação:</strong> Possibilitam importar arquivos de configuração (YAML, Excel) e layout ASCII.</li>
+<li><strong>Botão de execução:</strong> Inicia a simulação com os parâmetros definidos.</li>
+<li><strong>Área de mensagens:</strong> Exibe avisos, erros e confirmações de operações.</li>
+<li><strong>Botões de exportação:</strong> Permitem salvar o relatório PDF e o GIF animado gerados pela simulação.</li>
+</ul>
+<blockquote>
+<p><strong>Tela Esquemática do Simulador:</strong> </p>
+</blockquote>
+<pre><code class="language-plaintext">+---------------------------------------------------------------------+
+|                  Simulador de Permanência                           |
++---------------------------------------------------------------------+
+| Clientes por minuto:           [__________]                         |
+| Tempo médio de almoço (min):   [__________]                         |
+| Número de mesas:               [__________]                         |
+| Cadeiras por mesa:             [__________]                         |
+| Tempo total da simulação (min):[__________]                         |
+| Número de caixas:              [__________] (preenchido via layout) |
++---------------------------------------------------------------------+
+| Importar parâmetros de: ( ) YAML   ( ) Excel                        |
++---------------------------------------------------------------------+
+| [Importar Parâmetros] [Importar Layout] [Simular]                   |
++---------------------------------------------------------------------+
+| * Mensagens de status e avisos aparecem aqui *                      |
++---------------------------------------------------------------------+
+</code></pre>
+<hr/>
+<h3 id="a2-importacao-de-arquivos">A.2 Importação de Arquivos<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>O simulador aceita a importação dos seguintes arquivos:</p>
+<ul>
+<li><strong>YAML:</strong> Arquivo de configuração com parâmetros da simulação.</li>
+<li><strong>Excel (.xlsx):</strong> Planilha com dados operacionais do restaurante.</li>
+<li><strong>ASCII (.txt):</strong> Arquivo de layout do restaurante em matriz ASCII.</li>
+</ul>
+<p><strong>Procedimento:</strong>
+1. Clique no botão correspondente à importação desejada.
+2. Selecione o arquivo no seu computador.
+3. O sistema valida o conteúdo e exibe mensagem de sucesso ou erro.</p>
+<blockquote>
+<p><strong>Exemplo de mensagem:</strong><br/>
+“Arquivo YAML importado com sucesso. Parâmetros carregados.”</p>
+</blockquote>
+<hr/>
+<h3 id="a3-exportacao-de-relatorios-pdf">A.3 Exportação de Relatórios PDF<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>Após a simulação, o usuário pode exportar um relatório executivo em PDF contendo:</p>
+<ul>
+<li>Parâmetros utilizados na simulação</li>
+<li>Indicadores de desempenho (tempo médio de espera, ocupação, rejeição, etc.)</li>
+<li>Gráficos e tabelas de resultados</li>
+<li>Recomendações automáticas do sistema</li>
+</ul>
+<p>O PDF é salvo automaticamente na pasta <code>resultados/relatorios</code> (ou outra definida pelo usuário). O caminho do arquivo é exibido na interface após a exportação.</p>
+<hr/>
+<h3 id="a4-exportacao-do-gif-animado">A.4 Exportação do GIF Animado<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>O simulador gera um GIF animado ilustrando a evolução do layout do restaurante durante a simulação, destacando a ocupação das mesas e o fluxo de clientes.</p>
+<ul>
+<li>O GIF é salvo na mesma pasta dos relatórios PDF.</li>
+<li>O nome do arquivo inclui data e hora para fácil identificação.</li>
+<li>O usuário pode visualizar o GIF diretamente pela interface ou acessar o arquivo salvo.</li>
+</ul>
+<hr/>
+<h3 id="a5-exemplos-de-arquivos">A.5 Exemplos de Arquivos<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p><strong>Exemplo de arquivo YAML de configuração:</strong></p>
+<pre><code class="language-yaml">numero_de_mesas: 4
+cadeiras_por_mesa: 4
+tempo_medio_refeicao: 30
+taxa_chegada_clientes: 2
+layout_ascii: "layout_exemplo.txt"
+</code></pre>
+<p><strong>Exemplo de layout ASCII:</strong></p>
+<pre><code class="language-plaintext">###########
+# B   M M #
+#     M M #
+# C       #
+###########
+</code></pre>
+<hr/>
+<h3 id="a6-exemplo-de-histograma-de-clientes-atendidos-e-nao-atendidos">A.6 Exemplo de Histograma de Clientes Atendidos e Não Atendidos<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>O simulador gera histogramas que permitem visualizar a distribuição de clientes atendidos e não atendidos ao longo do período simulado. Esse tipo de gráfico auxilia na identificação de gargalos e na avaliação da eficiência operacional do restaurante.</p>
+<p>Abaixo, um exemplo esquemático de histograma:</p>
+<pre><code class="language-plaintext">Clientes
+  ^
+  |        █
+  |        █
+  |        █      █
+  |        █      █
+  |        █      █
+  |        █      █
+  |        █      █
+  +------------------------&gt;
+           Atendidos   Não Atendidos
+
+Legenda:
+- A barra da esquerda representa o número de clientes atendidos.
+- A barra da direita representa o número de clientes não atendidos (rejeitados por lotação ou fila).
+</code></pre>
+<blockquote>
+<p><strong>Observações:</strong><br/>
+O histograma real pode ser exportado em formato de imagem (PNG, JPG) e incluído nos relatórios PDF ou anexos, facilitando a análise visual dos resultados pelo gestor.
+Recomenda-se consultar este anexo sempre que houver dúvidas sobre o uso do simulador, formatos de arquivos aceitos ou procedimentos de exportação.</p>
+</blockquote>
+<hr/>
+<h2 id="anexo-b-fichas-e-relatorios-auxiliares">Anexo B – Fichas e Relatórios Auxiliares<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h2>
+<p>Este anexo reúne os principais instrumentos de apoio utilizados no levantamento de dados reais em campo e na documentação dos resultados para o cliente. Inclui modelos de fichas de coleta, tabelas de análise e exemplo de relatório executivo.</p>
+<hr/>
+<h3 id="b1-ficha-01-ficha-de-coleta-de-dados-em-campo">B.1 Ficha 01 - Ficha de Coleta de Dados em Campo<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>Utilizada para registrar os parâmetros operacionais do restaurante durante a observação direta.</p>
+<pre><code class="language-plaintext">|------------------------------------|-------------------|----------------------------------------------|------------------|
+| Parâmetro                          | Unidade           | Método de Coleta / Observação                | Exemplo de Valor |
+|------------------------------------|-------------------|----------------------------------------------|------------------|
+| Data da coleta                     | -                 | Registro manual                              | 01/06/2025       |
+| Horário de início/fim              | hh:mm             | Observação direta                            | 11:30 - 14:00    |
+| Número de mesas                    | unidades          | Contagem                                     | 4                |
+| Cadeiras por mesa                  | unidades          | Contagem                                     | 4                |
+| Número de buffets                  | unidades          | Contagem                                     | 1                |
+| Número de caixas                   | unidades          | Contagem                                     | 1                |
+| Tempo médio de refeição            | minutos           | Cronometragem de clientes                    | 30               |
+| Desvio padrão do tempo de refeição | minutos           | Cálculo estatístico                          | 5                |
+| Tempo médio no buffet              | minutos           | Cronometragem                                | 2                |
+| Tempo médio na balança             | minutos           | Cronometragem                                | 1                |
+| Tempo médio no caixa               | minutos           | Cronometragem                                | 2                |
+| Taxa de chegada de clientes        | clientes/minuto   | Contagem de chegadas por intervalo de tempo  | 2                |
+| Distribuição de chegada            | -                 | Observação (constante, pico, etc.)           | Pico 12h-13h     |
+| Capacidade máxima do salão         | clientes          | Cálculo (mesas × cadeiras)                   | 16               |
+| Tempo total de simulação           | minutos           | Definido pelo período de análise             | 120              |
+| Layout do restaurante              | ASCII/matriz      | Desenho ou foto convertida                   | (ver exemplo)    |
+|------------------------------------|-------------------|----------------------------------------------|------------------|
+</code></pre>
+<hr/>
+<h3 id="b2-ficha-02-ficha-comparativa-para-analise-de-variacao-de-parametros">B.2 Ficha 02 - Ficha Comparativa para Análise de Variação de Parâmetros<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>Permite registrar os efeitos de diferentes configurações ao longo de dias ou cenários simulados.</p>
+<pre><code class="language-plaintext">|---------------------------|---------------|------------------------|---------------|------------------------|---------------|------------------------|
+| Parâmetro Variado         | Dia 1 (Valor) | Dia 1 (Resultado)      | Dia 2 (Valor) | Dia 2 (Resultado)      | Dia 3 (Valor) | Dia 3 (Resultado)      |
+|---------------------------|---------------|------------------------|---------------|------------------------|---------------|------------------------|
+| Número de mesas           | 4             | 8 clientes rejeitados  | 6             | 2 clientes rejeitados  | 8             | 0 clientes rejeitados  |
+| Tempo médio de refeição   | 30 min        | 92% ocupação           | 25 min        | 85% ocupação           | 20 min        | 78% ocupação           |
+| Taxa de chegada (pico)    | 2/min         | 16 min espera máxima   | 3/min         | 25 min espera máxima   | 1.5/min       | 8 min espera máxima    |
+| Layout                    | Padrão        | 7 filas formadas       | Otimizado     | 3 filas formadas       | Otimizado     | 2 filas formadas       |
+| Tempo médio no caixa      | 2 min         | 5 min fila caixa       | 1.5 min       | 3 min fila caixa       | 1 min         | 1 min fila caixa       |
+|---------------------------|---------------|------------------------|---------------|------------------------|---------------|------------------------|
+</code></pre>
+<hr/>
+<h3 id="b3-modelo-de-relatorio-executivo-para-o-cliente">B.3 Modelo de Relatório Executivo para o Cliente<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>Exemplo de relatório gerado pelo simulador, entregue ao gestor do restaurante.</p>
+<pre><code class="language-plaintext">---------------------------------------------------------------
+RELATÓRIO EXECUTIVO DE SIMULAÇÃO – RESTAURANTE POR QUILO
+---------------------------------------------------------------
+
+1. Dados do Estabelecimento
+   - Nome: Restaurante Exemplo
+   - Data da Simulação: 01/06/2025
+
+2. Parâmetros Utilizados na Simulação
+   | Parâmetro                   | Valor           | Observação                      |
+   |-----------------------------|-----------------|---------------------------------|
+   | Número de mesas             | 4               | Conforme layout ASCII           |
+   | Cadeiras por mesa           | 4               | Capacidade total: 16 lugares    |
+   | Tempo médio de refeição     | 30 min          | Normal (desvio padrão: 5 min)   |
+   | Tempo médio no buffet       | 2 min           | Por cliente                     |
+   | Tempo médio na balança      | 1 min           | Por cliente                     |
+   | Tempo médio no caixa        | 2 min           | Por cliente                     |
+   | Taxa de chegada de clientes | 2 clientes/min  | Horário de pico                 |
+   | Tempo total de simulação    | 120 min         | Período do almoço               |
+
+3. Resultados Principais
+   - Clientes atendidos: 220
+   - Clientes rejeitados (por lotação): 8
+   - Tempo médio de espera por mesa: 4,2 min
+   - Tempo médio total no restaurante: 38,5 min
+   - Taxa média de ocupação das mesas: 92%
+   - Tamanho máximo da fila: 7 clientes
+
+4. Análise e Recomendações
+   - O principal gargalo identificado foi a formação de filas para mesas entre 12h e 13h.
+   - Recomenda-se avaliar a possibilidade de aumentar o número de mesas ou incentivar a rotatividade.
+   - O tempo médio de atendimento no caixa está adequado, sem formação de filas significativas.
+
+5. Visualizações
+   - Gráfico do fluxo de chegada de clientes ao longo do tempo.
+   - GIF animado do layout do restaurante durante a simulação.
+   - Tabela de ocupação das mesas minuto a minuto.
+
+---------------------------------------------------------------
+Este relatório é um modelo adaptável, podendo ser customizado conforme a necessidade do cliente. O simulador exporta automaticamente um relatório em PDF com informações semelhantes, e pode incluir gráficos, tabelas adicionais, recomendações específicas e anexos com os dados brutos da simulação.
+---------------------------------------------------------------
+</code></pre>
+<hr/>
+<h3 id="b4-fluxograma-da-simulacao">B.4 Fluxograma da Simulação<a class="back-to-sumario" href="#sumario" style="margin-left:1em;font-size:0.8em;text-decoration:none;">AO SUMÁRIO</a></h3>
+<p>O fluxograma abaixo representa, de forma simplificada, as principais etapas e decisões do processo de simulação do tempo de permanência em restaurantes por quilo. Ele pode ser utilizado como referência para entendimento do fluxo lógico implementado no sistema.</p>
+<pre><code class="language-plaintext">+---------------------+
+| Início da Simulação |
++---------------------+
+           |
+           v
++-----------------------------+
+| Leitura dos Parâmetros      |
+| (layout, mesas, tempos, etc)|
++-----------------------------+
+           |
+           v
++-----------------------------+
+| Geração dos Clientes        |
+| (taxa de chegada, horários) |
++-----------------------------+
+           |
+           v
++-----------------------------+
+| Para cada Cliente:          |
++-----------------------------+
+           |
+           v
++-----------------------------+
+| Verifica disponibilidade de |
+| mesa                        |
++-----------------------------+
+      | Sim           | Não
+      v               v
++----------------+   +----------------------+
+| Ocupa mesa     |   | Entra na fila de     |
+|                |   | espera por mesa      |
++----------------+   +----------------------+
+      |                   |
+      v                   v
++----------------+   +----------------------+
+| Serve-se no    |   | Aguarda liberação de |
+| buffet         |   | mesa                 |
++----------------+   +----------------------+
+      |                   |
+      v                   v
++----------------+   +----------------------+
+| Pesa na balança|   | Quando liberada,     |
++----------------+   | ocupa mesa           |
+      |                   |
+      v                   v
++----------------+   +----------------------+
+| Paga no caixa  |   | Serve-se no buffet   |
++----------------+   +----------------------+
+      |                   |
+      v                   v
++-----------------------------+
+| Consome refeição            |
++-----------------------------+
+           |
+           v
++-----------------------------+
+| Libera mesa e sai do sistema|
++-----------------------------+
+           |
+           v
++---------------------+
+| Fim da Simulação    |
++---------------------+
+</code></pre>
+<blockquote>
+<p><strong>Observação:</strong><br/>
+Este fluxograma pode ser adaptado conforme as regras específicas do simulador (ex: etapas opcionais como balança, diferentes políticas de fila, etc.).<br/>
+Para apresentações ou relatórios, recomenda-se também a criação de um fluxograma gráfico utilizando ferramentas como draw.io, Lucidchart ou PowerPoint, caso deseje uma versão visual mais elaborada.</p>
+</blockquote>
+<hr/>
+</body>
+</html>
