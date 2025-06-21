@@ -70,24 +70,24 @@ O mercado é dinâmico e competitivo, com constantes avanços tecnológicos e en
 
 ## 4. Análise SWOT (FOFA)
 
-**Forças:**
+- **Forças:**
 - Especialização em Microsoft 365, automação com Python e Power Platform.
 - Atendimento consultivo, personalizado e próximo ao cliente.
 - Flexibilidade para adaptar soluções conforme a necessidade do cliente.
 - Equipe experiente e certificada.
 
-**Fraquezas:**
+- **Fraquezas:**
 - Estrutura enxuta, com dependência dos fundadores para operações-chave.
 - Baixa presença nacional em comparação com grandes consultorias.
 - Limitação de recursos para grandes campanhas de marketing.
 
-**Oportunidades:**
+- **Oportunidades:**
 - Crescimento da demanda por automação e digitalização em PMEs.
 - Novos segmentos de mercado (educação, jurídico, saúde).
 - Parcerias estratégicas com fornecedores e outras consultorias.
 - Expansão de serviços digitais e assinaturas recorrentes.
 
-**Ameaças:**
+- **Ameaças:**
 - Evolução tecnológica acelerada e surgimento de novas soluções.
 - Aumento da concorrência, inclusive de grandes players.
 - Mudanças regulatórias e econômicas que impactem o setor de tecnologia.
