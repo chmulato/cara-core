@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background: #f4f6fb;
+    color: #222;
+    margin: 0;
+    padding: 0 1.5em;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+}
+
+h1, h2, h3, h4 {
+    color: #2b579a;
+    font-weight: 700;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.3em;
+    border-bottom: 2px solid #e1e4ea;
+    padding-bottom: 0.3em;
+}
+
+h2 {
+    font-size: 1.7em;
+    border-bottom: 1px solid #e1e4ea;
+    padding-bottom: 0.2em;
+}
+
+h3 {
+    font-size: 1.3em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+a {
+    color: #0078d4;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover, a:focus {
+    color: #005a9e;
+    text-decoration: underline;
+}
+
+code, pre {
+    background: #f1f3f7;
+    color: #c7254e;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    border-radius: 4px;
+    padding: 0.2em 0.4em;
+}
+
+pre {
+    padding: 1em;
+    overflow-x: auto;
+    margin: 1em 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+}
+
+ul, ol {
+    margin-left: 2em;
+    margin-bottom: 1em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+blockquote {
+    border-left: 4px solid #b4c7e7;
+    background: #f8fafc;
+    color: #555;
+    margin: 1.5em 0;
+    padding: 0.8em 1.2em;
+    border-radius: 4px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e1e4ea;
+    margin: 2em 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    background: #fff;
+}
+
+th, td {
+    border: 1px solid #e1e4ea;
+    padding: 0.6em 1em;
+    text-align: left;
+}
+
+th {
+    background: #f1f3f7;
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    body {
+        padding: 0 0.5em;
+        font-size: 1.07em;
+    }
+    h1 { font-size: 1.7em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; }
+    table, th, td {
+        font-size: 0.97em;
+    }
+}
+
+</style>
+
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>HANDBOOK</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="apostila-microsoft-365">Apostila Microsoft 365</h1>
+<figure>
+<img src="images/COVER.png" alt="Capa da Apostila" />
+<figcaption aria-hidden="true">Capa da Apostila</figcaption>
+</figure>
+<p><strong>Cara Core Informática</strong><br />
+<strong>Versão:</strong> v1.0 – 20 de Junho 2025<br />
+<strong>Autor:</strong> Christian Vladimir Uhdre Mulato</p>
+<hr />
+<h2 id="sumário">Sumário</h2>
+<ul>
+<li><a href="#apostila-microsoft-365">Apostila Microsoft 365</a>
+<ul>
+<li><a href="#sumário">Sumário</a></li>
+<li><a href="#apresentação">1. Apresentação</a></li>
+<li><a href="#introdução-ao-microsoft-365">2. Introdução ao Microsoft
+365</a>
+<ul>
+<li><a href="#definição-do-microsoft-365-antigo-office-365">Definição do
+Microsoft 365 (antigo Office 365)</a></li>
+<li><a href="#benefícios-principais">Benefícios Principais</a></li>
+</ul></li>
+<li><a href="#módulos-dos-serviços">3. Módulos dos Serviços</a>
+<ul>
+<li><a href="#outlook-online">3.1 Outlook Online</a></li>
+<li><a href="#onedrive">3.2 OneDrive</a></li>
+<li><a href="#word-excel-e-powerpoint-online">3.3 Word, Excel e
+PowerPoint Online</a></li>
+<li><a href="#microsoft-teams">3.4 Microsoft Teams</a></li>
+<li><a href="#sharepoint">3.5 SharePoint</a></li>
+<li><a
+href="#power-platform-power-automate-power-apps-e-power-bi">3.6 Power
+Platform (Power Automate, Power Apps e Power BI)</a></li>
+<li><a href="#segurança-privacidade-e-administração">3.7 Segurança,
+Privacidade e Administração</a></li>
+</ul></li>
+<li><a href="#boas-práticas-e-produtividade">4. Boas Práticas e
+Produtividade</a></li>
+<li><a href="#novidades-e-atualizações">5. Novidades e
+Atualizações</a></li>
+<li><a href="#referências-e-links-úteis">6. Referências e Links
+Úteis</a></li>
+<li><a href="#anexos">7. Anexos</a></li>
+<li><a href="#conclusão">Conclusão</a></li>
+<li><a href="#fale-conosco">Fale Conosco</a></li>
+<li><a href="#agradecimentos">Agradecimentos</a></li>
+<li><a href="#controle-de-versões-roadmap">Controle de Versões
+(ROADMAP)</a></li>
+<li><a href="#direitos-autorais-e-isenção-de-responsabilidade">Direitos
+Autorais e Isenção de Responsabilidade</a></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="apresentação">1. Apresentação</h2>
+<p><strong>Cara Core Informática</strong> é uma empresa especializada em
+soluções de tecnologia, com foco em capacitação e suporte técnico.<br />
+Esta apostila faz parte de nossa iniciativa de oferecer materiais
+educativos e práticos para usuários do Microsoft 365, facilitando o
+aprendizado e a utilização dos serviços da plataforma.</p>
+<p>O objetivo deste material é capacitar usuários no uso dos principais
+serviços do Microsoft 365, apresentando conceitos, funcionalidades e
+boas práticas para o dia a dia profissional e pessoal.<br />
+O conteúdo é destinado a profissionais, empresas e usuários que utilizam
+ou pretendem utilizar o Microsoft 365, independentemente do nível de
+conhecimento prévio.</p>
+<p>A estrutura modular permite que o conteúdo seja consultado conforme a
+necessidade, com atualizações semestrais para acompanhar as novidades da
+plataforma.<br />
+Para garantir acesso à versão mais recente, consulte sempre o site da
+Cara Core Informática.</p>
+<p>Em caso de dúvidas, sugestões ou suporte, entre em contato pelo
+e-mail: [suporte@caracore.com.br], ou pelo Whatsapp: +55 41
+99909-7797.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="introdução-ao-microsoft-365">2. Introdução ao Microsoft 365</h2>
+<p>O Microsoft 365 é uma solução moderna que reúne aplicativos, serviços
+e recursos em nuvem para facilitar o trabalho, a colaboração e a
+comunicação em ambientes profissionais e pessoais. Neste capítulo, você
+vai entender o que é o Microsoft 365, seus principais benefícios e como
+ele pode transformar a rotina de empresas e usuários individuais.</p>
+<h3 id="definição-do-microsoft-365-antigo-office-365">Definição do
+Microsoft 365 (antigo Office 365)</h3>
+<p>O Microsoft 365 é uma plataforma de produtividade baseada em nuvem
+desenvolvida pela Microsoft, que reúne um conjunto de aplicativos e
+serviços integrados para facilitar o trabalho, a colaboração e a
+comunicação em ambientes profissionais e pessoais.<br />
+A solução inclui ferramentas como Outlook, Word, Excel, PowerPoint,
+OneDrive, Teams, SharePoint, entre outros, permitindo acesso seguro a
+arquivos, e-mails e recursos de qualquer lugar e dispositivo conectado à
+internet.<br />
+Além dos aplicativos tradicionais, o Microsoft 365 oferece recursos
+avançados de segurança, gerenciamento e automação, tornando-se uma
+solução completa para empresas de todos os portes e para usuários
+individuais.</p>
+<h3 id="benefícios-principais">Benefícios Principais</h3>
+<p>O Microsoft 365 oferece uma série de benefícios que tornam o trabalho
+mais produtivo, colaborativo e seguro, tanto para empresas quanto para
+usuários individuais. A seguir, destacamos os principais diferenciais da
+plataforma:</p>
+<ul>
+<li><p><strong>Acesso a aplicativos de produtividade online e
+offline</strong><br />
+Utilize Word, Excel, PowerPoint e Outlook tanto pela web quanto
+instalados no computador ou dispositivos móveis, garantindo
+flexibilidade para trabalhar em qualquer lugar.</p></li>
+<li><p><strong>Colaboração em tempo real com colegas e
+equipes</strong><br />
+Edite documentos simultaneamente, compartilhe arquivos e troque
+mensagens instantâneas, facilitando o trabalho em equipe e a comunicação
+eficiente.</p></li>
+<li><p><strong>Armazenamento seguro na nuvem com OneDrive</strong><br />
+Cada usuário possui espaço dedicado na nuvem para armazenar, acessar e
+compartilhar arquivos com segurança, com backup automático e controle de
+versões.</p></li>
+<li><p><strong>Integração entre aplicativos e serviços</strong><br />
+Os aplicativos do Microsoft 365 são integrados, permitindo, por exemplo,
+salvar arquivos do Outlook diretamente no OneDrive, agendar reuniões no
+Teams a partir do Outlook ou automatizar tarefas com o Power
+Automate.</p></li>
+</ul>
+<p>Em resumo, o Microsoft 365 proporciona um ambiente moderno, seguro e
+integrado, que potencializa a produtividade e a colaboração, atendendo
+tanto às necessidades de usuários individuais quanto às demandas de
+empresas de todos os tamanhos.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="módulos-dos-serviços">3. Módulos dos Serviços</h2>
+<p>O Microsoft 365 é composto por diversos serviços e aplicativos que
+atendem a diferentes necessidades de produtividade, colaboração e gestão
+de informações.<br />
+Nesta seção, apresentamos os principais módulos da plataforma,
+detalhando suas funcionalidades, formas de acesso e dicas de uso para
+que você aproveite ao máximo cada recurso.</p>
+<h3 id="outlook-online">3.1 Outlook Online</h3>
+<p>O Outlook Online é o serviço de e-mail, calendário e contatos do
+Microsoft 365, acessível diretamente pelo navegador. Ele permite
+gerenciar mensagens, compromissos e informações de contato de forma
+prática, integrada e segura, tanto para uso profissional quanto
+pessoal.</p>
+<p><strong>Principais Recursos:</strong></p>
+<ul>
+<li><p><strong>Acesso via navegador:</strong><br />
+Basta acessar o portal do Microsoft 365 e fazer login para utilizar o
+Outlook Online em qualquer dispositivo conectado à internet.</p></li>
+<li><p><strong>Gestão de e-mails:</strong><br />
+Envie, receba e organize e-mails com facilidade. Crie pastas
+personalizadas, utilize categorias, marque mensagens importantes e
+aplique regras automáticas para organização.</p></li>
+<li><p><strong>Calendário integrado:</strong><br />
+Agende compromissos, reuniões e eventos. Compartilhe calendários com
+colegas e visualize agendas de equipe para facilitar o
+planejamento.</p></li>
+<li><p><strong>Contatos e grupos:</strong><br />
+Gerencie informações de contatos pessoais e profissionais. Crie grupos
+para facilitar o envio de mensagens em massa e a colaboração.</p></li>
+<li><p><strong>Colaboração e integração:</strong><br />
+Integração com Teams para agendamento de reuniões, compartilhamento de
+arquivos pelo OneDrive e colaboração em tempo real.</p></li>
+<li><p><strong>Personalização e produtividade:</strong><br />
+Personalize a interface com temas, organize pastas e utilize filtros
+avançados para localizar rapidamente mensagens e compromissos.</p></li>
+<li><p><strong>Segurança e privacidade:</strong><br />
+Recursos avançados de proteção de dados, autenticação multifator e
+políticas de privacidade para garantir a segurança das
+informações.</p></li>
+</ul>
+<p><strong>Novidades recentes:</strong><br />
+O Outlook Online recebe atualizações frequentes, incluindo melhorias na
+integração com Teams, busca aprimorada e novas opções de automação para
+facilitar o dia a dia.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h3 id="onedrive">3.2 OneDrive</h3>
+<p>O OneDrive é o serviço de armazenamento em nuvem do Microsoft 365,
+projetado para guardar, acessar e compartilhar arquivos de forma segura
+e prática, tanto no ambiente profissional quanto pessoal. Com ele, seus
+documentos, fotos e outros arquivos ficam disponíveis em qualquer
+dispositivo conectado à internet.</p>
+<figure>
+<img src="images/ONEDRIVE.png" alt="OneDrive" />
+<figcaption aria-hidden="true">OneDrive</figcaption>
+</figure>
+<p><strong>Principais Recursos:</strong></p>
+<ul>
+<li><p><strong>Armazenamento na nuvem pessoal:</strong><br />
+Cada usuário possui um espaço dedicado para salvar arquivos, garantindo
+acesso rápido e seguro de qualquer lugar.</p></li>
+<li><p><strong>Upload, download e sincronização:</strong><br />
+Envie arquivos e pastas para a nuvem, faça download quando necessário e
+mantenha tudo sincronizado automaticamente entre computador, smartphone
+e web.</p></li>
+<li><p><strong>Compartilhamento e permissões:</strong><br />
+Compartilhe arquivos ou pastas com colegas, clientes ou familiares,
+definindo permissões de visualização ou edição conforme a
+necessidade.</p></li>
+<li><p><strong>Integração com desktop e mobile:</strong><br />
+O aplicativo do OneDrive está disponível para Windows, macOS, Android e
+iOS, permitindo acesso e edição de arquivos mesmo offline.</p></li>
+<li><p><strong>Colaboração em tempo real:</strong><br />
+Trabalhe em conjunto em documentos do Word, Excel e PowerPoint, com
+atualizações instantâneas e controle de versões.</p></li>
+<li><p><strong>Segurança e backup:</strong><br />
+Proteja seus dados com criptografia, autenticação multifator e recursos
+de backup automático, evitando perdas acidentais.</p></li>
+</ul>
+<p><strong>Dica:</strong><br />
+Utilize o OneDrive para centralizar seus arquivos importantes e
+facilitar o compartilhamento seguro com sua equipe ou clientes, mantendo
+sempre uma cópia de segurança na nuvem.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h3 id="word-excel-e-powerpoint-online">3.3 Word, Excel e PowerPoint
+Online</h3>
+<p>O Word, Excel e PowerPoint Online são versões baseadas em nuvem dos
+aplicativos clássicos de produtividade da Microsoft. Eles permitem
+criar, editar e compartilhar documentos, planilhas e apresentações
+diretamente pelo navegador, sem necessidade de instalação.</p>
+<p><strong>Principais Recursos:</strong></p>
+<ul>
+<li><p><strong>Acesso em qualquer lugar:</strong><br />
+Utilize os aplicativos pelo navegador em qualquer dispositivo conectado
+à internet, com seus arquivos salvos automaticamente no
+OneDrive.</p></li>
+<li><p><strong>Funcionalidades essenciais:</strong><br />
+Crie e edite textos, planilhas e apresentações com as principais
+ferramentas das versões desktop, incluindo formatação, gráficos, tabelas
+e imagens.</p></li>
+<li><p><strong>Colaboração em tempo real:</strong><br />
+Trabalhe simultaneamente com outras pessoas no mesmo arquivo,
+visualizando edições em tempo real e utilizando comentários para
+facilitar a comunicação.</p></li>
+<li><p><strong>Controle de versões:</strong><br />
+O histórico de versões permite recuperar alterações anteriores e
+acompanhar o desenvolvimento dos documentos.</p></li>
+<li><p><strong>Integração com outros serviços:</strong><br />
+Compartilhe arquivos facilmente pelo Teams, Outlook ou links do
+OneDrive, mantendo o fluxo de trabalho integrado.</p></li>
+</ul>
+<p><strong>Diferenças entre web e desktop:</strong><br />
+As versões online possuem recursos essenciais para a maioria das
+tarefas, mas algumas funções avançadas estão disponíveis apenas nas
+versões instaladas dos aplicativos.</p>
+<p><strong>Dica:</strong><br />
+Aproveite a colaboração em tempo real para projetos em grupo e utilize o
+OneDrive para manter seus arquivos sempre acessíveis e seguros.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h3 id="microsoft-teams">3.4 Microsoft Teams</h3>
+<p>O Microsoft Teams é a plataforma de comunicação e colaboração do
+Microsoft 365, projetada para integrar equipes, centralizar conversas,
+arquivos e ferramentas em um único ambiente digital. A seguir, veja como
+aproveitar ao máximo seus principais recursos:</p>
+<p><strong>Criação de equipes e canais</strong><br />
+No Teams, você pode criar equipes para diferentes departamentos,
+projetos ou grupos de trabalho. Dentro de cada equipe, é possível
+organizar canais temáticos para separar assuntos, tarefas ou áreas de
+interesse.</p>
+<ul>
+<li>Para criar uma equipe, clique em “Equipes” &gt; “Criar equipe” e
+defina o nome, descrição e membros.</li>
+<li>Use canais padrão para discussões abertas e canais privados para
+conversas restritas a determinados membros.</li>
+<li>Personalize canais com guias, como arquivos, wikis e
+aplicativos.</li>
+</ul>
+<p><strong>Chat, chamadas e reuniões</strong><br />
+O Teams oferece chat individual e em grupo, além de chamadas de voz e
+vídeo, facilitando a comunicação rápida e eficiente.</p>
+<ul>
+<li>Utilize o chat para trocar mensagens instantâneas, compartilhar
+arquivos e reagir com emojis.</li>
+<li>Inicie chamadas de áudio ou vídeo diretamente do chat ou agende
+reuniões pelo calendário integrado.</li>
+<li>Durante reuniões, compartilhe tela, grave sessões e utilize recursos
+como quadro branco e salas de reunião separadas (breakout rooms).</li>
+</ul>
+<p><strong>Compartilhamento de arquivos</strong><br />
+Compartilhe documentos, imagens e outros arquivos diretamente nos chats
+ou canais.</p>
+<ul>
+<li>Arquivos enviados ficam armazenados no SharePoint (canais) ou
+OneDrive (chats), permitindo edição colaborativa em tempo real.</li>
+<li>Utilize o histórico de versões para recuperar alterações
+anteriores.</li>
+<li>Defina permissões de acesso conforme a necessidade do grupo.</li>
+</ul>
+<p><strong>Integração com aplicativos</strong><br />
+O Teams integra-se a diversos aplicativos do Microsoft 365 e de
+terceiros, centralizando ferramentas no fluxo de trabalho.</p>
+<ul>
+<li>Adicione guias de Word, Excel, Planner, OneNote, Power BI e outros
+diretamente nos canais.</li>
+<li>Explore o catálogo de aplicativos para automatizar tarefas, criar
+enquetes, gerenciar tarefas e muito mais.</li>
+<li>Use conectores para receber notificações de serviços externos (como
+Trello, GitHub, etc.).</li>
+</ul>
+<p><strong>Novidades e melhorias</strong><br />
+O Teams recebe atualizações frequentes, trazendo novos recursos e
+melhorias de desempenho.</p>
+<ul>
+<li>Recentemente, foram adicionados recursos como transcrição automática
+de reuniões, visualização dinâmica de participantes, reações ao vivo e
+integração aprimorada com o Outlook.</li>
+<li>Fique atento ao <a
+href="https://www.microsoft.com/en-us/microsoft-365/roadmap">roadmap
+oficial do Microsoft 365</a> para acompanhar as novidades.</li>
+</ul>
+<blockquote>
+<p><strong>Dica:</strong><br />
+Utilize o Teams como hub central de colaboração, integrando comunicação,
+arquivos e aplicativos em um só lugar para aumentar a produtividade da
+equipe.</p>
+</blockquote>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h3 id="sharepoint">3.5 SharePoint</h3>
+<p>O SharePoint é a plataforma de colaboração e gestão de conteúdo do
+Microsoft 365, utilizada para criar sites, armazenar, organizar e
+compartilhar documentos, além de facilitar o trabalho em equipe em
+ambientes corporativos.</p>
+<p><strong>O que é o SharePoint</strong><br />
+O SharePoint permite criar portais, intranets, bibliotecas de documentos
+e áreas de colaboração para equipes, departamentos ou projetos. Ele
+centraliza informações, facilita o acesso a arquivos e integra-se com
+outros serviços do Microsoft 365, como Teams e OneDrive.</p>
+<figure>
+<img src="images/SHAREPOINT.png" alt="SharePoint" />
+<figcaption aria-hidden="true">SharePoint</figcaption>
+</figure>
+<p><strong>Criação de sites e bibliotecas</strong></p>
+<ul>
+<li>É possível criar sites de equipe para colaboração interna ou sites
+de comunicação para divulgação de informações.</li>
+<li>Cada site pode conter bibliotecas de documentos, listas, páginas e
+webparts personalizadas.</li>
+<li>Para criar um site, acesse o SharePoint pelo portal do Microsoft
+365, clique em “Criar site” e escolha o tipo desejado.</li>
+<li>Bibliotecas de documentos permitem armazenar, organizar e controlar
+o acesso a arquivos de forma estruturada.</li>
+</ul>
+<p><strong>Compartilhamento e organização de documentos</strong></p>
+<ul>
+<li>Compartilhe arquivos e pastas com membros da equipe ou usuários
+externos, definindo permissões de leitura ou edição.</li>
+<li>Utilize metadados, colunas personalizadas e visualizações para
+organizar documentos e facilitar buscas.</li>
+<li>O controle de versões permite acompanhar alterações e restaurar
+versões anteriores de arquivos.</li>
+<li>Integração com o Teams e o OneDrive para colaboração em tempo real e
+acesso facilitado.</li>
+</ul>
+<p><strong>Boas práticas</strong></p>
+<ul>
+<li>Estruture sites e bibliotecas de acordo com a hierarquia e
+necessidades da organização.</li>
+<li>Defina permissões de acesso de forma criteriosa para proteger
+informações sensíveis.</li>
+<li>Utilize nomes claros e padronizados para arquivos e pastas.</li>
+<li>Aproveite recursos como alertas, fluxos de aprovação e automações
+com Power Automate para otimizar processos.</li>
+<li>Realize revisões periódicas para manter o conteúdo atualizado e
+relevante.</li>
+</ul>
+<blockquote>
+<p><strong>Dica:</strong><br />
+O SharePoint é ideal para centralizar documentos, criar portais internos
+e padronizar processos, promovendo colaboração e organização em equipes
+de todos os tamanhos.</p>
+</blockquote>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h3 id="power-platform-power-automate-power-apps-e-power-bi">3.6 Power
+Platform (Power Automate, Power Apps e Power BI)</h3>
+<p>A Power Platform é um conjunto de ferramentas do Microsoft 365 que
+permite automatizar processos, criar aplicativos personalizados e
+analisar dados de forma intuitiva, sem necessidade de conhecimentos
+avançados em programação. Ela é composta por três principais soluções:
+Power Automate, Power Apps e Power BI.</p>
+<p><strong>Visão geral</strong><br />
+A Power Platform integra-se aos demais serviços do Microsoft 365,
+facilitando a transformação digital nas organizações. Com ela, é
+possível automatizar tarefas repetitivas, criar soluções sob medida para
+necessidades específicas e obter insights a partir de dados, tudo de
+forma visual e acessível.</p>
+<p><strong>Automatização de processos (Power Automate)</strong><br />
+O Power Automate (antigo Microsoft Flow) permite criar fluxos de
+trabalho automáticos entre aplicativos e serviços, reduzindo tarefas
+manuais e aumentando a produtividade.</p>
+<ul>
+<li>Automatize notificações, aprovações, movimentação de arquivos e
+integração entre sistemas.</li>
+<li>Utilize modelos prontos ou crie fluxos personalizados com base em
+gatilhos e ações.</li>
+<li>Exemplo: Receber um alerta no Teams sempre que um novo arquivo for
+adicionado a uma pasta do OneDrive.</li>
+</ul>
+<p><strong>Criação de aplicativos (Power Apps)</strong><br />
+O Power Apps possibilita criar aplicativos personalizados para web e
+dispositivos móveis, sem necessidade de programação tradicional.</p>
+<ul>
+<li>Desenvolva soluções para coleta de dados, formulários, controle de
+inventário, registro de visitas, entre outros.</li>
+<li>Os aplicativos podem ser integrados ao SharePoint, Teams, Excel e
+outros serviços do Microsoft 365.</li>
+<li>Interface intuitiva com recursos de arrastar e soltar, facilitando a
+criação por usuários de negócio.</li>
+</ul>
+<p><strong>Visualização de dados (Power BI)</strong><br />
+O Power BI é a ferramenta de análise e visualização de dados da
+Microsoft, permitindo criar dashboards interativos e relatórios
+dinâmicos.</p>
+<ul>
+<li>Conecte-se a diversas fontes de dados, como Excel, SharePoint,
+bancos de dados e serviços em nuvem.</li>
+<li>Crie gráficos, tabelas e indicadores para acompanhar métricas e
+tomar decisões baseadas em dados.</li>
+<li>Compartilhe relatórios com a equipe pelo Teams, SharePoint ou
+publicando na web.</li>
+</ul>
+<blockquote>
+<p><strong>Dica:</strong><br />
+Explore a Power Platform para automatizar rotinas, criar soluções sob
+medida e transformar dados em informações valiosas, potencializando o
+uso do Microsoft 365 em sua organização.</p>
+</blockquote>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h3 id="segurança-privacidade-e-administração">3.7 Segurança,
+Privacidade e Administração</h3>
+<p>A segurança, privacidade e administração são pilares fundamentais no
+Microsoft 365, garantindo proteção de dados, conformidade com normas e
+gestão eficiente dos recursos da organização.</p>
+<figure>
+<img src="images/SECURITY.png" alt="Security" />
+<figcaption aria-hidden="true">Security</figcaption>
+</figure>
+<p><strong>Proteção de dados e compliance</strong> O Microsoft 365
+oferece recursos avançados para proteger informações sensíveis e atender
+a requisitos legais e regulatórios (LGPD, GDPR, etc.).</p>
+<ul>
+<li>Ferramentas de prevenção contra perda de dados (DLP) para evitar
+vazamento de informações.</li>
+<li>Criptografia de dados em trânsito e em repouso.</li>
+<li>Auditoria e logs de atividades para rastreamento e
+conformidade.</li>
+<li>Políticas de retenção e classificação de dados.</li>
+</ul>
+<p><strong>Backup e recuperação</strong></p>
+<ul>
+<li>O Microsoft 365 mantém versões anteriores de arquivos no OneDrive e
+SharePoint, permitindo restaurar documentos em caso de exclusão ou
+alteração acidental.</li>
+<li>Recursos de recuperação de caixa de e-mail e itens excluídos no
+Outlook.</li>
+<li>Para necessidades avançadas, considere soluções de backup de
+terceiros integradas ao Microsoft 365.</li>
+</ul>
+<p><strong>Gerenciamento de usuários e licenças</strong></p>
+<ul>
+<li>O portal de administração permite criar, editar e remover usuários,
+além de atribuir licenças conforme a necessidade.</li>
+<li>Grupos de segurança e funções administrativas facilitam a delegação
+de permissões.</li>
+<li>Relatórios de uso e auditoria ajudam a monitorar o ambiente e
+otimizar recursos.</li>
+</ul>
+<p><strong>MFA – Autenticação Multifator</strong></p>
+<ul>
+<li>A autenticação multifator (MFA) adiciona uma camada extra de
+segurança, exigindo uma segunda forma de verificação além da senha.</li>
+<li>Pode ser ativada para todos os usuários ou grupos específicos,
+reduzindo riscos de acesso não autorizado.</li>
+<li>Suporta aplicativos autenticadores, SMS, chamadas telefônicas e
+notificações push.</li>
+</ul>
+<p><strong>Políticas de segurança</strong></p>
+<ul>
+<li>Defina políticas de senha forte, bloqueio de conta e acesso
+condicional.</li>
+<li>Utilize o Microsoft Defender para Office 365 para proteção contra
+ameaças, phishing e malware.</li>
+<li>Implemente políticas de acesso condicional para controlar o acesso
+com base em localização, dispositivo ou risco detectado.</li>
+</ul>
+<blockquote>
+<p><strong>Dica:</strong><br />
+Revise periodicamente as configurações de segurança e políticas de
+compliance para garantir que sua organização esteja protegida e em
+conformidade com as melhores práticas do mercado.</p>
+</blockquote>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="boas-práticas-e-produtividade">4. Boas Práticas e
+Produtividade</h2>
+<p>Adotar boas práticas no uso do Microsoft 365 potencializa a
+produtividade, facilita a colaboração e garante maior organização no dia
+a dia. Confira algumas dicas essenciais para aproveitar ao máximo os
+recursos da plataforma:</p>
+<ul>
+<li><p><strong>Organização do Outlook e OneDrive:</strong><br />
+Mantenha sua caixa de entrada limpa utilizando pastas, categorias e
+regras automáticas no Outlook. No OneDrive, organize seus arquivos em
+pastas temáticas e utilize nomes claros para facilitar buscas e
+compartilhamentos.</p></li>
+<li><p><strong>Gestão de tempo e tarefas no Teams e
+Outlook:</strong><br />
+Utilize o calendário do Outlook para agendar compromissos e reuniões. No
+Teams, crie tarefas e acompanhe o progresso em equipe, integrando com o
+Planner ou To Do para não perder prazos importantes.</p></li>
+<li><p><strong>Colaboração eficiente entre plataformas:</strong><br />
+Compartilhe documentos pelo OneDrive ou Teams, permitindo edição
+simultânea e comentários em tempo real. Use o chat do Teams para alinhar
+rapidamente decisões e evitar trocas excessivas de e-mails.</p></li>
+<li><p><strong>Integração entre aplicativos do M365:</strong><br />
+Aproveite a integração entre Word, Excel, PowerPoint, Outlook, Teams e
+OneDrive para automatizar rotinas, compartilhar arquivos com facilidade
+e centralizar informações, tornando o fluxo de trabalho mais ágil e
+conectado.</p></li>
+</ul>
+<p>Adotar essas práticas contribui para um ambiente digital mais
+produtivo, colaborativo e seguro, otimizando o uso do Microsoft 365 em
+qualquer contexto profissional ou pessoal.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="novidades-e-atualizações">5. Novidades e Atualizações</h2>
+<p>Nesta seção, acompanhe as principais novidades e mudanças recentes no
+Microsoft 365, garantindo que você e sua equipe estejam sempre
+atualizados com os recursos mais modernos da plataforma.</p>
+<p><strong>Resumo das atualizações mais recentes</strong><br />
+O Microsoft 365 recebe atualizações constantes, trazendo melhorias de
+desempenho, segurança e novas funcionalidades para os aplicativos e
+serviços. Entre as novidades recentes, destacam-se:</p>
+<ul>
+<li>Integração aprimorada entre Teams, Outlook e OneDrive.</li>
+<li>Novos recursos de colaboração em tempo real nos aplicativos do
+Office Online.</li>
+<li>Melhorias em segurança, autenticação multifator e proteção contra
+ameaças.</li>
+</ul>
+<p><strong>Funcionalidades novas relevantes</strong></p>
+<ul>
+<li>Transcrição automática e legendas em tempo real nas reuniões do
+Teams.</li>
+<li>Novos templates e automações no Power Automate.</li>
+<li>Recursos de coautoria e comentários aprimorados no Word, Excel e
+PowerPoint Online.</li>
+<li>Dashboards interativos e conectores expandidos no Power BI.</li>
+</ul>
+<p><strong>Mudanças na interface ou nas políticas</strong></p>
+<ul>
+<li>Interface do Teams redesenhada para facilitar a navegação e o acesso
+rápido a chats, arquivos e reuniões.</li>
+<li>Atualizações nas políticas de privacidade e compliance, alinhadas à
+LGPD e GDPR.</li>
+<li>Novos controles de administração para gerenciamento de dispositivos
+e permissões.</li>
+</ul>
+<p><strong>Links para roadmap e changelog oficial</strong></p>
+<ul>
+<li><a
+href="https://www.microsoft.com/en-us/microsoft-365/roadmap">Microsoft
+365 Roadmap</a>: Acompanhe as próximas funcionalidades e lançamentos
+planejados.</li>
+<li><a
+href="https://learn.microsoft.com/en-us/microsoft-365/roadmap?view=o365-worldwide">Microsoft
+365 Changelog</a>: Veja o histórico detalhado de atualizações e
+melhorias.</li>
+</ul>
+<blockquote>
+<p><strong>Dica:</strong><br />
+Consulte regularmente o roadmap e o changelog oficial para planejar
+treinamentos, adoção de novos recursos e garantir que sua organização
+aproveite ao máximo as inovações do Microsoft 365.</p>
+</blockquote>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="referências-e-links-úteis">6. Referências e Links Úteis</h2>
+<ul>
+<li><a
+href="https://www.microsoft.com/en-us/microsoft-365/roadmap">Microsoft
+365 Roadmap</a><br />
+</li>
+<li><a href="https://learn.microsoft.com/">Microsoft Learn</a><br />
+</li>
+<li><a href="https://techcommunity.microsoft.com/">Microsoft Tech
+Community</a><br />
+</li>
+<li><a href="https://support.microsoft.com/">Central de Ajuda Microsoft
+365</a><br />
+</li>
+<li><a href="https://www.youtube.com/@Microsoft365">Canal oficial no
+YouTube</a></li>
+</ul>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="anexos">7. Anexos</h2>
+<p>Nesta seção, você encontra materiais complementares para facilitar o
+uso do Microsoft 365 no dia a dia. Utilize estes anexos para agilizar
+tarefas, padronizar processos e aumentar sua produtividade:</p>
+<ul>
+<li><p><strong>Tutoriais práticos:</strong><br />
+Passo a passo para as principais tarefas, como configurar o Outlook,
+compartilhar arquivos no OneDrive, criar reuniões no Teams, entre
+outros.</p></li>
+<li><p><strong>Checklists e Guias Rápidos:</strong><br />
+Listas de verificação para garantir que nenhum detalhe importante seja
+esquecido em processos recorrentes, além de guias resumidos para
+consulta rápida.</p></li>
+<li><p><strong>Modelos de documentos:</strong><br />
+Exemplos prontos de atas, apresentações, planilhas e outros arquivos
+úteis para uso imediato ou adaptação conforme a necessidade.</p></li>
+<li><p><strong>Checklists de produtividade:</strong><br />
+Ferramentas para organizar rotinas, priorizar tarefas e acompanhar o
+progresso das atividades, otimizando o tempo e os resultados.</p></li>
+</ul>
+<blockquote>
+<p><strong>Dica:</strong><br />
+Personalize os anexos conforme a realidade da sua equipe ou empresa para
+obter ainda mais benefícios do Microsoft 365. Utilize os modelos e
+checklists como base para criar processos eficientes e adaptados às suas
+necessidades específicas.</p>
+</blockquote>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="conclusão">Conclusão</h2>
+<p>Esta apostila é um guia introdutório para o Microsoft 365, cobrindo
+os principais serviços e funcionalidades. Para aprofundar seus
+conhecimentos, recomendamos explorar os links úteis e participar da
+comunidade Microsoft. Acompanhe as atualizações semestrais para se
+manter informado sobre as novidades e melhorias contínuas da
+plataforma.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="fale-conosco">Fale Conosco</h2>
+<p>Sua opinião é muito importante para nós!</p>
+<p>Se tiver dúvidas, sugestões, feedbacks ou quiser compartilhar sua
+experiência com o Microsoft 365, entre em contato pelos canais
+abaixo:</p>
+<ul>
+<li><strong>E-mail:</strong> <a
+href="mailto:suporte@caracore.com.br">suporte@caracore.com.br</a></li>
+<li><strong>Whatsapp:</strong> <a href="https://wa.me/5541999097797">+55
+41 99909-7797</a></li>
+<li><strong>Site:</strong> <a
+href="https://www.caracore.com.br">www.caracore.com.br</a></li>
+<li><strong>GitHub:</strong> <a
+href="https://github.com/chmulato/cara-core">github.com/chmulato/cara-core</a></li>
+<li><strong>Facebook:</strong> <a
+href="https://www.facebook.com/caracoreinformatica/">facebook.com/caracoreinformatica</a></li>
+<li><strong>LinkedIn:</strong> <a
+href="https://www.linkedin.com/company/cara-core">linkedin.com/company/cara-core</a></li>
+</ul>
+<p>Agradecemos por escolher a Cara Core Informática como sua parceira no
+aprendizado e uso do Microsoft 365. Estamos à disposição para ajudar
+você.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="agradecimentos">Agradecimentos</h2>
+<p>Agradecemos a todos os colaboradores e usuários que contribuíram para
+a criação desta apostila. Sua participação é fundamental para
+aprimorarmos continuamente nossos materiais e serviços.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="controle-de-versões-roadmap">Controle de Versões (ROADMAP)</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|------------|---------------------------------------------------------|</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Versão <span class="pp">|</span> Data       <span class="pp">|</span> Descrição das Alterações                                <span class="pp">|</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|------------|---------------------------------------------------------|</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.0    <span class="pp">|</span> 20/06/2025 <span class="pp">|</span> Criação inicial                                         <span class="pp">|</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.1    <span class="pp">|</span> 20/12/2025 <span class="pp">|</span> Revisão semestral: atualização de conteúdo e links      <span class="pp">|</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.2    <span class="pp">|</span> 20/06/2026 <span class="pp">|</span> Inclusão de novos módulos e revisão geral               <span class="pp">|</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.3    <span class="pp">|</span> 20/12/2026 <span class="pp">|</span> Atualização de práticas recomendadas e recursos novos   <span class="pp">|</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.4    <span class="pp">|</span> 20/06/2027 <span class="pp">|</span> Revisão de segurança, privacidade e anexos              <span class="pp">|</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.5    <span class="pp">|</span> 20/12/2027 <span class="pp">|</span> Atualização de imagens, exemplos e roadmap              <span class="pp">|</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|------------|---------------------------------------------------------|</span></span></code></pre></div>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="direitos-autorais-e-isenção-de-responsabilidade">Direitos
+Autorais e Isenção de Responsabilidade</h2>
+<p>Esta apostila é de propriedade da Cara Core Informática e está
+protegida por direitos autorais. A reprodução, distribuição ou
+modificação deste material sem autorização prévia é proibida.</p>
+<blockquote>
+<p><strong>Nota:</strong><br />
+Esta apostila é um material educativo e de apoio ao usuário. A Cara Core
+Informática não possui vínculo comercial com a Microsoft, nem representa
+oficialmente a marca ou seus produtos. Todas as marcas, nomes e
+logotipos Microsoft 365 mencionados pertencem à Microsoft Corporation.
+Nosso papel é exclusivamente prestar suporte, treinamento e orientação
+para o melhor uso das soluções Microsoft por nossos clientes e
+parceiros.</p>
+</blockquote>
+</body>
+</html>
