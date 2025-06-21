@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background: #f4f6fb;
+    color: #222;
+    margin: 0;
+    padding: 0 1.5em;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+}
+
+h1, h2, h3, h4 {
+    color: #2b579a;
+    font-weight: 700;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.3em;
+    border-bottom: 2px solid #e1e4ea;
+    padding-bottom: 0.3em;
+}
+
+h2 {
+    font-size: 1.7em;
+    border-bottom: 1px solid #e1e4ea;
+    padding-bottom: 0.2em;
+}
+
+h3 {
+    font-size: 1.3em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+a {
+    color: #0078d4;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover, a:focus {
+    color: #005a9e;
+    text-decoration: underline;
+}
+
+code, pre {
+    background: #f1f3f7;
+    color: #c7254e;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    border-radius: 4px;
+    padding: 0.2em 0.4em;
+}
+
+pre {
+    padding: 1em;
+    overflow-x: auto;
+    margin: 1em 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+}
+
+ul, ol {
+    margin-left: 2em;
+    margin-bottom: 1em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+blockquote {
+    border-left: 4px solid #b4c7e7;
+    background: #f8fafc;
+    color: #555;
+    margin: 1.5em 0;
+    padding: 0.8em 1.2em;
+    border-radius: 4px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e1e4ea;
+    margin: 2em 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    background: #fff;
+}
+
+th, td {
+    border: 1px solid #e1e4ea;
+    padding: 0.6em 1em;
+    text-align: left;
+}
+
+th {
+    background: #f1f3f7;
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    body {
+        padding: 0 0.5em;
+        font-size: 1.07em;
+    }
+    h1 { font-size: 1.7em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; }
+    table, th, td {
+        font-size: 0.97em;
+    }
+}
+
+</style>
+
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SERVICEGUIDE</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<figure>
+<img src="images/CAPA_MANUAL_PY.png"
+alt="Manual de Serviços Cara Core Informática" />
+<figcaption aria-hidden="true">Manual de Serviços Cara Core
+Informática</figcaption>
+</figure>
+<hr />
+<h1
+id="manual-de-atendimento-e-execução-dos-pacotes-de-serviços-cara-core-informática">Manual
+de Atendimento e Execução dos Pacotes de Serviços – Cara Core
+Informática</h1>
+<h2 id="sumário">Sumário</h2>
+<ul>
+<li><a
+href="#manual-de-atendimento-e-execução-dos-pacotes-de-serviços-cara-core-informática">Manual
+de Atendimento e Execução dos Pacotes de Serviços – Cara Core
+Informática</a>
+<ul>
+<li><a href="#sumário">Sumário</a></li>
+<li><a href="#introdução">Introdução</a></li>
+<li><a href="#pacotes-de-serviços-cara-core-informática">Pacotes de
+Serviços Cara Core Informática</a>
+<ul>
+<li><a
+href="#pacote-start-365-configuração-e-implantação-inicial">Pacote
+START 365 – Configuração e Implantação Inicial</a></li>
+<li><a
+href="#pacote-produtividade-365-consultoria-e-treinamento">Pacote
+PRODUTIVIDADE 365 – Consultoria e Treinamento</a></li>
+<li><a href="#pacote-proteção-365-segurança-e-compliance">Pacote
+PROTEÇÃO 365 – Segurança e Compliance</a></li>
+<li><a href="#pacote-automatize-365-power-platform-e-eficiência">Pacote
+AUTOMATIZE 365 – Power Platform e Eficiência</a></li>
+<li><a
+href="#pacote-automatize-py-automação-e-integração-com-python">Pacote
+AUTOMATIZE PY – Automação e Integração com Python</a></li>
+<li><a
+href="#pacote-transforma-365-governança-e-cultura-digital">Pacote
+TRANSFORMA 365 – Governança e Cultura Digital</a></li>
+<li><a href="#pacote-suporte-365-suporte-técnico-e-gestão">Pacote
+SUPORTE 365 – Suporte Técnico e Gestão</a></li>
+</ul></li>
+<li><a href="#tabela-resumida-de-pacotes-e-investimentos">Tabela
+Resumida de Pacotes e Investimentos</a></li>
+<li><a href="#conclusão">Conclusão</a></li>
+<li><a href="#soluções-combinadas">Soluções Combinadas</a></li>
+<li><a href="#anexos">Anexos</a></li>
+<li><a href="#contato">Contato</a></li>
+<li><a href="#controle-de-versões">Controle de Versões</a></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="introdução">Introdução</h2>
+<p>Este manual tem como objetivo fornecer diretrizes claras e práticas
+para a execução dos pacotes de serviços oferecidos pela Cara Core
+Informática, com foco na plataforma Microsoft 365. Destinado a técnicos,
+consultores e parceiros, o documento orienta sobre as melhores práticas
+de atendimento, implantação e suporte, garantindo uma experiência de
+qualidade para os clientes.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="pacotes-de-serviços-cara-core-informática">Pacotes de Serviços
+Cara Core Informática</h2>
+<p>A Cara Core Informática oferece uma gama de pacotes de serviços para
+atender às necessidades específicas de cada cliente no ecossistema
+Microsoft 365. Nossos pacotes são projetados para proporcionar valor
+agregado, eficiência e segurança.</p>
+<figure>
+<img src="images/PACOTES.png"
+alt="Pacote de Serviços Cara Core Informática" />
+<figcaption aria-hidden="true">Pacote de Serviços Cara Core
+Informática</figcaption>
+</figure>
+<h3 id="pacote-start-365-configuração-e-implantação-inicial">Pacote
+START 365 – Configuração e Implantação Inicial</h3>
+<p>Este pacote é ideal para empresas que estão iniciando sua jornada no
+Microsoft 365. Inclui a configuração inicial, criação de contas,
+verificação de domínio e DNS, e ativação dos principais serviços como
+OneDrive, SharePoint e Teams.</p>
+<ul>
+<li><strong>Pré-requisitos do cliente:</strong> Informar dados de
+domínio, acesso ao DNS, lista de usuários.</li>
+<li><strong>Checklist de implantação:</strong>
+<ul>
+<li>Verificar domínio e DNS</li>
+<li>Criar contas de usuário</li>
+<li>Configurar licenciamento</li>
+<li>Ativar MFA</li>
+<li>Configurar OneDrive, SharePoint e Teams</li>
+<li>Documentação entregue (PDF, vídeo, apostila)</li>
+</ul></li>
+<li><strong>Termo de aceite:</strong> Formalizar a conclusão da
+implantação com o cliente.</li>
+<li><strong>Modelo de entrega:</strong> Relatório de implantação com
+checklist e orientações.</li>
+</ul>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h3 id="pacote-produtividade-365-consultoria-e-treinamento">Pacote
+PRODUTIVIDADE 365 – Consultoria e Treinamento</h3>
+<p>Este pacote visa aumentar a produtividade dos usuários através de
+consultoria, organização de ambientes e treinamento prático. Ideal para
+empresas que já utilizam o Microsoft 365, mas precisam de ajuda para
+otimizar seu uso.</p>
+<ul>
+<li><strong>Levantamento de processos internos:</strong> Entender como
+os usuários trabalham e quais são suas necessidades.</li>
+<li><strong>Organização de ambientes:</strong> Estruturar Teams,
+SharePoint e OneDrive para facilitar o acesso e a colaboração.</li>
+<li><strong>Treinamento prático:</strong> Capacitar os usuários nas
+ferramentas do Microsoft 365, com foco em suas atividades diárias.</li>
+<li><strong>Documentação:</strong> Entrega de apostilas e certificados
+de participação.</li>
+<li><strong>Plano de ação:</strong> Definir melhorias e próximos passos
+com base no feedback dos usuários.</li>
+</ul>
+<h3 id="pacote-proteção-365-segurança-e-compliance">Pacote PROTEÇÃO 365
+– Segurança e Compliance</h3>
+<p>Este pacote é voltado para empresas que buscam garantir a segurança
+dos dados e a conformidade com legislações como a LGPD. Inclui
+diagnósticos de segurança, configuração de políticas de proteção e
+backup.</p>
+<ul>
+<li><strong>Diagnóstico de segurança:</strong> Avaliar o ambiente atual
+e identificar vulnerabilidades.</li>
+<li><strong>Políticas de proteção:</strong> Implementar políticas de
+segurança, como DLP e MFA.</li>
+<li><strong>Backup:</strong> Configurar soluções de backup para dados
+críticos.</li>
+<li><strong>Compliance:</strong> Auxiliar na adequação à LGPD e outras
+regulamentações.</li>
+<li><strong>Relatório técnico:</strong> Entregar um relatório detalhado
+com as ações realizadas e recomendações.</li>
+</ul>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h3 id="pacote-automatize-365-power-platform-e-eficiência">Pacote
+AUTOMATIZE 365 – Power Platform e Eficiência</h3>
+<p>Este pacote foca na automação de processos e na criação de soluções
+personalizadas utilizando a Power Platform. Ideal para empresas que
+buscam eficiência operacional e redução de tarefas manuais.</p>
+<ul>
+<li><strong>Levantamento de processos manuais:</strong> Identificar
+tarefas repetitivas que podem ser automatizadas.</li>
+<li><strong>Automação com Power Automate:</strong> Criar fluxos de
+trabalho automáticos para simplificar processos.</li>
+<li><strong>Desenvolvimento de aplicativos:</strong> Utilizar Power Apps
+para criar soluções internas personalizadas.</li>
+<li><strong>Dashboards com Power BI:</strong> Desenvolver relatórios e
+visualizações de dados para tomada de decisão.</li>
+<li><strong>Testes e homologação:</strong> Validar as soluções com
+usuários-chave antes da implementação final.</li>
+<li><strong>Documentação técnica:</strong> Entregar guias de uso e
+manutenção das soluções criadas.</li>
+</ul>
+<h3 id="pacote-automatize-py-automação-e-integração-com-python">Pacote
+AUTOMATIZE PY – Automação e Integração com Python</h3>
+<p>Este pacote é voltado para empresas que desejam utilizar Python para
+automatizar processos, integrar sistemas e gerar relatórios
+personalizados. Ideal para equipes técnicas que buscam eficiência e
+flexibilidade.</p>
+<ul>
+<li><strong>Mapeamento de tarefas repetitivas:</strong> Identificar
+processos que podem ser automatizados com scripts Python.</li>
+<li><strong>Desenvolvimento de scripts Python:</strong> Criar scripts
+para automação de tarefas e integração de sistemas.</li>
+<li><strong>Integração de sistemas:</strong> Conectar diferentes
+sistemas e plataformas utilizando APIs e bibliotecas Python.</li>
+<li><strong>Geração de relatórios personalizados:</strong> Criar
+relatórios e dashboards utilizando bibliotecas como Pandas e
+Matplotlib.</li>
+<li><strong>Treinamento e documentação:</strong> Capacitar a equipe no
+uso de scripts Python e fornecer documentação técnica.</li>
+<li><strong>Testes e homologação:</strong> Realizar testes com
+usuários-chave para validar as automações.</li>
+<li><strong>Suporte e manutenção:</strong> Oferecer suporte contínuo
+para as automações implementadas.</li>
+</ul>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h3 id="pacote-transforma-365-governança-e-cultura-digital">Pacote
+TRANSFORMA 365 – Governança e Cultura Digital</h3>
+<p>Este pacote é destinado a empresas que desejam estabelecer uma
+governança digital sólida e promover uma cultura de uso eficiente do
+Microsoft 365. Inclui a padronização de processos, criação de políticas
+internas e revisão periódica.</p>
+<ul>
+<li><strong>Diagnóstico de maturidade digital:</strong> Avaliar o nível
+de adoção e uso do Microsoft 365 na empresa.</li>
+<li><strong>Padronização de uso:</strong> Definir nomenclaturas,
+estruturas e boas práticas para Teams, SharePoint e OneDrive.</li>
+<li><strong>Criação de políticas internas:</strong> Desenvolver manuais
+e diretrizes de uso seguro e eficiente.</li>
+<li><strong>Revisões periódicas:</strong> Planejar reuniões regulares
+para avaliar o uso e propor melhorias.</li>
+<li><strong>Entregáveis:</strong> Documentação completa com políticas,
+fluxos e recomendações.</li>
+</ul>
+<h3 id="pacote-suporte-365-suporte-técnico-e-gestão">Pacote SUPORTE 365
+– Suporte Técnico e Gestão</h3>
+<p>Este pacote oferece suporte técnico contínuo e gestão do ambiente
+Microsoft 365, garantindo que os usuários tenham assistência sempre que
+necessário e que o ambiente esteja sempre atualizado e seguro.</p>
+<ul>
+<li><strong>Abertura de chamados:</strong> Registro e classificação de
+solicitações de suporte.</li>
+<li><strong>Suporte remoto e presencial:</strong> Atendimento técnico
+para resolução de problemas e dúvidas.</li>
+<li><strong>Gestão de licenças e usuários:</strong> Controle de acessos,
+permissões e renovações de licenças.</li>
+<li><strong>Monitoramento de segurança:</strong> Acompanhamento de
+alertas e conformidade do ambiente.</li>
+<li><strong>Relatório mensal:</strong> Entrega de um relatório com as
+atividades realizadas, chamados atendidos e novidades do Microsoft
+365.</li>
+<li><strong>Atualizações de segurança:</strong> Informações sobre as
+últimas atualizações de segurança e compliance do Microsoft 365.</li>
+<li><strong>Modelo de suporte:</strong> Pode ser contratado de forma
+recorrente mensal ou em pacotes de horas.</li>
+</ul>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="tabela-resumida-de-pacotes-e-investimentos">Tabela Resumida de
+Pacotes e Investimentos</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">|-------------------|-------------------------------------------------------------|---------------------|</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pacote            <span class="pp">|</span> Descrição Resumida                                          <span class="pp">|</span> Investimento        <span class="pp">|</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|-------------------|-------------------------------------------------------------|---------------------|</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> START 365         <span class="pp">|</span> Implantação inicial, configuração e orientações básicas     <span class="pp">|</span> Sob consulta        <span class="pp">|</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> PRODUTIVIDADE 365 <span class="pp">|</span> Consultoria, organização e treinamento operacional          <span class="pp">|</span> Sob consulta        <span class="pp">|</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> PROTEÇÃO 365      <span class="pp">|</span> Segurança, backup, compliance e adequação à LGPD            <span class="pp">|</span> Sob consulta        <span class="pp">|</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> AUTOMATIZE 365    <span class="pp">|</span> Automação de processos, apps e integrações                  <span class="pp">|</span> Sob consulta        <span class="pp">|</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> AUTOMATIZE PY     <span class="pp">|</span> Automação, integração de sistemas e relatórios com Python   <span class="pp">|</span> Sob consulta        <span class="pp">|</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> TRANSFORMA 365    <span class="pp">|</span> Governança digital, padronização e políticas internas       <span class="pp">|</span> Sob consulta        <span class="pp">|</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> SUPORTE 365       <span class="pp">|</span> Suporte técnico, gestão do ambiente e atualizações          <span class="pp">|</span> Sob consulta        <span class="pp">|</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|-------------------|-------------------------------------------------------------|---------------------|</span></span></code></pre></div>
+<h2 id="conclusão">Conclusão</h2>
+<p>Este manual apresenta de forma clara e detalhada todos os pacotes de
+serviços Microsoft 365 oferecidos pela Cara Core Informática, incluindo
+soluções de automação avançada com Python. Ao seguir as diretrizes,
+procedimentos e boas práticas descritos, garantimos um atendimento de
+excelência, segurança, produtividade e inovação para nossos
+clientes.</p>
+<p>A estrutura modular dos pacotes permite a personalização conforme as
+necessidades de cada empresa, promovendo integração, governança digital
+e suporte contínuo. Recomendamos a revisão periódica deste manual para
+acompanhar as atualizações tecnológicas e manter a qualidade dos
+serviços prestados.</p>
+<p>Conte com a Cara Core Informática para transformar o uso do Microsoft
+365 em sua organização, potencializando resultados e promovendo uma
+cultura digital eficiente e segura.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="soluções-combinadas">Soluções Combinadas</h2>
+<p>Os pacotes de serviços da Cara Core Informática foram desenvolvidos
+para serem complementares e flexíveis, permitindo a combinação de
+diferentes soluções conforme as necessidades específicas de cada
+empresa. É possível contratar um ou mais pacotes de forma integrada,
+potencializando resultados e otimizando investimentos.</p>
+<p>Por exemplo, sua empresa pode iniciar com o Pacote START 365 para
+implantação inicial, avançar para o PRODUTIVIDADE 365 para capacitação
+dos usuários, e adicionar o PROTEÇÃO 365 para garantir segurança e
+compliance. Para automação de processos, é possível optar pelo
+AUTOMATIZE 365 (Power Platform) ou pelo AUTOMATIZE PY (Python), conforme
+o perfil técnico e os objetivos do projeto.</p>
+<p>A combinação dos pacotes permite criar projetos sob medida,
+promovendo integração, eficiência operacional, governança digital e
+suporte contínuo. Nossa equipe está pronta para orientar na escolha das
+melhores soluções e personalizar o atendimento conforme o cenário de
+cada cliente.</p>
+<h2 id="anexos">Anexos</h2>
+<ul>
+<li><p><strong>Links úteis:</strong><br />
+Lista de links para documentação oficial da Microsoft, tutoriais, fóruns
+de suporte e comunidades técnicas relevantes para Microsoft 365, Power
+Platform e automação com Python.</p></li>
+<li><p><strong>Ferramentas recomendadas:</strong><br />
+Relação de softwares e utilitários indicados para administração,
+automação, backup e monitoramento do ambiente Microsoft 365, incluindo
+ferramentas para Power Platform (Power Automate, Power Apps, Power BI),
+scripts PowerShell, Azure AD Connect, Veeam, Acronis e ambientes para
+desenvolvimento Python (VS Code, Jupyter, bibliotecas como Pandas,
+Matplotlib, etc).</p></li>
+<li><p><strong>Referências técnicas da Microsoft:</strong><br />
+Guias, whitepapers, artigos e melhores práticas publicados pela
+Microsoft para implantação, segurança, automação, integração e
+governança do Microsoft 365.</p></li>
+<li><p><strong>Modelos e templates:</strong><br />
+Arquivos editáveis e exemplos de checklists, termos de aceite, políticas
+internas, roteiros de treinamento, templates de relatórios e
+diagnósticos, além de exemplos de scripts Python e fluxos Power
+Automate, disponíveis para download e adaptação conforme a necessidade
+do cliente.</p></li>
+</ul>
+<hr />
+<h2 id="contato">Contato</h2>
+<p>Para mais informações sobre os pacotes de serviços ou para solicitar
+uma consultoria personalizada, entre em contato conosco:</p>
+<ul>
+<li><strong>E-mail:</strong> <a
+href="mailto:suporte@caracore.com.br">suporte@caracore.com.br</a><br />
+</li>
+<li><strong>WhatsApp:</strong> <a href="https://wa.me/5541999097797">+55
+(41) 99909-7797</a></li>
+<li><strong>Site:</strong> <a
+href="https://www.caracore.com.br">www.caracore.com.br</a></li>
+</ul>
+<p>Nossa equipe está à disposição para ajudar sua empresa a aproveitar
+ao máximo o Microsoft 365 e as soluções de automação oferecidas.</p>
+<hr />
+<p><a href="#sumário">Voltar ao Sumário</a></p>
+<h2 id="controle-de-versões">Controle de Versões</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|------------|-----------------------------------------------|</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Versão <span class="pp">|</span> Data       <span class="pp">|</span> Descrição das Alterações                      <span class="pp">|</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|------------|-----------------------------------------------|</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.0    <span class="pp">|</span> 21/06/2025 <span class="pp">|</span> Criação inicial do manual                     <span class="pp">|</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.1    <span class="pp">|</span> 22/06/2025 <span class="pp">|</span> Ajuste de âncoras e melhorias no sumário      <span class="pp">|</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.2    <span class="pp">|</span> 01/07/2025 <span class="pp">|</span> Inclusão de novos pacotes e anexos            <span class="pp">|</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|------------|-----------------------------------------------|</span></span></code></pre></div>
+<p>Este documento é um guia vivo e será atualizado conforme novas
+práticas, pacotes e tecnologias forem incorporados aos serviços da Cara
+Core Informática. Recomendamos que os usuários revisem periodicamente o
+manual para se manterem informados sobre as últimas novidades e melhores
+práticas.</p>
+</body>
+</html>
