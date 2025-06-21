@@ -36,73 +36,83 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 
 ## 🔒 Área de Segurança
 
-O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede e redes Wi-Fi em ambientes Windows, auxiliando na identificação de acessos suspeitos, análise forense e documentação de atividades.
+Ferramentas para monitoramento e auditoria de conexões de rede e redes Wi-Fi em ambientes Windows, auxiliando na identificação de acessos suspeitos, análise forense e documentação de atividades.
 
 ### Monitoramento de Conexões de Rede
 
-- **Descrição:** Script Python que monitora em tempo real as conexões de rede de todos os processos em execução no Windows.
-- **Funcionalidades:**
-  - Interface gráfica (Tkinter) com relatório ao vivo das conexões.
-  - Filtro dinâmico por nome do processo.
-  - Destaque visual para conexões em portas sensíveis (FTP, SSH, RDP, etc).
-  - Exportação do relatório em formato CSV, incluindo timestamp detalhado.
-  - Log automático das conexões detectadas e das interações do usuário.
-- **Relatórios Possíveis:**
-  - Relatório global (todas as conexões).
-  - Relatório filtrado por processo.
-  - Relatório por porta.
-  - Relatório temporal (com timestamp).
-  - Relatório de segurança (destaque para portas sensíveis).
-- **Local do log:** O arquivo de log (`monitor.log`) é salvo automaticamente na mesma pasta onde o script Python é executado (raiz do diretório atual do terminal/IDE).
-
-> **Requisitos:**  
-> - Python 3  
-> - Bibliotecas: `psutil`, `tkinter`, `csv`
+- **Script:** `security/monitor_exe.py`
+- **Descrição:** Monitora em tempo real as conexões de rede de todos os processos em execução no Windows.
+- **Funcionalidades:** Interface gráfica, filtro por processo, destaque para portas sensíveis, exportação CSV, log automático.
+- **Requisitos:** Python 3, bibliotecas `psutil`, `tkinter`, `csv`.
 
 ### Listagem de Redes Wi-Fi Salvas e Senhas
 
-- **Descrição:** Script Python que lista todas as redes Wi-Fi salvas no Windows e suas respectivas senhas.
-- **Funcionalidades:**
-  - Gera um arquivo `wi_fi_pwd.log` com o nome das redes (SSID) e suas senhas.
-  - Compatível com sistemas Windows (necessário executar como administrador).
-  - Suporte a sistemas em português e inglês.
-- **Como usar:**
-  1. Execute o script `get_wi_fi.py` com privilégios de administrador:
-
-     ```sh
-     python wi_fi/get_wi_fi.py
-     ```
-
-  2. O arquivo `wi_fi_pwd.log` será gerado no mesmo diretório do script.
-- **Requisitos:**
-  - Python 3
-  - Utilitário `netsh` disponível no Windows
+- **Script:** `wi_fi/get_wi_fi.py`
+- **Descrição:** Lista todas as redes Wi-Fi salvas no Windows e suas respectivas senhas.
+- **Funcionalidades:** Gera `wi_fi_pwd.log` com SSIDs e senhas. Compatível com sistemas em português e inglês.
+- **Requisitos:** Python 3, utilitário `netsh` disponível no Windows.
 
 ---
 
 ## 📂 Estrutura do Projeto
 
-- `index.html` — Página principal do site.
-- `planos.html` — Página de planos de desenvolvimento de sites.
-- `folders/folder_py.html` — Folder digital com opção de exportar para PDF.
-- `folders/apresentacao.md` — Apresentação da Cara-Core Informática.
-- `images/` — Imagens e logotipos utilizados no site.
-- `fonts/` — Fontes utilizadas no site.
-- `js/` — Scripts JavaScript utilizados no site.
-- `security/monitor_exe.py` — Script de monitoramento de conexões de rede (área de segurança).
-- `wi_fi/get_wi_fi.py` — Script para listar redes Wi-Fi salvas e senhas (área de segurança).
-- `README.md` — Este arquivo de documentação.
+```text
+cara-core/
+├── index.html                  # Página principal do site
+├── planos.html                 # Página de planos de desenvolvimento de sites
+├── folders/
+│   ├── folder_py.html          # Folder digital com opção de exportar para PDF
+│   └── apresentacao.md         # Apresentação institucional em Markdown
+├── images/                     # Imagens e logotipos utilizados no site
+├── fonts/                      # Fontes utilizadas no site
+├── js/                         # Scripts JavaScript utilizados no site
+├── security/
+│   └── monitor_exe.py          # Script de monitoramento de conexões de rede (área de segurança)
+├── wi_fi/
+│   └── get_wi_fi.py            # Script para listar redes Wi-Fi salvas e senhas (área de segurança)
+├── handbook/                   # Apostilas, manuais e scripts de conversão para HTML
+│   ├── HANDBOOK.md             # Apostila Microsoft 365 em Markdown (editável)
+│   ├── HANDBOOK.html           # Apostila convertida para HTML responsivo
+│   ├── HANDBOOK.py             # Script Python para converter e ajustar a apostila
+│   ├── SERVICEGUIDE.md         # Manual de serviços em Markdown (editável)
+│   ├── SERVICEGUIDE.html       # Manual de serviços convertido para HTML responsivo
+│   ├── SERVICEGUIDE.py         # Script Python para converter e ajustar o manual de serviços
+│   ├── images/                 # Imagens e anexos utilizados na apostila/manual
+│   └── README.md               # Documentação específica da pasta handbook
+├── README.md                   # Este arquivo de documentação principal
+└── LICENSE                     # Licença de uso do material
+```
+
+**Descrição dos principais arquivos e pastas:**
+
+- `index.html`: Página inicial do site institucional.
+- `planos.html`: Detalhamento dos planos de desenvolvimento de sites.
+- `folders/folder_py.html`: Folder digital interativo, com opção de exportação para PDF.
+- `folders/apresentacao.md`: Apresentação institucional em Markdown.
+- `images/`: Imagens, logotipos e recursos visuais.
+- `fonts/`: Fontes utilizadas no site.
+- `js/`: Scripts JavaScript para funcionalidades do site.
+- `security/monitor_exe.py`: Script para monitoramento de conexões de rede.
+- `wi_fi/get_wi_fi.py`: Script para listar redes Wi-Fi e senhas salvas.
+- `README.md`: Documentação do projeto.
+- `LICENSE`: Licença de uso.
+- `handbook/HANDBOOK.md`: Apostila principal sobre Microsoft 365 (editável em Markdown).
+- `handbook/HANDBOOK.html`: Apostila convertida para HTML responsivo.
+- `handbook/HANDBOOK.py`: Script Python para converter e ajustar a apostila.
+- `handbook/SERVICEGUIDE.md`: Manual de serviços e processos (editável em Markdown).
+- `handbook/SERVICEGUIDE.html`: Manual de serviços convertido para HTML responsivo.
+- `handbook/SERVICEGUIDE.py`: Script Python para converter e ajustar o manual de serviços.
+- `handbook/images/`: Imagens e anexos usados na apostila e no manual.
+- `handbook/README.md`: Documentação específica da pasta handbook. 
 
 ---
 
 ## 💻 Como Visualizar
 
 1. Clone este repositório:
-
    ```sh
    git clone https://github.com/chmulato/cara-core.git
    ```
-
 2. Abra a pasta no VS Code ou outro editor.
 3. Abra o arquivo `index.html` ou qualquer outro arquivo `.html` em seu navegador.
 
@@ -136,73 +146,42 @@ O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede
 
 ## Adendo: Como Compilar Scripts Python em Executáveis
 
-Se desejar transformar os scripts Python deste projeto em executáveis para Windows, siga os passos abaixo (curiosidade):
+Se desejar transformar os scripts Python deste projeto em executáveis para Windows, siga os passos abaixo:
 
 ### Compilando `monitor_exe.py`
 
-1. **Instale o PyInstaller**  
-   ```bash
+1. Instale o PyInstaller  
+   ```sh
    pip install pyinstaller
    ```
-
-2. **Compile o arquivo Python**  
-   No terminal, navegue até o diretório onde está o arquivo `monitor_exe.py` e execute:
-   ```bash
+2. Compile o arquivo Python  
+   ```sh
    pyinstaller --onefile monitor_exe.py
    ```
-   - Para ocultar o console, adicione a opção `--noconsole`:
-     ```bash
+   - Para ocultar o console:
+     ```sh
      pyinstaller --onefile --noconsole monitor_exe.py
      ```
-
-3. **Localize o executável gerado**  
-   O arquivo estará em:
-   ```
-   dist/monitor_exe.exe
-   ```
-
-4. **Teste o executável**  
-   Execute o arquivo gerado para garantir que ele funciona como esperado:
-   ```bash
-   dist\monitor_exe.exe
-   ```
-
-> **Observações:**  
-> - Certifique-se de que todas as dependências do script estejam instaladas.  
-> - Consulte a [documentação do PyInstaller](https://pyinstaller.org/en/stable/) para opções avançadas.
-
----
+3. O executável estará em `dist/monitor_exe.exe`.
 
 ### Compilando `get_wi_fi.py`
 
-1. **Instale o PyInstaller**  
-   ```bash
+1. Instale o PyInstaller  
+   ```sh
    pip install pyinstaller
    ```
-
-2. **Compile o arquivo Python**  
-   No terminal, navegue até o diretório onde está o arquivo `get_wi_fi.py` e execute:
-   ```bash
+2. Compile o arquivo Python  
+   ```sh
    pyinstaller --onefile get_wi_fi.py
    ```
-   - Para ocultar o console, adicione a opção `--noconsole`:
-     ```bash
+   - Para ocultar o console:
+     ```sh
      pyinstaller --onefile --noconsole get_wi_fi.py
      ```
+3. O executável estará em `dist/get_wi_fi.exe`.
+4. Execute como administrador para listar as senhas das redes Wi-Fi.
 
-3. **Localize o executável gerado**  
-   O arquivo estará em:
-   ```
-   dist/get_wi_fi.exe
-   ```
-
-4. **Execute como administrador**  
-   Para listar as senhas das redes Wi-Fi, execute o `get_wi_fi.exe` como administrador (clique com o botão direito e escolha "Executar como administrador").
-
-> **Observações:**  
-> - Certifique-se de que o utilitário `netsh` está disponível no sistema.  
-> - O arquivo de saída `wi_fi_pwd.log` será gerado no mesmo diretório do executável.  
-> - Consulte a [documentação do PyInstaller](https://pyinstaller.org/en/stable/) para opções avançadas.
+> Consulte a [documentação do PyInstaller](https://pyinstaller.org/en/stable/) para opções avançadas.
 
 ---
 
