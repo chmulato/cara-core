@@ -6,16 +6,20 @@ Este repositório contém o site institucional da **Cara-Core Informática**, em
 
 ## 📋 Índice
 
-1. [Serviços Oferecidos](#-serviços-oferecidos)
-2. [Área de Segurança](#-área-de-segurança)
-   - [Monitoramento de Conexões de Rede](#monitoramento-de-conexões-de-rede)
-   - [Listagem de Redes Wi-Fi Salvas e Senhas](#listagem-de-redes-wi-fi-salvas-e-senhas)
-3. [Estrutura do Projeto](#-estrutura-do-projeto)
-4. [Como Visualizar o Site](#-como-visualizar)
-5. [Como Gerar o PDF do Folder](#-como-gerar-o-pdf-do-folder)
-6. [Observações](#-observações)
-7. [Contato](#-contato)
-8. [Adendo: Como Compilar Scripts Python em Executáveis](#adendo-como-compilar-scripts-python-em-executáveis)
+- [Cara-Core Informática](#cara-core-informática)
+  - [📋 Índice](#-índice)
+  - [🚀 Serviços Oferecidos](#-serviços-oferecidos)
+  - [🔒 Área de Segurança](#-área-de-segurança)
+    - [Monitoramento de Conexões de Rede](#monitoramento-de-conexões-de-rede)
+    - [Listagem de Redes Wi-Fi Salvas e Senhas](#listagem-de-redes-wi-fi-salvas-e-senhas)
+  - [📂 Estrutura do Projeto](#-estrutura-do-projeto)
+  - [💻 Como Visualizar](#-como-visualizar)
+  - [📄 Como Gerar o PDF do Folder](#-como-gerar-o-pdf-do-folder)
+  - [💡 Observações](#-observações)
+  - [📞 Contato](#-contato)
+  - [Adendo: Como Compilar Scripts Python em Executáveis](#adendo-como-compilar-scripts-python-em-executáveis)
+    - [Compilando `monitor_exe.py`](#compilando-monitor_exepy)
+    - [Compilando `get_wi_fi.py`](#compilando-get_wi_fipy)
 
 ---
 
@@ -55,8 +59,6 @@ O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede
 > - Python 3  
 > - Bibliotecas: `psutil`, `tkinter`, `csv`
 
----
-
 ### Listagem de Redes Wi-Fi Salvas e Senhas
 
 - **Descrição:** Script Python que lista todas as redes Wi-Fi salvas no Windows e suas respectivas senhas.
@@ -66,9 +68,11 @@ O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede
   - Suporte a sistemas em português e inglês.
 - **Como usar:**
   1. Execute o script `get_wi_fi.py` com privilégios de administrador:
+
      ```sh
      python wi_fi/get_wi_fi.py
      ```
+
   2. O arquivo `wi_fi_pwd.log` será gerado no mesmo diretório do script.
 - **Requisitos:**
   - Python 3
@@ -94,9 +98,11 @@ O projeto inclui ferramentas para monitoramento e auditoria de conexões de rede
 ## 💻 Como Visualizar
 
 1. Clone este repositório:
+
    ```sh
    git clone https://github.com/chmulato/cara-core.git
    ```
+
 2. Abra a pasta no VS Code ou outro editor.
 3. Abra o arquivo `index.html` ou qualquer outro arquivo `.html` em seu navegador.
 
