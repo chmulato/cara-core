@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automação de Auditoria Financeira com Python: Uma Experiência Prática — Cara Core Informática</title>
+    <link rel="stylesheet" href="css/articles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../articles.html" class="back-link">&larr; Voltar para publicações</a>
+        <img src="media/article_37_01.png" alt="Automação Python"  style="max-width:320px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+        <h1>Automação de Auditoria Financeira com Python: Uma Experiência Prática</h1>
+        <div class="linkedin-box" style="margin-bottom: 1.5rem; display: flex; align-items: center;">
+            <img src="media/logo.png" alt="Logo Cara Core" style="width:33%; max-width:40px; margin-right:10px;">
+            <a href="https://www.linkedin.com/company/cara-core/" target="_blank">
+                Cara Core Informática
+            </a>
+            <span style="margin-left: 1.5rem;">79 seguidores<br>29 de junho de 2025</span>
+        </div>
+
+        <p>
+            Atualmente, é comum encontrarmos processos de auditoria financeira e validação de notas fiscais que são executados manualmente ou com auxílio de macros em VBA no Excel. Embora eficazes até certo ponto, essas soluções apresentam limitações significativas em termos de escalabilidade, integração e manutenção.
+        </p>
+        
+        <p>
+            Este artigo compartilha minha experiência na automação de um processo de auditoria de documentos fiscais, originalmente desenvolvido em VBA, e sua modernização utilizando Python. A proposta foi transformar uma rotina repetitiva e sujeita a erros em uma solução eficiente, escalável e de fácil manutenção.
+        </p>
+
+        <h2>O Desafio</h2>
+        <p>
+            O processo original consistia na importação de arquivos texto (.txt) contendo registros financeiros, normalmente exportados de um sistema ERP (como SAP). O VBA realizava tarefas como:
+        </p>
+        
+        <ul>
+            <li>Leitura e interpretação dos dados.</li>
+            <li>Validação de impostos aplicados.</li>
+            <li>Verificação de inconsistências (valores divergentes, ausência de CNPJ/CPF, erros em códigos de impostos, entre outros).</li>
+            <li>Aplicação de 13 regras de auditoria.</li>
+            <li>Geração de um relatório no Excel com os resultados.</li>
+        </ul>
+
+        <h3>Limitações encontradas no processo com VBA:</h3>
+        <ul>
+            <li>Baixo desempenho em grandes volumes de dados.</li>
+            <li>Dificuldade na manutenção e evolução do código.</li>
+            <li>Pouca integração com bancos de dados, APIs ou outros sistemas.</li>
+            <li>Dependência total do Excel, dificultando a automação completa.</li>
+        </ul>
+
+        <h2>Por que migrar para Python?</h2>
+        <p>
+            Python se mostrou uma excelente alternativa por diversas razões:
+        </p>
+        
+        <ul>
+            <li><strong>Escalabilidade:</strong> Capaz de lidar com grandes volumes de dados de forma eficiente.</li>
+            <li><strong>Integração:</strong> Facilita a conexão com bancos de dados, APIs e serviços em nuvem.</li>
+            <li><strong>Manutenção:</strong> Código organizado, modular e versionável.</li>
+            <li><strong>Automatização Completa:</strong> Possibilidade de eliminar a intervenção manual, incluindo notificações automáticas por e-mail, integração com dashboards e serviços externos.</li>
+        </ul>
+
+        <h2>Arquitetura da Solução em Python</h2>
+        <p style="background: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0; font-family: monospace;">
+            [ Arquivos TXT/CSV ] → [ Leitura e Validação com pandas ] → [ Aplicação das Regras ] → [ Geração de Relatórios (Excel ou Dashboard) ]
+        </p>
+
+        <h3>Tecnologias utilizadas:</h3>
+        <ul>
+            <li><strong>pandas:</strong> Processamento e análise de dados.</li>
+            <li><strong>openpyxl / xlsxwriter:</strong> Geração de arquivos Excel.</li>
+            <li><strong>numpy:</strong> Cálculos e operações numéricas.</li>
+            <li><strong>re:</strong> Expressões regulares para validação de textos.</li>
+            <li><strong>matplotlib / seaborn:</strong> Visualização de dados (opcional).</li>
+            <li><strong>streamlit:</strong> Interface interativa para dashboards (opcional).</li>
+            <li><strong>sqlalchemy:</strong> Integração com bancos de dados (opcional).</li>
+        </ul>
+
+        <h2>Principais Regras de Auditoria Aplicadas</h2>
+        <p>
+            Durante o desenvolvimento da automação, foi fundamental implementar um conjunto robusto de regras para garantir a qualidade dos dados e a conformidade fiscal. Aqui apresentamos as 4 principais regras aplicadas:
+        </p>
+
+        <h3>Regras Principais</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <thead>
+                <tr style="background: #f8f9fa;">
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; width: 8%;">Regra</th>
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; width: 52%;">Descrição</th>
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; width: 40%;">Objetivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>1</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Descrição do material contém "Sem Número" → imposto deve ser zero.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Verificar materiais genéricos ou mal cadastrados com imposto incorreto.</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>2</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Cod. Imposto = "IN" ou (CNPJ vazio e CPF tem 9 dígitos) → imposto ≥ 11%.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Detectar possíveis cadastros incompletos que indicam retenções maiores.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>8</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Agrupar notas fiscais onde Ctg. N = "SE" e os campos CIA, Nº NF, Nº Ordem, Nome e Total NF são iguais.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Detectar documentos relacionados, permitindo análise consolidada.</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>11</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Verificar se uma nota não possui imposto (quando valor líquido = total NF).</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Identificar possíveis erros de tributação (ausência de imposto).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            <em>Ao todo, foram implementadas 13 regras de auditoria que cobrem desde validações específicas até agrupamento e reconciliação de dados. O conjunto completo das regras pode ser consultado no final deste artigo.</em>
+        </p>
+
+        <h3>Interface Original da Automação em VBA</h3>
+        <p>
+            Para contextualizar a evolução do processo, abaixo está a interface da automação original desenvolvida em VBA. Note como o sistema importava arquivos TXT do SAP e aplicava as regras de auditoria de forma manual:
+        </p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <img src="media/article_37_02.png" alt="Interface VBA da Automação Original" style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <p style="font-size: 0.9em; color: #666; margin-top: 10px; font-style: italic;">
+                Interface da automação original em VBA/Excel, mostrando os 17 campos esperados e as 13 regras de auditoria implementadas.
+            </p>
+        </div>
+
+        <p>
+            Esta interface ilustra bem as limitações da solução anterior: dependência total do Excel, interface não intuitiva e processo semi-manual. Com Python, eliminamos essas barreiras e criamos uma solução completamente automatizada.
+        </p>
+
+        <h2>Implementação: Exemplo de Código</h2>
+        
+        <h3>Leitura dos Dados</h3>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>import pandas as pd
+
+# Carregar arquivo txt delimitado por pipe '|'
+df = pd.read_csv('notas_fiscais.txt', sep='|')
+
+print(df.head())</code></pre>
+
+        <h3>Aplicação de uma Regra de Validação</h3>
+        <p>Regra: Se a descrição do material contém "Sem Número", o imposto deve ser zero.</p>
+        
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>df['Erro'] = df.apply(
+    lambda row: 'Imposto incorreto' 
+    if 'Sem Número' in str(row['DescricaoMaterial']) and row['Imposto'] != 0 
+    else '', axis=1
+)</code></pre>
+
+        <h3>Exportação do Relatório para Excel</h3>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>df.to_excel('relatorio_auditoria.xlsx', index=False)</code></pre>
+
+        <h2>Benefícios Alcançados</h2>
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <thead>
+                <tr style="background: #f8f9fa;">
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Critério</th>
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Solução VBA</th>
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Solução Python</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>Volume de Dados</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Limitado (~1 milhão)</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Milhões de registros</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>Desempenho</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Médio</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Alto</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>Integração</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Limitada</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">APIs, Bancos, Web</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>Manutenção</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Difícil</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Simples, modular, versionável</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>Automatização Completa</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Limitada</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Sim, sem intervenção manual</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Lições Aprendidas</h2>
+        <ul>
+            <li>A curva de aprendizado para migrar do VBA para Python é acessível, especialmente para quem já tem lógica de programação.</li>
+            <li>O ganho em produtividade, confiabilidade e escalabilidade compensa o investimento de tempo no desenvolvimento.</li>
+            <li>Processos que antes dependiam de operações manuais foram transformados em rotinas totalmente automatizadas e auditáveis.</li>
+        </ul>
+
+        <h2>Conclusão</h2>
+        <p>
+            Automatizar processos de auditoria financeira com Python não só é viável como altamente recomendável. A experiência demonstrou que é possível construir soluções robustas, escaláveis e integráveis, eliminando as limitações tradicionais do VBA no Excel.
+        </p>
+        <p>
+            Este é um caminho sem volta para quem busca modernizar processos, aumentar produtividade e reduzir riscos operacionais.
+        </p>
+
+        <hr style="margin: 40px 0; border: none; border-top: 1px solid #eee;">
+        
+        <h2>Curiosidade: As 13 Regras Completas de Auditoria</h2>
+        <p>
+            Para quem tem interesse técnico, aqui está o conjunto completo das 13 regras de auditoria implementadas na automação:
+        </p>
+
+        <h3>Tabela Completa das Regras de Auditoria</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <thead>
+                <tr style="background: #f8f9fa;">
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; width: 8%;">Regra</th>
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; width: 52%;">Descrição</th>
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; width: 40%;">Objetivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>1</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Descrição do material contém "Sem Número" → imposto deve ser zero.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Verificar materiais genéricos ou mal cadastrados com imposto incorreto.</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>2</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Cod. Imposto = "IN" ou (CNPJ vazio e CPF tem 9 dígitos) → imposto ≥ 11%.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Detectar possíveis cadastros incompletos que indicam retenções maiores.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>3</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Cod. Imposto = "XB" e imposto igual a zero.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Validar se XB está aplicado incorretamente sem imposto devido.</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>4</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Cod. Imposto = "XA" ou "YW" e descrição do material = "N 1.05" → imposto deve ser zero.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Isentar corretamente serviços específicos dessa classificação.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>5</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Cod. Imposto = "XA" ou "YW" e descrição do material = "N 10.05" → imposto ≤ 1,5%.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Validar serviços que possuem limite máximo de imposto aplicado.</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>6</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Cod. Imposto = "XA" ou "YW" e descrição = "N 1.07" e Cod. Parceiro = 436 → imposto deve ser zero.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Caso especial de isenção total para parceiro e serviço específicos.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>7</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Ctg. N = "SE" ou "CI".</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Contabilizar corretamente registros classificados como SE ou CI.</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>8</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Agrupar notas fiscais onde Ctg. N = "SE" e os campos CIA, Nº NF, Nº Ordem, Nome e Total NF são iguais.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Detectar documentos relacionados, permitindo análise consolidada.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>9</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Somar valor líquido para documentos agrupados por Doc Contábil e Ctg. N.</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Validar se os valores consolidados estão corretos entre registros.</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>10</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Após a soma, verificar se uma nota CI cancela uma nota SE (comparando datas, horários e valores).</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Detectar estornos, cancelamentos ou compensações.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>11</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Verificar se uma nota não possui imposto (quando valor líquido = total NF).</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Identificar possíveis erros de tributação (ausência de imposto).</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>12</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Identificar o tipo de imposto a partir da taxa (%).</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Validar se a alíquota aplicada corresponde aos impostos esperados.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 12px;"><strong>13</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Checar se o imposto aplicado é permitido para o número de serviço (descrição do material).</td>
+                    <td style="border: 1px solid #ddd; padding: 12px;">Garantir que não há impostos indevidos para determinados serviços.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Observações Técnicas</h4>
+        <ul>
+            <li>As regras 1 a 6 são específicas, relacionadas a atributos individuais do documento (material, parceiro, imposto, etc.).</li>
+            <li>As regras 7 a 10 são de <strong>agrupamento e reconciliação de dados</strong>, verificando vínculos entre documentos (SE e CI).</li>
+            <li>As regras 11 a 13 são <strong>regras finais de validação de imposto</strong>, seja por ausência, taxa aplicada ou conferência contra uma matriz de permissões.</li>
+        </ul>
+        <h3>Contato</h3>
+        <ul>
+            <li><strong>E-mail:</strong> suporte@caracore.com.br</li>
+            <li><strong>Site:</strong> <a href="https://www.caracore.com.br" target="_blank">www.caracore.com.br</a></li>
+        </ul>
+    </div>
+</body>
+</html>
