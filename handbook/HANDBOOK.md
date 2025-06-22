@@ -4,7 +4,6 @@
 
 **Cara Core Informática**  
 **Versão:** v1.0 – 20 de Junho 2025  
-**Autor:** Christian Vladimir Uhdre Mulato  
 
 ***
 
@@ -33,7 +32,6 @@
   - [Agradecimentos](#agradecimentos)
   - [Controle de Versões (ROADMAP)](#controle-de-versões-roadmap)
   - [Direitos Autorais e Isenção de Responsabilidade](#direitos-autorais-e-isenção-de-responsabilidade)
-
 
 ***
 
