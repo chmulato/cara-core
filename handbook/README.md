@@ -8,10 +8,10 @@ Este repositório reúne o material em desenvolvimento para a **Apostila Microso
 
 ## 📚 Estrutura dos Arquivos
 
-- **HANDBOOK.md** — Apostila principal, com capítulos sobre Outlook, OneDrive, Teams, SharePoint, Power Platform, segurança e produtividade.
-- **HANDBOOK.html** — Versão HTML responsiva da apostila, gerada automaticamente a partir do Markdown.
-- **SERVICEGUIDE.md** — Manual de Atendimento e Execução dos Pacotes de Serviços, detalhando todos os pacotes, processos e modelos de entrega.
-- **SERVICEGUIDE.html** — Versão HTML responsiva do manual de serviços, gerada automaticamente a partir do Markdown.
+- **handbook.md** — Apostila principal, com capítulos sobre Outlook, OneDrive, Teams, SharePoint, Power Platform, segurança e produtividade.
+- **handbook.html** — Versão HTML responsiva da apostila, gerada automaticamente a partir do Markdown.
+- **serviceguide.md** — Manual de Atendimento e Execução dos Pacotes de Serviços, detalhando todos os pacotes, processos e modelos de entrega.
+- **serviceguide.html** — Versão HTML responsiva do manual de serviços, gerada automaticamente a partir do Markdown.
 - **script_01_html.py** — Script para converter arquivos Markdown em HTML responsivo, inserindo CSS e meta viewport.
 - **script_02_ancora_S.py** — Script para corrigir os links de âncora internos dos arquivos HTML, garantindo navegação correta no sumário.
 - **Imagens e anexos** — Recursos visuais e materiais complementares para facilitar o aprendizado e a execução dos serviços.
@@ -20,12 +20,12 @@ Este repositório reúne o material em desenvolvimento para a **Apostila Microso
 
 ```text
 handbook/
-├── HANDBOOK.md         # Apostila principal em Markdown (conteúdo editável)
-├── HANDBOOK.html       # Apostila convertida para HTML responsivo
-├── HANDBOOK.py         # Script Python para converter e ajustar a apostila
-├── SERVICEGUIDE.md     # Manual de serviços em Markdown (conteúdo editável)
-├── SERVICEGUIDE.html   # Manual de serviços convertido para HTML responsivo
-├── SERVICEGUIDE.py     # Script Python para converter e ajustar o manual de serviços
+├── handbook.md         # Apostila principal em Markdown (conteúdo editável)
+├── handbook.html       # Apostila convertida para HTML responsivo
+├── handbook.py         # Script Python para converter e ajustar a apostila
+├── serviceguide.md     # Manual de serviços em Markdown (conteúdo editável)
+├── serviceguide.html   # Manual de serviços convertido para HTML responsivo
+├── serviceguide.py     # Script Python para converter e ajustar o manual de serviços
 ├── images/             # Imagens e anexos utilizados na apostila e no manual
 │   └── (arquivos de imagem, logos, ilustrações, etc.)
 ├── README.md           # Este arquivo de documentação do repositório

@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-HANDBOOK.py
+.py
 
-Este script automatiza a conversão do arquivo HANDBOOK.md (em Markdown) para um arquivo HTML responsivo e moderno,
+Este script automatiza a conversão do arquivo .md (em Markdown) para um arquivo HTML responsivo e moderno,
 adequado para leitura em navegadores e dispositivos móveis. Ele também corrige e normaliza as âncoras internas
 (links do sumário e títulos), garantindo que todos os links naveguem corretamente para as seções do documento.
 
 Funcionalidades principais:
-- Converte HANDBOOK.md em HANDBOOK.html usando Pandoc.
+- Converte .md em .html usando Pandoc.
 - Insere CSS responsivo e meta viewport para melhor visualização em tablets e smartphones.
 - Normaliza e corrige âncoras do sumário e dos títulos para compatibilidade total.
 - Gera um HTML pronto para publicação ou distribuição.
@@ -16,7 +16,7 @@ Funcionalidades principais:
 Pré-requisitos:
 - Python 3.x
 - Pandoc instalado e disponível no PATH do sistema operacional.
-- O arquivo HANDBOOK.md deve estar no mesmo diretório deste script.
+- O arquivo .md deve estar no mesmo diretório deste script.
 
 Autor: Christian Vladimir Uhdre Mulato
 Data: 21/06/2025
@@ -26,8 +26,8 @@ import subprocess
 import re
 import unicodedata
 
-md_file = "HANDBOOK.md"
-html_file = "HANDBOOK.html"
+md_file = "handbook.md"
+html_file = "handbook.html"
 
 css_content = """
 body {

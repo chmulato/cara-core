@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-SERVICEGUIDE.py
+serviceguide.py
 
-Este script automatiza a conversão do arquivo SERVICEGUIDE.md (em Markdown) para um arquivo HTML responsivo,
+Este script automatiza a conversão do arquivo serviceguide.md (em Markdown) para um arquivo HTML responsivo,
 adequado para leitura em navegadores e dispositivos móveis. Ele também corrige e normaliza as âncoras internas
 (links do sumário e títulos), garantindo que todos os links naveguem corretamente para as seções do documento.
 
 Funcionalidades principais:
-- Converte SERVICEGUIDE.md em SERVICEGUIDE.html usando Pandoc.
+- Converte serviceguide.md em serviceguide.html usando Pandoc.
 - Insere CSS responsivo e meta viewport para melhor visualização em tablets e smartphones.
 - Normaliza e corrige âncoras do sumário e dos títulos para compatibilidade total.
 - Gera um HTML pronto para publicação ou distribuição.
@@ -16,7 +16,7 @@ Funcionalidades principais:
 Pré-requisitos:
 - Python 3.x
 - Pandoc instalado e disponível no PATH do sistema operacional.
-- O arquivo SERVICEGUIDE.md deve estar no mesmo diretório deste script.
+- O arquivo serviceguide.md deve estar no mesmo diretório deste script.
 
 Autor: Christian Vladimir Uhdre Mulato
 Data: 21/06/2025
@@ -27,8 +27,8 @@ import re
 import unicodedata
 
 # Caminhos dos arquivos
-md_file = "SERVICEGUIDE.md"
-html_file = "SERVICEGUIDE.html"
+md_file = "serviceguide.md"
+html_file = "serviceguide.html"
 
 # CSS responsivo para leitura em tablet
 css_content = """
