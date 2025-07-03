@@ -16,6 +16,7 @@ Este checklist acompanha a aplicação de melhorias de SEO (meta tags, Open Grap
 ## Artigos já revisados com SEO
 
 - [x] index.html
+- [x] 2025_07_06_article_38.html
 - [x] 2024_10_02_article_32.html
 - [x] 2024_09_23_article_31.html
 - [x] 2024_09_16_article_30.html
@@ -45,17 +46,18 @@ Este checklist acompanha a aplicação de melhorias de SEO (meta tags, Open Grap
 
 ## Artigos não encontrados ou inexistentes
 
-- [x] 2025_06_29_article_37.html
-- [x] 2025_06_22_article_36.html
-- [x] 2025_06_15_article_35.html
-- [x] 2025_06_08_article_34.html
-- [x] 2025_05_06_article_33.html
+- [ ] 2025_06_29_article_37.html
+- [ ] 2025_06_22_article_36.html
+- [ ] 2025_06_15_article_35.html
+- [ ] 2025_06_08_article_34.html
+- [ ] 2025_05_06_article_33.html
 
 > Os arquivos acima não foram encontrados na pasta publications/articles até a data desta revisão. Caso existam, favor verificar nomes e localização.
 
-> Atualize este checklist conforme avançar na revisão dos artigos.
- - [x] 2024_03_04_article_02.html
- - [x] 2024_02_12_article_01.html
+## Artigos revisados mais recentemente
+
+- [x] 2024_03_04_article_02.html
+- [x] 2024_02_12_article_01.html
 
 > A lista abaixo segue a ordem dos arquivos HTML encontrados na pasta publications/articles até 03/07/2025. Sempre que novos artigos forem criados, adicione-os nesta seção após a revisão de SEO.
   
