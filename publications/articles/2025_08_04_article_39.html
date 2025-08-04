@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como o Python Automatizou a Logística de Entregas: Case Real de Transformação Digital — Cara Core Informática</title>
+    <meta name="description" content="Conheça o case real de Zeca, que transformou sua operação de delivery com Python. Automação de pedidos, geração de relatórios Excel e otimização logística para aumentar produtividade.">
+    <meta name="keywords" content="Python, Automação, Delivery, Logística, Excel, API, Cara Core Informática, Case Real, Produtividade, Transformação Digital">
+    <meta name="author" content="Cara Core Informática">
+    <link rel="canonical" href="https://caracore.com.br/publications/articles/2025_08_04_article_39.html">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Como o Python Automatizou a Logística de Entregas: Case Real de Transformação Digital — Cara Core Informática">
+    <meta property="og:description" content="Conheça o case real de Zeca, que transformou sua operação de delivery com Python. Automação de pedidos, geração de relatórios Excel e otimização logística para aumentar produtividade.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://caracore.com.br/publications/articles/2025_08_04_article_39.html">
+    <meta property="og:image" content="https://caracore.com.br/publications/articles/media/article_39_01.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Como o Python Automatizou a Logística de Entregas: Case Real de Transformação Digital — Cara Core Informática">
+    <meta name="twitter:description" content="Conheça o case real de Zeca, que transformou sua operação de delivery com Python. Automação de pedidos, geração de relatórios Excel e otimização logística para aumentar produtividade.">
+    <meta name="twitter:image" content="https://caracore.com.br/publications/articles/media/article_39_01.png">
+    <link rel="stylesheet" href="css/articles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../articles.html" class="back-link">&larr; Voltar para publicações</a>
+        <img src="media/article_39_01.png" alt="Automação de Delivery com Python"  style="max-width:320px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+        <h1>Como o Python Automatizou a Logística de Entregas: Case Real de Transformação Digital</h1>
+        <div class="linkedin-box" style="margin-bottom: 1.5rem; display: flex; align-items: center;">
+            <img src="media/logo.png" alt="Logo Cara Core" style="width:33%; max-width:40px; margin-right:10px;">
+            <a href="https://www.linkedin.com/company/cara-core/" target="_blank" rel="noopener">
+                Cara Core Informática
+            </a>
+            <span style="margin-left: 1.5rem;">81 seguidores<br>4 de agosto de 2025</span>
+        </div>
+
+        <p>
+            Zeca trabalha com delivery há 5 anos. Todo dia, a mesma rotina: papéis desorganizados, endereços confusos vindos do WhatsApp, pedidos duplicados e informações incompletas.
+        </p>
+        
+        <p>
+            <strong>O resultado?</strong> Tempo perdido, stress operacional e redução na produtividade das entregas.
+        </p>
+        
+        <p>
+            Até que surgiu uma proposta simples: <strong>automatizar todo o processo com Python</strong>.
+        </p>
+
+        <h2>A Transformação</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #dc3545;">
+                <h3 style="color: #dc3545; margin-top: 0;">CENÁRIO ANTERIOR:</h3>
+                <ul>
+                    <li>Pilhas de papel desorganizadas</li>
+                    <li>Endereços com erros de digitação</li>
+                    <li>Confusão com horários de entrega</li>
+                    <li>Perda de tempo organizando informações manualmente</li>
+                </ul>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #28a745;">
+                <h3 style="color: #28a745; margin-top: 0;">CENÁRIO ATUAL:</h3>
+                <ul>
+                    <li>Processo automatizado com um clique</li>
+                    <li>Endereços padronizados e completos</li>
+                    <li>Horários de entrega claramente definidos</li>
+                    <li>Aumento na eficiência operacional</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Implementação Técnica</h2>
+        
+        <h3>Etapa 1: Consumo da API</h3>
+        <p>
+            O primeiro passo foi conectar o sistema com a API da empresa para obter os pedidos de forma automatizada:
+        </p>
+        
+        <pre><code class="language-python">import requests
+
+def obter_pedidos():
+    response = requests.get("https://api.empresa.com/pedidos")
+    return response.json()</code></pre>
+
+        <h3>Etapa 2: Geração de Relatório Excel</h3>
+        <p>
+            Com os dados obtidos, o sistema gera automaticamente uma planilha Excel estruturada e organizada:
+        </p>
+        
+        <pre><code class="language-python">from openpyxl import Workbook
+
+def salvar_pedidos_excel(pedidos):
+    wb = Workbook()
+    ws = wb.active
+    
+    # Cabeçalho
+    ws.append(["ID", "Cliente", "Endereço", "Produto", "Entrega"])
+    
+    # Dados dos pedidos
+    for pedido in pedidos:
+        ws.append([
+            pedido["id"],
+            pedido["cliente"],
+            f'{pedido["endereco"]}, {pedido["cidade"]}',
+            pedido["produto"],
+            pedido["entrega_prevista"]
+        ])
+    
+    wb.save("entregas.xlsx")</code></pre>
+
+        <h2>Estrutura do Relatório Final</h2>
+        <p>
+            A planilha gerada automaticamente contém todas as informações necessárias para as entregas, estruturada de forma clara e organizada:
+        </p>
+        
+        <ul>
+            <li><strong>ID do pedido</strong> - Identificação única para controle</li>
+            <li><strong>Nome do cliente</strong> - Informação completa do destinatário</li>
+            <li><strong>Endereço completo formatado</strong> - Padronização automática</li>
+            <li><strong>Produto solicitado</strong> - Detalhes do que será entregue</li>
+            <li><strong>Horário programado para entrega</strong> - Organização temporal</li>
+        </ul>
+
+        <h2>Resultados Mensuráveis</h2>
+        <p>
+            A implementação da automação trouxe resultados concretos e mensuráveis para a operação:
+        </p>
+        
+        <ul>
+            <li><strong>Produtividade:</strong> Redução de 30 minutos no tempo de preparação diária</li>
+            <li><strong>Precisão:</strong> Eliminação de erros de endereçamento</li>
+            <li><strong>Operacional:</strong> Melhoria na qualidade do processo logístico</li>
+            <li><strong>Financeiro:</strong> Aumento no número de entregas realizadas</li>
+        </ul>
+
+        <h2>Configurando o Ambiente Python + VS Code</h2>
+        <p>
+            Para replicar este projeto, você precisará configurar adequadamente o ambiente de desenvolvimento:
+        </p>
+
+        <h3>1. Instalação do Python:</h3>
+        <ul>
+            <li>Download em <a href="https://python.org" target="_blank" rel="noopener">python.org</a> (versão 3.8 ou superior)</li>
+            <li>Marque "Add Python to PATH" durante a instalação</li>
+        </ul>
+
+        <h3>2. VS Code + Extensões:</h3>
+        <ul>
+            <li>Instale o Visual Studio Code</li>
+            <li>Extensão "Python" (Microsoft)</li>
+            <li>Extensão "Python IntelliSense" para autocompletar</li>
+        </ul>
+
+        <h3>3. Configuração do Projeto:</h3>
+        <pre><code class="language-bash"># Criar diretório do projeto
+mkdir delivery-automation
+cd delivery-automation
+
+# Criar ambiente virtual
+python -m venv venv
+
+# Ativar ambiente (Windows)
+venv\Scripts\activate
+
+# Instalar dependências
+pip install requests openpyxl</code></pre>
+
+        <h3>4. No VS Code:</h3>
+        <ul>
+            <li>Abra a pasta do projeto</li>
+            <li>Ctrl+Shift+P > "Python: Select Interpreter"</li>
+            <li>Escolha o Python do ambiente virtual criado</li>
+        </ul>
+        
+        <p>
+            <strong>Pronto!</strong> Ambiente configurado para desenvolver soluções de automação.
+        </p>
+
+        <h2>A Visão da Cara Core sobre Automação Logística</h2>
+        <p>
+            Na <strong>Cara Core Informática</strong>, entendemos que a automação de processos logísticos não é apenas sobre tecnologia — é sobre <strong>liberar potencial humano para atividades de maior valor</strong>.
+        </p>
+        
+        <p>
+            O case do Zeca exemplifica perfeitamente nossa filosofia: <strong>identificar gargalos operacionais e criar soluções tecnológicas que geram impacto real e mensurável</strong>.
+        </p>
+
+        <h2>Questão para Reflexão</h2>
+        <p style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; font-style: italic; border-left: 4px solid #007bff;">
+            <strong>Quais processos repetitivos em sua organização poderiam se beneficiar de automação?</strong>
+        </p>
+        
+        <p>
+            Compartilhe sua experiência nos comentários e vamos juntos identificar oportunidades de otimização.
+        </p>
+
+        <h2>Vamos Conversar?</h2>
+        <p>
+            Se você enfrenta desafios similares aos do Zeca ou possui processos logísticos que poderiam ser otimizados, a <strong>Cara Core Informática</strong> pode ajudar.
+        </p>
+        
+        <p>
+            <strong>Entre em contato conosco para:</strong>
+        </p>
+        <ul>
+            <li>Acesso ao repositório GitHub com o código completo</li>
+            <li>Consultoria em automação de processos personalizados</li>
+            <li>Discussão sobre soluções específicas para sua empresa</li>
+        </ul>
+
+        <hr style="margin: 40px 0; border: none; border-top: 1px solid #eee;">
+        
+        <p>
+            <strong>Sobre o Case:</strong>
+        </p>
+        
+        <p>
+            Este é um projeto real desenvolvido pela equipe da Cara Core Informática, demonstrando como a automação pode transformar operações logísticas e aumentar a produtividade empresarial.
+        </p>
+        
+        <p>
+            <em>Hashtags: #Python #Automação #Delivery #Tecnologia #Produtividade #Excel #Logística #ProcessosDigitais</em>
+        </p>
+
+        <h3>Contato</h3>
+        <ul>
+            <li><strong>E-mail:</strong> suporte@caracore.com.br</li>
+            <li><strong>Site:</strong> <a href="https://www.caracore.com.br" target="_blank" rel="noopener">www.caracore.com.br</a></li>
+            <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/cara-core/" target="_blank" rel="noopener">Cara Core Informática</a></li>
+        </ul>
+    </div>
+</body>
+</html>
