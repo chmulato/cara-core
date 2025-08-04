@@ -5,4 +5,5 @@ security/monitor.log
 security/dist/monitor_exe.exe
 publications/articles/docx/
 publications/articles/md/
+!publications/articles/md/README.md
 publications/articles/images/
