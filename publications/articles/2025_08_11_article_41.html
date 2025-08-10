@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento Proativo com Python: Logs Inteligentes e Alertas Automatizados — Cara Core Informática</title>
+    <meta name="description" content="Guia colaborativo sobre monitoramento proativo em Python: logs estruturados, correlação, detecção de anomalias e alertas automatizados com exemplos práticos e prontos para produção.">
+    <meta name="keywords" content="Python, Monitoramento, Observabilidade, Logs, Alertas, DevOps, SRE, JSON, Slack, E-mail, Cara Core Informática">
+    <meta name="author" content="Cara Core Informática">
+    <link rel="canonical" href="https://caracore.com.br/publications/articles/2025_08_10_article_41.html">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Monitoramento Proativo com Python: Logs Inteligentes e Alertas Automatizados — Cara Core Informática">
+    <meta property="og:description" content="Logs estruturados em JSON, enriquecimento de contexto, thresholds e alertas automáticos. Referência prática e colaborativa para times técnicos.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://caracore.com.br/publications/articles/2025_08_10_article_41.html">
+    <meta property="og:image" content="https://caracore.com.br/publications/articles/media/article_41_01.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Monitoramento Proativo com Python: Logs Inteligentes e Alertas Automatizados — Cara Core Informática">
+    <meta name="twitter:description" content="Logs estruturados em JSON, enriquecimento de contexto, thresholds e alertas automáticos. Referência prática e colaborativa para times técnicos.">
+    <meta name="twitter:image" content="https://caracore.com.br/publications/articles/media/article_41_01.png">
+    <link rel="stylesheet" href="css/articles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../articles.html" class="back-link">&larr; Voltar para publicações</a>
+        <img src="media/article_41_01.png" alt="Monitoramento Proativo com Python: painel com gráficos, logs e alertas"  style="max-width:320px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+        <h1>Monitoramento Proativo com Python: Logs Inteligentes e Alertas Automatizados</h1>
+        <div class="linkedin-box" style="margin-bottom: 1.5rem; display: flex; align-items: center;">
+            <img src="media/logo.png" alt="Logo Cara Core" style="width:33%; max-width:40px; margin-right:10px;">
+            <a href="https://www.linkedin.com/company/cara-core/" target="_blank" rel="noopener">
+                Cara Core Informática
+            </a>
+            <span style="margin-left: 1.5rem;">81 seguidores<br>11 de agosto de 2025</span>
+        </div>
+
+        <p>
+            Você já esbarrou na sigla <strong>MTTR</strong>? Se ainda não, vale 2 minutos para entender por que ela virou o indicador nº 1 em times de operação e produto. No fim deste artigo deixei um
+            <a href="#mttr-adendo">adendo simples sobre MTTR</a> — pode conferir depois ou pular direto agora.
+        </p>
+        <p>
+            O ponto crucial é: <strong>reduzir o MTTR</strong> exige não esperar o usuário reclamar. É aqui que entra o
+            <strong>monitoramento proativo</strong>: <strong>logs inteligentes</strong> que dão contexto e <strong>alertas automatizados</strong> que acionam a equipe na hora certa.
+        </p>
+        <p>
+            Neste guia <strong>colaborativo</strong>, mostramos como implementar isso em <strong>Python</strong> com padrões prontos para produção: logs JSON estruturados, enriquecimento de contexto,
+            rotação/retenção e um monitor simples com alerta via Slack.
+        </p>
+
+        <h2>Por que proativo?</h2>
+        <ul>
+            <li><strong>Detecção precoce</strong> de anomalias evita efeito cascata.</li>
+            <li><strong>Visibilidade</strong> sobre causa raiz com correlação de eventos.</li>
+            <li><strong>Tempo de resposta</strong> menor (MTTR mais baixo) graças a alertas contextuais e acionáveis.</li>
+        </ul>
+
+        <h2>Pilares e escopo</h2>
+        <p>
+            Observabilidade combina <strong>logs</strong>, <strong>métricas</strong> e <strong>traces</strong>. Aqui focamos em <strong>logs</strong> como base para alertas eficazes, sem lock-in de ferramenta.
+        </p>
+
+        <h2>Logs Inteligentes (JSON + contexto)</h2>
+        <p>
+            Padrões recomendados:
+        </p>
+        <ul>
+            <li><strong>JSON estruturado</strong> para parse/consulta.</li>
+            <li><strong>Chaves padrão</strong>: timestamp, level, message, service, env, trace_id, user_id.</li>
+            <li><strong>Sem PII</strong>: evite dados sensíveis; use hash/masking.</li>
+            <li><strong>Rotação</strong> para evitar disco cheio.</li>
+        </ul>
+
+        <h3>Setup rápido (logging JSON + rotação)</h3>
+        <pre><code class="language-python">import json, logging, sys
+from logging.handlers import RotatingFileHandler
+
+class JsonFormatter(logging.Formatter):
+    def format(self, record):
+        base = {
+            "timestamp": self.formatTime(record, "%Y-%m-%dT%H:%M:%S%z"),
+            "level": record.levelname,
+            "message": record.getMessage(),
+            "logger": record.name,
+            "service": getattr(record, "service", "app"),
+            "env": getattr(record, "env", "prod"),
+            "trace_id": getattr(record, "trace_id", None),
+            "user_id": getattr(record, "user_id", None),
+        }
+        return json.dumps({k: v for k, v in base.items() if v is not None})
+
+def get_logger(name: str = "app") -> logging.Logger:
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+    if logger.handlers:
+        return logger  # evita handlers duplicados
+
+    fmt = JsonFormatter()
+
+    console = logging.StreamHandler(sys.stdout)
+    console.setFormatter(fmt)
+
+    file_handler = RotatingFileHandler("logs/app.log", maxBytes=2_000_000, backupCount=5)
+    file_handler.setFormatter(fmt)
+
+    logger.addHandler(console)
+    logger.addHandler(file_handler)
+    return logger
+
+log = get_logger("orders")
+log = logging.LoggerAdapter(log, {"service": "orders", "env": "prod"})
+
+log.info("service_started", extra={"trace_id": "abc123"})</code></pre>
+
+        <h3>Enriquecimento de contexto</h3>
+        <pre><code class="language-python">import logging
+
+class ContextFilter(logging.Filter):
+    def __init__(self, **base):
+        super().__init__()
+        self.base = base
+    def filter(self, record):
+        for k, v in self.base.items():
+            setattr(record, k, v)
+        return True
+
+logger = get_logger("payments")
+logger.addFilter(ContextFilter(service="payments", env="prod"))
+logger.info("payment_approved", extra={"trace_id": "t-991", "user_id": "u-42", "amount": 129.90})</code></pre>
+
+        <h2>Alertas Automatizados (práticos e acionáveis)</h2>
+        <p>
+            Boas práticas:
+        </p>
+        <ul>
+            <li><strong>Thresholds</strong> e <strong>janelas de tempo</strong> (ex.: 5 erros 500 em 1 min).</li>
+            <li><strong>Debounce</strong> e <strong>agrupamento</strong> para evitar tempestade de alertas.</li>
+            <li><strong>Contexto</strong> no alerta (serviço, amostras de eventos, links úteis).</li>
+            <li><strong>Canais</strong>: Slack/Teams, e-mail, webhook, PagerDuty.</li>
+        </ul>
+
+        <h3>Exemplo: alerta simples via Slack</h3>
+        <pre><code class="language-python">import os, json, time, logging, requests
+from collections import deque
+
+SLACK_WEBHOOK = os.getenv("SLACK_WEBHOOK_URL")
+LOGFILE = "logs/app.log"
+WINDOW_SEC = 60
+THRESHOLD = 5
+
+def send_slack(text: str):
+    if not SLACK_WEBHOOK:
+        return
+    requests.post(SLACK_WEBHOOK, json={"text": text}, timeout=5)
+
+def tail_errors(path: str):
+    with open(path, "r", encoding="utf-8") as f:
+        f.seek(0, 2)
+        while True:
+            line = f.readline()
+            if not line:
+                time.sleep(0.5); continue
+            try:
+                evt = json.loads(line)
+                if evt.get("level") in {"ERROR", "CRITICAL"}:
+                    yield evt
+            except Exception:
+                continue
+
+def monitor():
+    window = deque()
+    for evt in tail_errors(LOGFILE):
+        now = time.time()
+        window.append(now)
+        while window and now - window[0] > WINDOW_SEC:
+            window.popleft()
+        if len(window) >= THRESHOLD:
+            sample = evt.get("message")
+            send_slack(f"Alerta: {len(window)} erros em {WINDOW_SEC}s no serviço {evt.get('service')}. Ex.: {sample}")
+            window.clear()
+
+# monitor()</code></pre>
+
+        <h2>Checklists rápidas</h2>
+        <ul>
+            <li>[ ] Log em JSON com chaves padrão.</li>
+            <li>[ ] Rotação e retenção configuradas.</li>
+            <li>[ ] Enriquecimento de contexto (service, env, trace_id).</li>
+            <li>[ ] Regras de alerta com debounce e amostras.</li>
+            <li>[ ] Playbooks de resposta anexados a cada alerta.</li>
+        </ul>
+
+        <h2>Privacidade e Compliance</h2>
+        <ul>
+            <li>Evite PII: mascare e minimize dados sensíveis.</li>
+            <li>Defina retenção por classe de dado e por ambiente.</li>
+            <li>Audite acessos ao storage de logs.</li>
+        </ul>
+
+        <h2>Integrações comuns</h2>
+        <ul>
+            <li>ELK/OpenSearch, Loki+Grafana, CloudWatch, Stackdriver.</li>
+            <li>Slack, Microsoft Teams, e-mail, webhooks.</li>
+        </ul>
+
+        <h2>Seção Colaborativa</h2>
+        <p>
+            Este artigo é <strong>colaborativo</strong>. Envie melhorias, exemplos e playbooks reais que funcionaram para você. Podemos incluir:
+        </p>
+        <ul>
+            <li>Parsers/normalizadores de logs por stack (Django, FastAPI, Celery, Flask).</li>
+            <li>Regras de alerta para casos específicos (picos 500, latência, timeouts, fila presa).</li>
+            <li>Dashboards e painéis (consultas, gráficos e thresholds).</li>
+            <li>Boas práticas de privacidade em diferentes setores.</li>
+        </ul>
+        <p>
+            Para contribuir: envie um e-mail, compartilhe via LinkedIn ou proponha um snippet pronto para inclusão.
+        </p>
+
+        <h2>ROI e próximos passos</h2>
+        <ul>
+            <li>Redução de MTTR e incidentes em produção.</li>
+            <li>Menos interrupções e maior confiança de release.</li>
+            <li>Base sólida para evoluir a observabilidade (métricas e traces).</li>
+        </ul>
+
+        <hr style="margin: 40px 0; border: none; border-top: 1px solid #eee;">
+
+        <h3>Contato</h3>
+        <ul>
+            <li><strong>E-mail:</strong> suporte@caracore.com.br</li>
+            <li><strong>Site:</strong> <a href="https://www.caracore.com.br" target="_blank" rel="noopener">www.caracore.com.br</a></li>
+            <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/cara-core/" target="_blank" rel="noopener">Cara Core Informática</a></li>
+        </ul>
+
+        <hr style="margin: 40px 0; border: none; border-top: 1px solid #eee;">
+
+    <h2 id="mttr-adendo">Adendo: o que é MTTR? (explicação simples)</h2>
+        <p>
+            <strong>MTTR</strong> é a sigla para <em>Mean Time To Repair/Recover/Resolve</em> — em português, 
+            <strong>tempo médio para recuperar ou resolver</strong> um incidente. É uma métrica que mostra
+            quanto tempo, em média, um serviço fica indisponível até voltar ao normal após um problema.
+        </p>
+        <p>
+            Como calcular (bem simples):
+        </p>
+        <p style="background:#f8f9fa; padding:1rem; border-left:4px solid #007bff; border-radius:6px;">
+            <strong>MTTR = (tempo total de indisponibilidade no período) ÷ (número de incidentes)</strong>
+        </p>
+        <p>
+            Por que importa:
+        </p>
+        <ul>
+            <li><strong>Experiência do usuário</strong>: menos tempo fora do ar, mais confiança.</li>
+            <li><strong>Operação</strong>: times mais rápidos e coordenados para resolver falhas.</li>
+            <li><strong>Negócio</strong>: menos perdas e impacto na receita.</li>
+        </ul>
+        <p>
+            Exemplo rápido: se, em um mês, seu sistema ficou 2 horas indisponível somando 4 incidentes,
+            o MTTR foi <strong>30 minutos</strong> por incidente (2h ÷ 4 = 0,5h).
+        </p>
+        <p>
+            Como reduzir o MTTR na prática:
+        </p>
+        <ul>
+            <li><strong>Detectar mais cedo</strong> (bons alertas e monitoramento proativo).</li>
+            <li><strong>Padronizar respostas</strong> (playbooks e runbooks claros).</li>
+            <li><strong>Automatizar</strong> rollback, feature flags e verificações de saúde.</li>
+            <li><strong>Contexto nos alertas</strong> para ir direto à causa provável.</li>
+        </ul>
+    </div>
+</body>
+</html>
