@@ -147,22 +147,76 @@ header p {
     background: linear-gradient(120deg, #2d3e50 0%, #4fa3ff 100%);
 }
 
+/* ------------------ CODE BLOCK (Dark Theme) ------------------ */
 pre {
-    background: #f7f7fa;
-    border-radius: 12px;
-    padding: 1.5rem;
+    background: #0f172a; /* dark slate */
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border: 1px solid #24324a;
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
     overflow-x: auto;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 0.95rem;
+    line-height: 1.55;
     max-width: 100%;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 18px -4px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.02) inset;
+    color: #e2e8f0; /* base text */
+    position: relative;
 }
 
-code {
+pre::-webkit-scrollbar { height: 10px; }
+pre::-webkit-scrollbar-track { background: #142133; }
+pre::-webkit-scrollbar-thumb { background: #2d425d; border-radius: 6px; }
+pre::-webkit-scrollbar-thumb:hover { background: #365170; }
+
+pre code { 
+    background: transparent !important; 
+    padding: 0; 
+    color: inherit; 
     font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
     white-space: pre;
-    color: #d63384;
 }
+
+/* Inline code (not in pre) */
+code:not(pre code) {
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    border: 1px solid #2a3b52;
+}
+
+/* Optional language label (future enhancement) */
+pre[data-lang]::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 0.65rem;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.08);
+    padding: 4px 6px;
+    border-radius: 4px;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+/* Basic token coloring (works if a highlighter adds these classes) */
+.hljs-keyword, .token.keyword { color: #8b5cf6; font-weight: 600; }
+.hljs-string, .token.string { color: #10b981; }
+.hljs-number, .token.number { color: #f59e0b; }
+.hljs-function, .token.function { color: #0ea5e9; }
+.hljs-comment, .token.comment { color: #64748b; font-style: italic; }
+.hljs-attr, .token.attr-name { color: #38bdf8; }
+.hljs-literal, .token.boolean { color: #f472b6; }
+.hljs-built_in, .token.builtin { color: #22d3ee; }
+
+/* Selection inside code */
+pre code::selection { background: #334155; color: #f8fafc; }
+code:not(pre code)::selection { background: #334155; color: #f8fafc; }
 
 /* Estilo para o botão Voltar */
 .btn-outline-secondary {
