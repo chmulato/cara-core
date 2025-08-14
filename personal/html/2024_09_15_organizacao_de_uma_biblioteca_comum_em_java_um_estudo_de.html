@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>2024_09_15_Organização de uma Biblioteca Comum em Java_Um Estudo de Caso com Apache Commons</title>
+<meta name="description" content="Organização de bibliotecas em linguagem Java. Organização de uma Biblioteca Comum em Java: Um Estudo de Caso com Apache Commons. Christian Mulato Desenvolvedor Java Sênior na Develcode 15 de setembro" />
+<style>/* Reset & base */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin:0; font-family: system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif; line-height:1.6; background: var(--bg); color: var(--text); scroll-behavior:smooth; }
+
+:root { --bg:#f8f9fb; --bg-alt:#ffffff; --text:#1f2329; --text-soft:#4a5565; --border:#d9dde3; --brand:#0b63c5; --brand-accent:#084f9d; --code-bg:#f3f5f7; --radius:12px; --shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px -8px rgba(0,0,0,.08); color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { :root { --bg:#0f141a; --bg-alt:#1b232c; --text:#e6ebf0; --text-soft:#a5b3c2; --border:#2d3b47; --brand:#5aa4ff; --brand-accent:#2d7dd3; --code-bg:#1f2730; --shadow:0 2px 4px rgba(0,0,0,.6),0 8px 24px -8px rgba(0,0,0,.6);} }
+
+header.site { backdrop-filter: blur(12px); background: linear-gradient(90deg,var(--bg-alt),var(--bg)); position:sticky; top:0; z-index:10; border-bottom:1px solid var(--border); padding:.75rem 1rem; display:flex; gap:1rem; align-items:center; }
+header.site a.brand { font-weight:600; font-size:1rem; color:var(--brand); text-decoration:none; }
+header.site a.brand:hover { color:var(--brand-accent); }
+header.site .meta { margin-left:auto; font-size:.75rem; color:var(--text-soft); white-space:nowrap; }
+
+main { max-width: 74ch; margin: clamp(1rem,4vw,3rem) auto 4rem; padding:0 1rem; }
+article { background: var(--bg-alt); border:1px solid var(--border); border-radius: var(--radius); padding: clamp(1.25rem,2.5vw,2.5rem); box-shadow: var(--shadow); }
+article h1 { font-size: clamp(1.9rem,4vw,2.6rem); line-height:1.15; margin:0 0 1.25rem; letter-spacing:-.5px; }
+article h2 { margin:2.4rem 0 1rem; font-size: clamp(1.35rem,2.3vw,1.85rem); line-height:1.25; }
+article h3 { margin:2rem 0 .75rem; font-size: clamp(1.15rem,2vw,1.4rem); }
+article h4 { margin:1.5rem 0 .5rem; font-size:1.05rem; letter-spacing:.5px; }
+article p { margin:0 0 1.15rem; text-wrap:pretty; }
+article p + p { text-indent:0; }
+
+article a { color:var(--brand); text-decoration:none; }
+article a:hover { text-decoration:underline; color:var(--brand-accent); }
+
+blockquote { margin:2rem 0; padding:1rem 1.25rem; border-left:5px solid var(--brand); background: linear-gradient(135deg,var(--code-bg),var(--bg)); border-radius:0 var(--radius) var(--radius) 0; font-style:italic; }
+
+code, pre { font-family: ui-monospace, SFMono-Regular, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace; font-size:.9rem; }
+pre { background: var(--code-bg); padding:1rem 1.25rem; border-radius: var(--radius); overflow-x:auto; line-height:1.4; position:relative; }
+pre code { background:transparent; padding:0; }
+code { background: var(--code-bg); padding:.25rem .5rem; border-radius:6px; }
+
+img, video { max-width:100%; height:auto; border-radius:6px; }
+figure { margin:2rem 0; }
+figcaption { text-align:center; font-size:.8rem; color:var(--text-soft); margin-top:.5rem; }
+
+table { border-collapse: collapse; width:100%; font-size:.95rem; }
+table thead th { background: var(--code-bg); }
+th, td { border:1px solid var(--border); padding:.6rem .75rem; text-align:left; vertical-align:top; }
+.table-wrapper { overflow-x:auto; margin:2rem 0; border:1px solid var(--border); border-radius:8px; }
+
+ul, ol { padding-left:1.4rem; margin:1.25rem 0 1.25rem; }
+li { margin:.4rem 0; }
+
+hr { border:none; border-top:1px solid var(--border); margin:3rem 0; }
+
+footer.site { margin:3rem auto 0; max-width:74ch; padding:2rem 1rem 4rem; font-size:.8rem; color:var(--text-soft); }
+footer.site a { color:inherit; text-decoration:none; }
+footer.site a:hover { color:var(--brand); }
+
+.reading-progress { position:fixed; top:0; left:0; height:4px; background:linear-gradient(90deg,var(--brand),var(--brand-accent)); width:0; z-index:999; box-shadow:0 0 0 1px rgba(0,0,0,.05); }
+
+/* Author box */
+.author-box{display:flex;align-items:center;gap:1rem;margin:2.5rem 0 0;padding:1rem 1.1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);}
+.author-box .author-photo{width:68px;height:68px;border-radius:50%;object-fit:cover;border:2px solid var(--border);background:var(--bg-alt);}
+.author-box .author-meta{font-size:.8rem;color:var(--text-soft);}
+.author-box .author-meta strong{display:block;color:var(--text);font-size:.85rem;}
+
+@media (max-width: 640px) {
+    article { padding:1.25rem 1.1rem; }
+    header.site { padding:.55rem .85rem; }
+    header.site a.brand { font-size:.9rem; }
+}</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark-dimmed.min.css" media="(prefers-color-scheme: dark)">
+<style>
+pre code { display:block; counter-reset: line; white-space: pre; }
+pre code span.ln { display:block; padding-left:.5rem; position:relative; }
+pre code span.ln:before { counter-increment: line; content: counter(line); position:absolute; left:-3.2rem; width:2.8rem; text-align:right; color:var(--text-soft); font-size:.7rem; user-select:none; }
+pre { position:relative; }
+pre .copy-btn { position:absolute; top:.4rem; right:.5rem; background:var(--bg-alt); border:1px solid var(--border); font-size:.65rem; padding:.25rem .5rem; border-radius:6px; cursor:pointer; opacity:.75; }
+pre:hover .copy-btn { opacity:1; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/java.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/xml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/json.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/bash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/python.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/vba.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('pre code').forEach(block=>{ hljs.highlightElement(block); addCopy(block); addLineNumbers(block); });
+    function addCopy(block){
+        if(block.parentElement.querySelector('.copy-btn')) return; const btn=document.createElement('button');btn.textContent='copiar';btn.className='copy-btn';btn.addEventListener('click',()=>{navigator.clipboard.writeText(block.innerText.trim());btn.textContent='copiado!';setTimeout(()=>btn.textContent='copiar',1600);});block.parentElement.appendChild(btn);}
+    function addLineNumbers(block){
+        const html = block.innerHTML.split(/
+/).map(l=>'<span class="ln">'+(l||' ')+'</span>').join('
+');
+        block.innerHTML = html; }
+});
+</script>
+<meta name="author" content="Christian Vladimir Uhdre Mulato" />
+<meta name="keywords" content="bibliotecas, java, apache, código, desenvolvimento, comuns, dados, commons, desenvolvedores, processo, aplicação, vide" />
+<link rel="canonical" href="https://example.com/2024_09_15_organizacao_de_uma_biblioteca_comum_em_java_um_estudo_de.html" />
+<meta property="og:title" content="2024_09_15_Organização de uma Biblioteca Comum em Java_Um Estudo de Caso com Apache Commons" />
+<meta property="og:description" content="Organização de bibliotecas em linguagem Java. Organização de uma Biblioteca Comum em Java: Um Estudo de Caso com Apache Commons. Christian Mulato Desenvolvedor Java Sênior na Develcode 15 de setembro" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/2024_09_15_organizacao_de_uma_biblioteca_comum_em_java_um_estudo_de.html" />
+<meta property="og:image" content="https://example.com/img/2024-09-15-organizacao-de-uma-biblioteca-comum-em-java-um-estudo-de-caso-com-apache-commons-01.png" />
+<meta property="article:author" content="Christian Vladimir Uhdre Mulato" />
+<meta property="article:published_time" content="2024-09-15" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="2024_09_15_Organização de uma Biblioteca Comum em Java_Um Estudo de Caso com Apache Commons" />
+<meta name="twitter:description" content="Organização de bibliotecas em linguagem Java. Organização de uma Biblioteca Comum em Java: Um Estudo de Caso com Apache Commons. Christian Mulato Desenvolvedor Java Sênior na Develcode 15 de setembro" />
+<meta name="twitter:image" content="https://example.com/img/2024-09-15-organizacao-de-uma-biblioteca-comum-em-java-um-estudo-de-caso-com-apache-commons-01.png" />
+<meta name="twitter:creator" content="Christian Vladimir Uhdre Mulato" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "2024_09_15_Organização de uma Biblioteca Comum em Java_Um Estudo de Caso com Apache Commons", "description": "Organização de bibliotecas em linguagem Java. Organização de uma Biblioteca Comum em Java: Um Estudo de Caso com Apache Commons. Christian Mulato Desenvolvedor Java Sênior na Develcode 15 de setembro", "author": {"@type": "Person", "name": "Christian Vladimir Uhdre Mulato"}, "datePublished": "2024-09-15", "image": "https://example.com/img/2024-09-15-organizacao-de-uma-biblioteca-comum-em-java-um-estudo-de-caso-com-apache-commons-01.png", "wordCount": 876, "url": "https://example.com/2024_09_15_organizacao_de_uma_biblioteca_comum_em_java_um_estudo_de.html"}</script>
+</head><body>
+<div class=reading-progress id=rp></div>
+<header class=site><a class=brand href="index.html">Início</a><span class=meta>4 min</span></header>
+<main><article>
+<p><img alt="2024_09_15_Organização de uma Biblioteca Comum em Java_Um Estudo de Caso com Apache Commons" src="img/2024-09-15-organizacao-de-uma-biblioteca-comum-em-java-um-estudo-de-caso-com-apache-commons-01.png"/></p><p>Organização de bibliotecas em linguagem Java.</p><p><strong>Organização de uma Biblioteca Comum em Java: Um Estudo de Caso com Apache Commons.</strong></p><p><a href="https://www.linkedin.com/in/chmulato/"><img alt="2024_09_15_Organização de uma Biblioteca Comum em Java_Um Estudo de Caso com Apache Commons" src="img/2024-09-15-organizacao-de-uma-biblioteca-comum-em-java-um-estudo-de-caso-com-apache-commons-02.jpg"/></a></p><p><strong><a href="https://www.linkedin.com/in/chmulato/">Christian Mulato</a></strong></p><p>Desenvolvedor Java Sênior na Develcode</p><p>15 de setembro de 2024</p><p><strong>Introdução</strong></p><p>Em uma arquitetura de desenvolvimento de software em Java, a utilização de bibliotecas comuns, como a Apache Commons, é essencial para fornecer componentes reutilizáveis que facilitam e agilizam o desenvolvimento. Este artigo explora a importância dessas bibliotecas, destacando seus principais benefícios e exemplos práticos de uso.</p><p><strong>Benefícios das Bibliotecas Comuns</strong></p><p><strong>1. Reutilização de Código</strong></p><p>As bibliotecas comuns contêm funções e utilitários frequentemente necessários em diversos projetos, como manipulação de strings, operações de E/S (entrada/saída) e manipulação de coleções. Isso evita a necessidade de escrever código do zero para essas tarefas comuns, promovendo a reutilização de código.</p><p><strong>2. Padronização</strong></p><p>O uso de bibliotecas comuns ajuda a manter um padrão de código consistente em diferentes projetos. Isso facilita a manutenção e a colaboração entre desenvolvedores, pois todos utilizam as mesmas ferramentas e métodos.</p><p><strong>3. Eficiência</strong></p><p>Ao utilizar componentes já testados e otimizados, os desenvolvedores podem focar em aspectos mais específicos e complexos do projeto, economizando tempo e recursos.</p><p><strong>4. Qualidade e Confiabilidade</strong></p><p>Bibliotecas como a Apache Commons são amplamente utilizadas e testadas pela comunidade, garantindo um alto nível de qualidade e confiabilidade.</p><p><strong>Exemplos de Bibliotecas Comuns em Java</strong></p><p><strong>Apache Commons IO </strong></p><p>A <em>Apache Commons IO</em> é uma biblioteca popular dentro do conjunto Apache Commons que fornece utilitários para operações de entrada e saída, como copiar arquivos, ler e escrever dados, e manipular diretórios.</p><p><strong>JUnit</strong></p><p><em>JUnit</em> é uma das bibliotecas mais populares para testes unitários em Java. Ela permite que os desenvolvedores escrevam e executem testes automatizados para garantir que o código funcione conforme esperado.</p><p><strong>Google Guava</strong></p><p><em>Google Guava </em>é um conjunto abrangente de bibliotecas desenvolvidas pelo Google que inclui coleções avançadas, utilitários de E/S, manipulação de strings e muito mais.</p><p><strong>Jackson</strong></p><p><em>Jackson</em> é uma biblioteca poderosa para processamento de <em>JSON</em> em Java. Ela permite a serialização e desserialização* [vide rodapé] de objetos Java para JSON e vice-versa.</p><p><strong>SLF4J (<em>Simple Logging Facade for Java</em>)</strong></p><p><em>SLF4J</em> é uma API de <em>logging* </em>[vide rodapé] que serve como uma fachada para várias bibliotecas de <em>logging</em>, como <em>Logback</em> e <em>Log4j</em>.</p><p><strong>Hibernate</strong></p><p><em>Hibernate</em> é uma biblioteca de mapeamento objeto-relacional (<em>ORM</em>)* [<em>vide rodapé</em>] que facilita a interação entre aplicações Java e bancos de dados relacionais.</p><p><strong>Spring Framework</strong></p><p><em>Spring Framework</em> é um <em>framework* </em>[vide rodapé] abrangente que oferece suporte para desenvolvimento de aplicações Java, incluindo injeção de dependência, programação orientada a aspectos e muito mais.</p><p><strong>Apache POI</strong></p><p><em>Apache POI</em> permite a manipulação de arquivos do Microsoft Office, como Excel e Word, diretamente em Java.</p><p><strong>Maven</strong></p><p><em>Maven</em> é uma ferramenta de gerenciamento de dependências e automação de <em>build* </em>[vide rodaṕe] que simplifica o processo de construção e gerenciamento de projetos Java.</p><p><strong>Conclusão</strong></p><p>A utilização de bibliotecas comuns em Java, como a Apache Commons, traz inúmeros benefícios para o desenvolvimento de software, incluindo reutilização de código, padronização, eficiência e confiabilidade. Ao adotar essas bibliotecas, os desenvolvedores podem focar em aspectos mais inovadores e complexos de seus projetos, garantindo um desenvolvimento mais ágil e de alta qualidade.</p><p>Notas:</p><p><strong><em>Build</em></strong> de uma aplicação refere-se ao processo de compilar o código-fonte e todos os seus recursos em um executável ou pacote pronto para ser executado ou distribuído. Esse processo pode incluir a compilação do código, a integração de bibliotecas, a execução de testes e a criação de arquivos de instalação. Em resumo, é a transformação do código-fonte em um produto final utilizável.</p><p><strong><em>Logging</em></strong> de uma aplicação refere-se ao processo de registrar eventos, mensagens ou dados gerados pela aplicação durante sua execução. Esses registros podem incluir informações sobre erros, avisos, operações realizadas, e outros eventos significativos que ajudam desenvolvedores e administradores a monitorar, depurar e otimizar o desempenho da aplicação. Em resumo, é a prática de manter um histórico detalhado das atividades da aplicação para análise e resolução de problemas.</p><p><strong><em>Framework</em></strong> para o desenvolvimento de aplicações é uma estrutura de software que fornece um conjunto de ferramentas, bibliotecas e boas práticas para facilitar e acelerar o processo de criação de aplicações. Ele oferece uma base reutilizável de código e funcionalidades comuns, permitindo que os desenvolvedores se concentrem mais na lógica específica do negócio e menos em tarefas repetitivas. Em resumo, um <em>framework</em> ajuda a padronizar e simplificar o desenvolvimento de software, promovendo eficiência e consistência.</p><p><strong><em>ORM</em></strong> (<em>Object-Relational Mapping</em>) é uma técnica de programação que permite converter dados entre sistemas incompatíveis usando a orientação a objetos. Em vez de escrever consultas SQL diretamente, os desenvolvedores interagem com o banco de dados usando objetos de linguagem de programação, o que simplifica o código e melhora a manutenção. Em resumo, o ORM facilita o mapeamento entre as tabelas do banco de dados e as classes de uma aplicação, tornando o desenvolvimento mais intuitivo e eficiente.</p><p><strong>Serialização</strong> é o processo de converter um objeto em um formato que pode ser facilmente armazenado ou transmitido, como JSON ou XML. <strong>Deserialização</strong> é o processo inverso, onde esses dados formatados são convertidos de volta em um objeto utilizável pela aplicação. Em resumo, serialização e deserialização permitem que objetos sejam salvos, enviados e recuperados de forma eficiente, facilitando a persistência de dados e a comunicação entre sistemas.</p>
+</article></main>
+<footer class=site>Gerado automaticamente. Leitura estimada: 4 min. &middot; <a href="index.html">Voltar ao índice</a></footer>
+<script>"use strict";const rp=document.getElementById('rp');const h=document.documentElement;addEventListener('scroll',()=>{const st=h.scrollTop;const sh=h.scrollHeight-h.clientHeight;const p=sh?(st/sh)*100:0;rp.style.width=p+'%';},{passive:true});</script>
+</body></html>

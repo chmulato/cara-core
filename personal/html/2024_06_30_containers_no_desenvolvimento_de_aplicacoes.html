@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>2024_06_30_Containers no Desenvolvimento de Aplicações</title>
+<meta name="description" content="Desenvolvimento de aplicações Java com Containers Containers no Desenvolvimento de Aplicações Christian Mulato Desenvolvedor Java Sênior na Develcode 30 de junho de 2024 Os containers têm se tornado uma parte" />
+<style>/* Reset & base */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin:0; font-family: system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif; line-height:1.6; background: var(--bg); color: var(--text); scroll-behavior:smooth; }
+
+:root { --bg:#f8f9fb; --bg-alt:#ffffff; --text:#1f2329; --text-soft:#4a5565; --border:#d9dde3; --brand:#0b63c5; --brand-accent:#084f9d; --code-bg:#f3f5f7; --radius:12px; --shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px -8px rgba(0,0,0,.08); color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { :root { --bg:#0f141a; --bg-alt:#1b232c; --text:#e6ebf0; --text-soft:#a5b3c2; --border:#2d3b47; --brand:#5aa4ff; --brand-accent:#2d7dd3; --code-bg:#1f2730; --shadow:0 2px 4px rgba(0,0,0,.6),0 8px 24px -8px rgba(0,0,0,.6);} }
+
+header.site { backdrop-filter: blur(12px); background: linear-gradient(90deg,var(--bg-alt),var(--bg)); position:sticky; top:0; z-index:10; border-bottom:1px solid var(--border); padding:.75rem 1rem; display:flex; gap:1rem; align-items:center; }
+header.site a.brand { font-weight:600; font-size:1rem; color:var(--brand); text-decoration:none; }
+header.site a.brand:hover { color:var(--brand-accent); }
+header.site .meta { margin-left:auto; font-size:.75rem; color:var(--text-soft); white-space:nowrap; }
+
+main { max-width: 74ch; margin: clamp(1rem,4vw,3rem) auto 4rem; padding:0 1rem; }
+article { background: var(--bg-alt); border:1px solid var(--border); border-radius: var(--radius); padding: clamp(1.25rem,2.5vw,2.5rem); box-shadow: var(--shadow); }
+article h1 { font-size: clamp(1.9rem,4vw,2.6rem); line-height:1.15; margin:0 0 1.25rem; letter-spacing:-.5px; }
+article h2 { margin:2.4rem 0 1rem; font-size: clamp(1.35rem,2.3vw,1.85rem); line-height:1.25; }
+article h3 { margin:2rem 0 .75rem; font-size: clamp(1.15rem,2vw,1.4rem); }
+article h4 { margin:1.5rem 0 .5rem; font-size:1.05rem; letter-spacing:.5px; }
+article p { margin:0 0 1.15rem; text-wrap:pretty; }
+article p + p { text-indent:0; }
+
+article a { color:var(--brand); text-decoration:none; }
+article a:hover { text-decoration:underline; color:var(--brand-accent); }
+
+blockquote { margin:2rem 0; padding:1rem 1.25rem; border-left:5px solid var(--brand); background: linear-gradient(135deg,var(--code-bg),var(--bg)); border-radius:0 var(--radius) var(--radius) 0; font-style:italic; }
+
+code, pre { font-family: ui-monospace, SFMono-Regular, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace; font-size:.9rem; }
+pre { background: var(--code-bg); padding:1rem 1.25rem; border-radius: var(--radius); overflow-x:auto; line-height:1.4; position:relative; }
+pre code { background:transparent; padding:0; }
+code { background: var(--code-bg); padding:.25rem .5rem; border-radius:6px; }
+
+img, video { max-width:100%; height:auto; border-radius:6px; }
+figure { margin:2rem 0; }
+figcaption { text-align:center; font-size:.8rem; color:var(--text-soft); margin-top:.5rem; }
+
+table { border-collapse: collapse; width:100%; font-size:.95rem; }
+table thead th { background: var(--code-bg); }
+th, td { border:1px solid var(--border); padding:.6rem .75rem; text-align:left; vertical-align:top; }
+.table-wrapper { overflow-x:auto; margin:2rem 0; border:1px solid var(--border); border-radius:8px; }
+
+ul, ol { padding-left:1.4rem; margin:1.25rem 0 1.25rem; }
+li { margin:.4rem 0; }
+
+hr { border:none; border-top:1px solid var(--border); margin:3rem 0; }
+
+footer.site { margin:3rem auto 0; max-width:74ch; padding:2rem 1rem 4rem; font-size:.8rem; color:var(--text-soft); }
+footer.site a { color:inherit; text-decoration:none; }
+footer.site a:hover { color:var(--brand); }
+
+.reading-progress { position:fixed; top:0; left:0; height:4px; background:linear-gradient(90deg,var(--brand),var(--brand-accent)); width:0; z-index:999; box-shadow:0 0 0 1px rgba(0,0,0,.05); }
+
+/* Author box */
+.author-box{display:flex;align-items:center;gap:1rem;margin:2.5rem 0 0;padding:1rem 1.1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);}
+.author-box .author-photo{width:68px;height:68px;border-radius:50%;object-fit:cover;border:2px solid var(--border);background:var(--bg-alt);}
+.author-box .author-meta{font-size:.8rem;color:var(--text-soft);}
+.author-box .author-meta strong{display:block;color:var(--text);font-size:.85rem;}
+
+@media (max-width: 640px) {
+    article { padding:1.25rem 1.1rem; }
+    header.site { padding:.55rem .85rem; }
+    header.site a.brand { font-size:.9rem; }
+}</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark-dimmed.min.css" media="(prefers-color-scheme: dark)">
+<style>
+pre code { display:block; counter-reset: line; white-space: pre; }
+pre code span.ln { display:block; padding-left:.5rem; position:relative; }
+pre code span.ln:before { counter-increment: line; content: counter(line); position:absolute; left:-3.2rem; width:2.8rem; text-align:right; color:var(--text-soft); font-size:.7rem; user-select:none; }
+pre { position:relative; }
+pre .copy-btn { position:absolute; top:.4rem; right:.5rem; background:var(--bg-alt); border:1px solid var(--border); font-size:.65rem; padding:.25rem .5rem; border-radius:6px; cursor:pointer; opacity:.75; }
+pre:hover .copy-btn { opacity:1; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/java.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/xml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/json.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/bash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/python.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/vba.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('pre code').forEach(block=>{ hljs.highlightElement(block); addCopy(block); addLineNumbers(block); });
+    function addCopy(block){
+        if(block.parentElement.querySelector('.copy-btn')) return; const btn=document.createElement('button');btn.textContent='copiar';btn.className='copy-btn';btn.addEventListener('click',()=>{navigator.clipboard.writeText(block.innerText.trim());btn.textContent='copiado!';setTimeout(()=>btn.textContent='copiar',1600);});block.parentElement.appendChild(btn);}
+    function addLineNumbers(block){
+        const html = block.innerHTML.split(/
+/).map(l=>'<span class="ln">'+(l||' ')+'</span>').join('
+');
+        block.innerHTML = html; }
+});
+</script>
+<meta name="author" content="Christian Vladimir Uhdre Mulato" />
+<meta name="keywords" content="containers, java, desenvolvimento, aplicações, docker, aplicação, ambientes, exemplo, arquivo, imagem, container, kubernetes" />
+<link rel="canonical" href="https://example.com/2024_06_30_containers_no_desenvolvimento_de_aplicacoes.html" />
+<meta property="og:title" content="2024_06_30_Containers no Desenvolvimento de Aplicações" />
+<meta property="og:description" content="Desenvolvimento de aplicações Java com Containers Containers no Desenvolvimento de Aplicações Christian Mulato Desenvolvedor Java Sênior na Develcode 30 de junho de 2024 Os containers têm se tornado uma parte" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/2024_06_30_containers_no_desenvolvimento_de_aplicacoes.html" />
+<meta property="og:image" content="https://example.com/img/2024-06-30-containers-no-desenvolvimento-de-aplicacoes-01.png" />
+<meta property="article:author" content="Christian Vladimir Uhdre Mulato" />
+<meta property="article:published_time" content="2024-06-30" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="2024_06_30_Containers no Desenvolvimento de Aplicações" />
+<meta name="twitter:description" content="Desenvolvimento de aplicações Java com Containers Containers no Desenvolvimento de Aplicações Christian Mulato Desenvolvedor Java Sênior na Develcode 30 de junho de 2024 Os containers têm se tornado uma parte" />
+<meta name="twitter:image" content="https://example.com/img/2024-06-30-containers-no-desenvolvimento-de-aplicacoes-01.png" />
+<meta name="twitter:creator" content="Christian Vladimir Uhdre Mulato" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "2024_06_30_Containers no Desenvolvimento de Aplicações", "description": "Desenvolvimento de aplicações Java com Containers Containers no Desenvolvimento de Aplicações Christian Mulato Desenvolvedor Java Sênior na Develcode 30 de junho de 2024 Os containers têm se tornado uma parte", "author": {"@type": "Person", "name": "Christian Vladimir Uhdre Mulato"}, "datePublished": "2024-06-30", "image": "https://example.com/img/2024-06-30-containers-no-desenvolvimento-de-aplicacoes-01.png", "wordCount": 1093, "url": "https://example.com/2024_06_30_containers_no_desenvolvimento_de_aplicacoes.html"}</script>
+</head><body>
+<div class=reading-progress id=rp></div>
+<header class=site><a class=brand href="index.html">Início</a><span class=meta>5 min</span></header>
+<main><article>
+<p><img alt="2024_06_30_Containers no Desenvolvimento de Aplicações" src="img/2024-06-30-containers-no-desenvolvimento-de-aplicacoes-01.png"/></p><p>Desenvolvimento de aplicações Java com Containers</p><p><strong>Containers no Desenvolvimento de Aplicações</strong></p><p><a href="https://www.linkedin.com/in/chmulato/"><img alt="2024_06_30_Containers no Desenvolvimento de Aplicações" src="img/2024-06-30-containers-no-desenvolvimento-de-aplicacoes-02.jpg"/></a></p><p><strong><a href="https://www.linkedin.com/in/chmulato/">Christian Mulato</a></strong></p><p>Desenvolvedor Java Sênior na Develcode</p><p>30 de junho de 2024</p><p>Os containers têm se tornado uma parte essencial do desenvolvimento de aplicações modernas. Eles oferecem isolamento, portabilidade e escalabilidade, permitindo que as aplicações sejam executadas de maneira consistente em diferentes ambientes. Neste artigo, exploraremos os conceitos-chave relacionados a containers e como eles podem ser aplicados no contexto do desenvolvimento de software.</p><p>A ideia principal ao aplicar o desenvolvimento de aplicações utilizando containers é criar unidades isoladas que empacotam a aplicação e suas dependências em um único pacote. Esses containers oferecem portabilidade, escalabilidade e eficiência, permitindo que as aplicações sejam executadas consistentemente em diferentes ambientes. Isso simplifica a implantação e facilita o gerenciamento de recursos, tornando o desenvolvimento mais ágil e flexível.</p><p><strong>O que são Containers?</strong></p><p><strong>Definição:</strong> Containers são unidades de software que empacotam uma aplicação e suas dependências em um único pacote.</p><p><strong>Isolamento:</strong> Cada container executa em um ambiente isolado, garantindo que não haja conflitos com outras aplicações.</p><p><strong>Eficiência: </strong>Os containers compartilham o mesmo kernel do sistema operacional, tornando-os mais leves que máquinas virtuais tradicionais.</p><p><strong>Benefícios dos Containers</strong></p><p><strong>Portabilidade:</strong></p><p>Os containers podem ser movidos facilmente entre diferentes <em>hosts</em> (servidores) e ambientes (desenvolvimento, teste, produção). Para os desenvolvedores Java é possível criar imagens de containers com suas aplicações e distribuí-las consistentemente.</p><p><strong>Orquestração:</strong></p><p>Ferramentas como o <strong>Kubernetes</strong> (<strong>k8s</strong>) permitem gerenciar clusters de containers. Para os desenvolvedores Java é possível definir implantações, escalabilidade e balanceamento de carga usando manifestos <strong>YAML</strong>.</p><p><strong>Desenvolvimento Local:</strong></p><p>Containers facilitam a configuração de ambientes de desenvolvimento consistentes.</p><p>Desenvolvedores Java podem usar <strong>Docker Compose</strong> para orquestrar vários containers localmente.</p><p><strong>Exemplo Prático</strong></p><p>Vamos começar com a instalação de uma ferramenta para a criação de containers, no caso aqui o <strong>Docker</strong>.</p><p>A maneira de encontrar o Docker para instalar no seu sistema operacional depende do sistema operacional que você está usando:</p><p><strong>- Windows:</strong></p><p> - Acesse o site oficial do <a href="https://www.docker.com/" target="_self">Docker</a> e clique em "Getting Started" para baixar o instalador do <strong>Docker Desktop</strong>. </p><p> - Execute o instalador baixado e siga as instruções de instalação.</p><p><strong>- Ubuntu (Linux):</strong></p><p> - Abra o terminal e execute os seguintes comandos:</p><p><em> sudo apt update</em></p><p><em> sudo apt install docker</em> </p><p> - O Docker estará disponível após a instalação.</p><p>Para um exemplo prático, suponha que você esteja criando uma aplicação Spring Boot que se conecta a um banco de dados PostgreSQL. Aqui estão os passos:</p><p><strong>Dockerfile:</strong></p><p>Crie um arquivo chamado <em>Dockerfile</em> na raiz do seu projeto Java.</p><p><img alt="2024_06_30_Containers no Desenvolvimento de Aplicações" src="img/2024-06-30-containers-no-desenvolvimento-de-aplicacoes-03.png"/></p><p>Exemplo de um dockerfile para um ambiente Java 11 OpenJDK</p><p>Este <em>Dockerfile</em> começa com a imagem base <em>openjdk:11-jdk-slim</em>, que é uma imagem Docker oficial do OpenJDK que inclui os seguintes ambientes Java na imagem padrão: o <strong>JRE</strong> (Java Runtime Environment) e o <strong>JDK</strong> (Java Development Kit).</p><p>Em seguida, copia o arquivo JAR do seu aplicativo (neste caso de exemplo o aquivo, <em>meu-aplicativo.jar</em>) para o contêiner.</p><p>O comando WORKDIR muda o diretório de trabalho para o local onde o arquivo JAR foi copiado.</p><p>Finalmente, o ENTRYPOINT especifica o comando que será executado quando o contêiner Docker for iniciado. Neste caso, ele inicia o aplicativo Java.</p><p>Lembre-se de substituir <em>meu-aplicativo.jar</em> pelo nome do seu arquivo JAR. E certifique-se de que o <em>Dockerfile</em> esteja no mesmo diretório do seu arquivo JAR quando você construir a imagem Docker.</p><p>Copie o arquivo JAR da sua aplicação para o container.</p><p>Defina o comando para executar a aplicação.</p><p><strong>Build da Imagem:</strong></p><p>Execute o comando <em>docker build -t minha-aplicacao .</em> para criar a imagem do container.</p><p><strong>Docker Compose:</strong></p><p>Crie um arquivo YAML <em>docker-compose.yml</em>.</p><p><img alt="2024_06_30_Containers no Desenvolvimento de Aplicações" src="img/2024-06-30-containers-no-desenvolvimento-de-aplicacoes-04.png"/></p><p>Exemplo de um arquivo YAML docker-compose.yml</p><p>Neste exemplo, o serviço db é o banco de dados PostgreSQL e o serviço app é a aplicação Java. As variáveis de ambiente necessárias para a conexão com o banco de dados são definidas no serviço app.</p><p>Para o seu exemplo, substitua exemplo_senha, exemplo_usuario, exemplo_db, exemplo_imagem_java:tag pelos valores reais que você deseja usar.</p><p>Lembre-se de que você precisa construir sua imagem Docker para a aplicação Java e referenciá-la corretamente no serviço app (no campo image). A tag da imagem (neste exemplo, tag) deve corresponder à versão da sua aplicação.</p><p><strong>Execução:</strong></p><p>Execute <em>docker-compose up</em> para iniciar os containers.</p><p>Sua aplicação Java estará disponível em [http://localhost:8080] </p><p>Agora você tem uma aplicação Java empacotada em um container, com o banco de dados também em um container.</p><p>Isso facilita a configuração do ambiente local e a implantação consistente em outros ambientes.</p><p><strong>Curiosidades</strong></p><p>Os containers oferecem diversos benefícios no desenvolvimento de aplicações. Eles proporcionam isolamento, permitindo que cada aplicação execute em seu próprio ambiente sem conflitos. Além disso, os containers são portáteis, facilitando a implantação em diferentes ambientes e a migração entre servidores. Sua eficiência e escalabilidade também são vantagens, tornando-os ideais para ambientes de nuvem e orquestração, como o <strong>Kubernetes (K8s)</strong>.</p><p>A orquestração de containers é o processo de automação de grande parte do esforço operacional para executar serviços e fluxos de trabalho organizados em containers. O Kubernetes, uma plataforma de código aberto, portável e extensível, é uma ferramenta popular para essa tarefa. Ele permite agrupar contêineres em unidades lógicas chamadas "pods", escalonando-os automaticamente com base na carga de trabalho ou substituindo-os se falharem. Além disso, o k8s oferece recursos como descoberta de serviço, balanceamento de carga, orquestração de armazenamento e gerenciamento de configurações e segredos, revolucionando a maneira como as aplicações são implantadas e mantidas.</p><p>Um <strong>pod </strong>do Kubernetes é um conjunto de um ou mais containers Linux, sendo a menor unidade de uma aplicação Kubernetes. Os pods são compostos por um container nos casos de uso mais comuns ou por vários containers fortemente acoplados em cenários mais avançados. Esses containers compartilham os mesmos recursos de computação, agrupados na forma de clusters, resultando em um sistema distribuído mais inteligente e eficiente para a execução de aplicações. Os pods permitem que os containers se comuniquem como se compartilhassem o mesmo hardware físico, enquanto mantêm um certo nível de isolamento. Essa organização é a base para funcionalidades como replicação e escalabilidade no Kubernetes.</p><p>Uma das implementações mais comuns para o uso de containers no desenvolvimento de aplicações é a implantação de micro-serviços. Nesse modelo, cada micro-serviço é empacotado em um container independente. Isso permite que os desenvolvedores criem, testem e implantem serviços de forma modular e escalável. Além disso, os containers facilitam a orquestração desses micro-serviços usando ferramentas como o Kubernetes (k8s), garantindo alta disponibilidade e flexibilidade.</p><p>Resumidamente, os containers são uma ferramenta poderosa para simplificar o desenvolvimento, implantação e escalabilidade de aplicações. No mundo do desenvolvimento Java podemos aproveitar esses benefícios para criar soluções mais eficientes e flexíveis.</p>
+</article></main>
+<footer class=site>Gerado automaticamente. Leitura estimada: 5 min. &middot; <a href="index.html">Voltar ao índice</a></footer>
+<script>"use strict";const rp=document.getElementById('rp');const h=document.documentElement;addEventListener('scroll',()=>{const st=h.scrollTop;const sh=h.scrollHeight-h.clientHeight;const p=sh?(st/sh)*100:0;rp.style.width=p+'%';},{passive:true});</script>
+</body></html>
