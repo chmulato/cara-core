@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>2024_06_09_Gerenciamento de Filas em Sistemas Distribuídos com Java</title>
+<meta name="description" content="Gerenciamento de filas com ferramentas e soluções consolidadas. Gerenciamento de Filas em Sistemas Distribuídos com Java Christian Mulato Desenvolvedor Java Sênior na Develcode 9 de junho de 2024 Introdução à" />
+<style>/* Reset & base */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin:0; font-family: system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif; line-height:1.6; background: var(--bg); color: var(--text); scroll-behavior:smooth; }
+
+:root { --bg:#f8f9fb; --bg-alt:#ffffff; --text:#1f2329; --text-soft:#4a5565; --border:#d9dde3; --brand:#0b63c5; --brand-accent:#084f9d; --code-bg:#f3f5f7; --radius:12px; --shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px -8px rgba(0,0,0,.08); color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { :root { --bg:#0f141a; --bg-alt:#1b232c; --text:#e6ebf0; --text-soft:#a5b3c2; --border:#2d3b47; --brand:#5aa4ff; --brand-accent:#2d7dd3; --code-bg:#1f2730; --shadow:0 2px 4px rgba(0,0,0,.6),0 8px 24px -8px rgba(0,0,0,.6);} }
+
+header.site { backdrop-filter: blur(12px); background: linear-gradient(90deg,var(--bg-alt),var(--bg)); position:sticky; top:0; z-index:10; border-bottom:1px solid var(--border); padding:.75rem 1rem; display:flex; gap:1rem; align-items:center; }
+header.site a.brand { font-weight:600; font-size:1rem; color:var(--brand); text-decoration:none; }
+header.site a.brand:hover { color:var(--brand-accent); }
+header.site .meta { margin-left:auto; font-size:.75rem; color:var(--text-soft); white-space:nowrap; }
+
+main { max-width: 74ch; margin: clamp(1rem,4vw,3rem) auto 4rem; padding:0 1rem; }
+article { background: var(--bg-alt); border:1px solid var(--border); border-radius: var(--radius); padding: clamp(1.25rem,2.5vw,2.5rem); box-shadow: var(--shadow); }
+article h1 { font-size: clamp(1.9rem,4vw,2.6rem); line-height:1.15; margin:0 0 1.25rem; letter-spacing:-.5px; }
+article h2 { margin:2.4rem 0 1rem; font-size: clamp(1.35rem,2.3vw,1.85rem); line-height:1.25; }
+article h3 { margin:2rem 0 .75rem; font-size: clamp(1.15rem,2vw,1.4rem); }
+article h4 { margin:1.5rem 0 .5rem; font-size:1.05rem; letter-spacing:.5px; }
+article p { margin:0 0 1.15rem; text-wrap:pretty; }
+article p + p { text-indent:0; }
+
+article a { color:var(--brand); text-decoration:none; }
+article a:hover { text-decoration:underline; color:var(--brand-accent); }
+
+blockquote { margin:2rem 0; padding:1rem 1.25rem; border-left:5px solid var(--brand); background: linear-gradient(135deg,var(--code-bg),var(--bg)); border-radius:0 var(--radius) var(--radius) 0; font-style:italic; }
+
+code, pre { font-family: ui-monospace, SFMono-Regular, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace; font-size:.9rem; }
+pre { background: var(--code-bg); padding:1rem 1.25rem; border-radius: var(--radius); overflow-x:auto; line-height:1.4; position:relative; }
+pre code { background:transparent; padding:0; }
+code { background: var(--code-bg); padding:.25rem .5rem; border-radius:6px; }
+
+img, video { max-width:100%; height:auto; border-radius:6px; }
+figure { margin:2rem 0; }
+figcaption { text-align:center; font-size:.8rem; color:var(--text-soft); margin-top:.5rem; }
+
+table { border-collapse: collapse; width:100%; font-size:.95rem; }
+table thead th { background: var(--code-bg); }
+th, td { border:1px solid var(--border); padding:.6rem .75rem; text-align:left; vertical-align:top; }
+.table-wrapper { overflow-x:auto; margin:2rem 0; border:1px solid var(--border); border-radius:8px; }
+
+ul, ol { padding-left:1.4rem; margin:1.25rem 0 1.25rem; }
+li { margin:.4rem 0; }
+
+hr { border:none; border-top:1px solid var(--border); margin:3rem 0; }
+
+footer.site { margin:3rem auto 0; max-width:74ch; padding:2rem 1rem 4rem; font-size:.8rem; color:var(--text-soft); }
+footer.site a { color:inherit; text-decoration:none; }
+footer.site a:hover { color:var(--brand); }
+
+.reading-progress { position:fixed; top:0; left:0; height:4px; background:linear-gradient(90deg,var(--brand),var(--brand-accent)); width:0; z-index:999; box-shadow:0 0 0 1px rgba(0,0,0,.05); }
+
+/* Author box */
+.author-box{display:flex;align-items:center;gap:1rem;margin:2.5rem 0 0;padding:1rem 1.1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);}
+.author-box .author-photo{width:68px;height:68px;border-radius:50%;object-fit:cover;border:2px solid var(--border);background:var(--bg-alt);}
+.author-box .author-meta{font-size:.8rem;color:var(--text-soft);}
+.author-box .author-meta strong{display:block;color:var(--text);font-size:.85rem;}
+
+@media (max-width: 640px) {
+    article { padding:1.25rem 1.1rem; }
+    header.site { padding:.55rem .85rem; }
+    header.site a.brand { font-size:.9rem; }
+}</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark-dimmed.min.css" media="(prefers-color-scheme: dark)">
+<style>
+pre code { display:block; counter-reset: line; white-space: pre; }
+pre code span.ln { display:block; padding-left:.5rem; position:relative; }
+pre code span.ln:before { counter-increment: line; content: counter(line); position:absolute; left:-3.2rem; width:2.8rem; text-align:right; color:var(--text-soft); font-size:.7rem; user-select:none; }
+pre { position:relative; }
+pre .copy-btn { position:absolute; top:.4rem; right:.5rem; background:var(--bg-alt); border:1px solid var(--border); font-size:.65rem; padding:.25rem .5rem; border-radius:6px; cursor:pointer; opacity:.75; }
+pre:hover .copy-btn { opacity:1; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/java.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/xml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/json.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/bash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/python.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/vba.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('pre code').forEach(block=>{ hljs.highlightElement(block); addCopy(block); addLineNumbers(block); });
+    function addCopy(block){
+        if(block.parentElement.querySelector('.copy-btn')) return; const btn=document.createElement('button');btn.textContent='copiar';btn.className='copy-btn';btn.addEventListener('click',()=>{navigator.clipboard.writeText(block.innerText.trim());btn.textContent='copiado!';setTimeout(()=>btn.textContent='copiar',1600);});block.parentElement.appendChild(btn);}
+    function addLineNumbers(block){
+        const html = block.innerHTML.split(/
+/).map(l=>'<span class="ln">'+(l||' ')+'</span>').join('
+');
+        block.innerHTML = html; }
+});
+</script>
+<meta name="author" content="Christian Vladimir Uhdre Mulato" />
+<meta name="keywords" content="filas, fila, mensagens, sistemas, java, gerenciamento, distribuídos, tempo, exemplo, clientes, pode, rabbitmq" />
+<link rel="canonical" href="https://example.com/2024_06_09_Gerenciamento de Filas em Sistemas Distribuídos com Java.html" />
+<meta property="og:title" content="2024_06_09_Gerenciamento de Filas em Sistemas Distribuídos com Java" />
+<meta property="og:description" content="Gerenciamento de filas com ferramentas e soluções consolidadas. Gerenciamento de Filas em Sistemas Distribuídos com Java Christian Mulato Desenvolvedor Java Sênior na Develcode 9 de junho de 2024 Introdução à" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/2024_06_09_Gerenciamento de Filas em Sistemas Distribuídos com Java.html" />
+<meta property="og:image" content="https://example.com/img/photo_autor/christian.jpg" />
+<meta property="article:author" content="Christian Vladimir Uhdre Mulato" />
+<meta property="article:published_time" content="2024-06-09" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="2024_06_09_Gerenciamento de Filas em Sistemas Distribuídos com Java" />
+<meta name="twitter:description" content="Gerenciamento de filas com ferramentas e soluções consolidadas. Gerenciamento de Filas em Sistemas Distribuídos com Java Christian Mulato Desenvolvedor Java Sênior na Develcode 9 de junho de 2024 Introdução à" />
+<meta name="twitter:image" content="https://example.com/img/photo_autor/christian.jpg" />
+<meta name="twitter:creator" content="Christian Vladimir Uhdre Mulato" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "2024_06_09_Gerenciamento de Filas em Sistemas Distribuídos com Java", "description": "Gerenciamento de filas com ferramentas e soluções consolidadas. Gerenciamento de Filas em Sistemas Distribuídos com Java Christian Mulato Desenvolvedor Java Sênior na Develcode 9 de junho de 2024 Introdução à", "author": {"@type": "Person", "name": "Christian Vladimir Uhdre Mulato", "image": "https://example.com/img/photo_autor/christian.jpg"}, "datePublished": "2024-06-09", "image": "https://example.com/img/photo_autor/christian.jpg", "wordCount": 1573, "url": "https://example.com/2024_06_09_Gerenciamento de Filas em Sistemas Distribuídos com Java.html"}</script>
+</head><body>
+<div class=reading-progress id=rp></div>
+<header class=site><a class=brand href="index.html">Início</a><span class=meta>8 min</span></header>
+<main><article>
+<p><img alt="2024_06_09_Gerenciamento de Filas em Sistemas Distribuídos com Java" src="img/2024-06-09-gerenciamento-de-filas-em-sistemas-distribuidos-com-java-01.png"/></p><p>Gerenciamento de filas com ferramentas e soluções consolidadas.</p><p><strong>Gerenciamento de Filas em Sistemas Distribuídos com Java</strong></p><p><a href="https://www.linkedin.com/in/chmulato/"><img alt="2024_06_09_Gerenciamento de Filas em Sistemas Distribuídos com Java" src="img/2024-06-09-gerenciamento-de-filas-em-sistemas-distribuidos-com-java-02.jpg"/></a></p><p><strong><a href="https://www.linkedin.com/in/chmulato/">Christian Mulato</a></strong></p><p>Desenvolvedor Java Sênior na Develcode</p><p>9 de junho de 2024</p><p><strong>Introdução à Teoria das Filas</strong></p><p>A teoria das filas é um campo da matemática aplicada que estuda o comportamento de sistemas de espera, como filas de atendimento em supermercados, tráfego de rede, ou processos em um sistema operacional. A teoria das filas segue o princípio FIFO (First In, First Out), onde o primeiro elemento a entrar na fila é o primeiro a ser atendido ou removido. Isso é fundamental para entender como os elementos se comportam em uma fila.</p><p>A teoria das filas lida com processos estocásticos* (vide nota rodapé), que envolvem probabilidades e estatísticas. Esses processos são usados para modelar a chegada de clientes, o tempo de serviço e outras variáveis em sistemas de espera. A teoria das filas é aplicada em diversas áreas, como redes de computadores, logística, telecomunicações e gerenciamento de recursos. Ela permite prever aspectos importantes, como o comprimento médio das filas e o tempo de espera.</p><p><strong>Implementações de Filas em Java</strong></p><p>Em Java, temos duas principais implementações de filas:</p><ol><li><strong>Queue</strong>: A interface Queue representa uma fila comum, seguindo o modelo FIFO. Ela oferece métodos como <em>add</em>, <em>remove</em>, <em>peek</em> e <em>isEmpty</em>. Você pode usar <em>LinkedList</em> ou <em>ArrayDeque</em> para criar uma fila em Java.</li><li><strong>PriorityQueue</strong>: Essa implementação representa uma fila de prioridade, onde os elementos são organizados com base em uma ordem específica (por exemplo, valores numéricos ou objetos comparáveis). A <em>PriorityQueue</em> permite acesso rápido ao elemento com maior prioridade.</li></ol><p>Em aplicações distribuídas, essas estruturas de dados são úteis para gerenciar tarefas assíncronas, eventos de rede, mensagens em sistemas de mensagens e muito mais. Por exemplo, em sistemas de processamento distribuído, você pode usar filas para coordenar tarefas entre diferentes nós ou processos.</p><p>Abaixo está um exemplo simples de como criar e usar uma fila em Java, utilizando a implementação padrão da interface Queue:</p><p><img alt="2024_06_09_Gerenciamento de Filas em Sistemas Distribuídos com Java" src="img/2024-06-09-gerenciamento-de-filas-em-sistemas-distribuidos-com-java-03.png"/></p><p>Exemplo básico em código Java para gerenciamento de fila.</p><p>Neste exemplo, uma fila é criada utilizando a implementação <em>LinkedList</em> da interface <em>Queue</em>. Em seguida, alguns elementos são adicionados à fila usando o método add(). Depois, o método poll() é utilizado para acessar e remover o elemento da frente da fila, e o método peek() é usado para acessar o elemento da frente sem removê-lo. Por fim, os elementos restantes na fila são exibidos.</p><p>Este é apenas um exemplo básico de como trabalhar com filas em Java, e existem outras implementações e métodos disponíveis para manipulação de filas, dependendo das necessidades específicas do sistema.</p><p><strong>Modelos de Filas</strong></p><p>Vamos explorar diferentes modelos de filas:</p><ol><li><strong>Filas Simples (Single-Server Queue)</strong>: Nesse modelo, há apenas um servidor que atende os clientes em ordem de chegada (FIFO). É comum em cenários como caixas de supermercado ou atendimento telefônico. A taxa de chegada dos clientes e o tempo de serviço são geralmente modelados como processos estocásticos. A métrica importante é o tempo médio de espera dos clientes na fila.</li><li><strong>Filas com Prioridade (Priority Queue)</strong>: Nesse modelo, os clientes têm prioridades diferentes. O servidor atende primeiro os clientes com maior prioridade. Pode ser usado em sistemas de saúde, onde pacientes em estado crítico têm prioridade sobre outros. A métrica relevante é a taxa de atendimento dos clientes prioritários.</li><li><strong>Filas de Múltiplos Servidores (Multi-Server Queue)</strong>: Aqui, vários servidores atendem os clientes simultaneamente. Pode ser uma fila única com vários caixas em um supermercado ou vários servidores em um data center. A métrica importante é a taxa de atendimento global (quantos clientes são atendidos por unidade de tempo).</li></ol><p>Em sistemas distribuídos, esses modelos ajudam a otimizar recursos, minimizar o tempo de espera e melhorar a eficiência.</p><p><strong>Gerenciamento de Acesso Concorrente às Filas</strong></p><p>Gerenciar o acesso concorrente às filas em sistemas distribuídos é crucial para garantir eficiência e evitar gargalos. Aqui estão algumas estratégias:</p><ol><li><strong>Bloqueio (Locking)</strong>: Use bloqueios (locks) para controlar o acesso a recursos compartilhados, como a fila. Por exemplo, em Java, você pode usar <em>synchronized</em> ou <em>ReentrantLock</em> para proteger operações de enfileiramento e desenfileiramento. O <em>ReentrantLock</em> é uma classe em Java que implementa a interface Lock e fornece sincronização para métodos que acessam recursos compartilhados.</li><li><strong>Fila Distribuída</strong>: Divida a fila em várias partições ou shards, cada uma gerenciada por um servidor diferente. Isso permite que vários servidores processem solicitações simultaneamente, reduzindo gargalos.</li><li><strong>Fila com Múltiplas Réplicas</strong>: Mantenha várias réplicas da fila em diferentes nós. Use algoritmos de consistência, como o quórum, para garantir que as réplicas estejam sincronizadas.</li><li><strong>Fila com Mensagem Assíncrona</strong>: Utilize sistemas de mensagens, como RabbitMQ ou Kafka* (vide nota rodapé) . Eles permitem que os produtores enfileirem mensagens sem bloquear os consumidores imediatamente.</li><li><strong>Escalonamento Horizontal</strong>: Adicione mais servidores à medida que a carga aumenta. Isso distribui a carga e melhora a capacidade de processamento.</li><li><strong>Controle de Concorrência</strong>: Use semáforos, monitores ou outras estruturas para controlar o acesso concorrente. Evite condições de corrida e deadlocks.</li></ol><p><strong>Escalabilidade e Otimização do Gerenciamento de Filas</strong></p><p>Vamos explorar como o gerenciamento de filas pode ser escalado e otimizado para melhorar a performance das aplicações em sistemas distribuídos:</p><ol><li><strong>Escalonamento Horizontal</strong>: Adicione mais servidores (nós) à medida que a carga aumenta. Distribua a carga entre os servidores para evitar gargalos. Isso melhora a capacidade de processamento e a escalabilidade.</li><li><strong>Particionamento de Filas</strong>: Divida a fila em várias partições (shards). Cada partição é gerenciada por um servidor diferente. Isso permite que vários servidores processem solicitações simultaneamente.</li><li><strong>Fila com Múltiplas Réplicas</strong>: Mantenha várias réplicas da fila em diferentes nós. Use algoritmos de consistência (como quórum) para sincronizar as réplicas. Isso melhora a disponibilidade e a tolerância a falhas.</li><li><strong>Cache de Filas</strong>: Armazene parte da fila em memória cache. Isso reduz a latência para operações frequentes.</li><li><strong>Priorização Inteligente</strong>: Priorize tarefas com base em critérios específicos. Por exemplo, priorize tarefas críticas ou de alto valor.</li><li><strong>Mensageria Assíncrona</strong>: Use sistemas de mensagens (como <em>RabbitMQ</em> ou <em>Kafka</em>). Produtores enfileiram mensagens sem bloquear os consumidores imediatamente.</li><li><strong>Monitoramento e Otimização Contínua</strong>: Monitore o desempenho da fila e ajuste conforme necessário. Identifique gargalos e otimize recursos.</li></ol><p><strong>Padrão de Design Produtor-Consumidor</strong></p><p>O padrão de design produtor-consumidor é amplamente utilizado em sistemas que utilizam filas para gerenciar tarefas assíncronas. Produtores (ou escritores) são responsáveis por enfileirar mensagens ou tarefas na fila. Consumidores (ou leitores) retiram as mensagens da fila e as processam. Esse padrão é útil quando há uma separação clara entre a produção e o consumo de dados.</p><p>Exemplos de uso do padrão produtor-consumidor incluem sistemas de mensagens, onde produtores publicam mensagens em tópicos ou filas, e consumidores as processam, e processamento assíncrono, onde produtores geram eventos (por exemplo, cliques de usuário), e consumidores os processam em segundo plano.</p><p>Um outro conceito utilizado para o gerenciamento de filas é a publicação e assinatura (<strong>Pub/Sub</strong>), trata-se de um padrão de troca de mensagens entre serviços em sistemas distribuídos. Com o Pub/Sub, os serviços podem se comunicar de forma assíncrona e independente. Vamos entender como ele funciona:</p><p><strong>- Publicação (Publisher):</strong> É o serviço que envia mensagens para um tópico (ou canal).</p><p><strong>- Assinatura (Subscriber): </strong>É o serviço que recebe as mensagens de um tópico.</p><p><strong>- Corretores de Pub/Sub: </strong>Controlam as interações entre publicadores e assinantes.</p><p>O Pub/Sub resolve problemas como acoplamento entre serviços e maior latência nas respostas, tornando a comunicação mais eficiente e escalável.</p><p><strong>Uma ferramenta popular para gerenciamento de filas:</strong></p><p><strong>RabbitMQ</strong> é um sistema de mensagens de código aberto amplamente utilizado em sistemas distribuídos. Ele se encaixa no contexto de gerenciamento de filas, permitindo a comunicação assíncrona entre componentes de software. Aqui estão os pontos-chave:</p><p><strong>Filas e Mensageria:</strong></p><p>O RabbitMQ é uma plataforma de mensageria que permite que aplicativos enviem e recebam mensagens. Ele gerencia filas de mensagens, garantindo a entrega confiável e a ordem correta das mensagens.</p><p><strong>Produtores e Consumidores:</strong></p><p>Produtores (ou escritores) enfileiram mensagens no RabbitMQ.</p><p>Consumidores (ou leitores) retiram as mensagens da fila e as processam.</p><p>Isso segue o padrão produtor-consumidor, essencial para sistemas distribuídos.</p><p><strong>Exchange e Roteamento:</strong></p><p>O RabbitMQ usa <em>exchanges</em> para rotear mensagens para filas apropriadas.</p><p>Diferentes tipos de <em>exchanges</em> (<em>direct</em>, <em>topic</em>, <em>fanout</em>) permitem estratégias de roteamento flexíveis.</p><p><strong>Escalabilidade e Tolerância a Falhas:</strong></p><p>O RabbitMQ pode ser escalado horizontalmente, adicionando mais nós.</p><p>Ele é tolerante a falhas, garantindo que as mensagens não sejam perdidas.</p><p><strong>Integração com Tecnologias:</strong></p><p>O RabbitMQ se integra facilmente com outras tecnologias, como Java, Python, .NET e sistemas de streaming (por exemplo, Apache Kafka).</p><p>O RabbitMQ é uma solução robusta para gerenciar filas e coordenar a comunicação assíncrona em sistemas distribuídos.</p><p><strong>Conclusão</strong></p><p>Gerenciar filas em sistemas distribuídos pode apresentar desafios, mas existem ferramentas e soluções para superá-los.</p><p>Notas: </p><p>O processo estocástico pode ser definido como uma seqüência de variáveis aleatórias indexadas ao tempo e também a eventos. É uma variável que se desenvolve no tempo de maneira parcialmente aleatória e imprevisível.</p><p>Kafka: O Apache Kafka é uma plataforma open-source de processamento de streams, desenvolvida pela Apache Software Foundation, escrita em Scala e Java. Seu objetivo é fornecer uma plataforma unificada, de alta capacidade e baixa latência para o tratamento de dados em tempo real. Basicamente, o Kafka permite a transmissão assíncrona de dados e é usado para lidar com eventos em tempo real, como mensagens, logs e métricas. Ele é amplamente utilizado para construir sistemas distribuídos e escaláveis, onde há produtores (que enviam dados) e consumidores (que recebem esses dados) conectados a tópicos específicos.</p><section class="author-box"><img src="img/photo_autor/christian.jpg" alt="Christian Vladimir Uhdre Mulato" class="author-photo" loading="lazy"><div class="author-meta"><strong>Christian Vladimir Uhdre Mulato</strong>Autor</div></section>
+</article></main>
+<footer class=site>Gerado automaticamente. Leitura estimada: 8 min. &middot; <a href="index.html">Voltar ao índice</a></footer>
+<script>"use strict";const rp=document.getElementById('rp');const h=document.documentElement;addEventListener('scroll',()=>{const st=h.scrollTop;const sh=h.scrollHeight-h.clientHeight;const p=sh?(st/sh)*100:0;rp.style.width=p+'%';},{passive:true});</script>
+</body></html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java</title>
+<meta name="description" content="TDD (Test-Driven Development) aplicado ao desenvolvimento Java TDD (Test-Driven Development) aplicado ao desenvolvimento Java Christian Mulato Desenvolvedor Java Sênior na Develcode 2 de junho de 2024 A Teoria do Desenvolvimento" />
+<style>/* Reset & base */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin:0; font-family: system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif; line-height:1.6; background: var(--bg); color: var(--text); scroll-behavior:smooth; }
+
+:root { --bg:#f8f9fb; --bg-alt:#ffffff; --text:#1f2329; --text-soft:#4a5565; --border:#d9dde3; --brand:#0b63c5; --brand-accent:#084f9d; --code-bg:#f3f5f7; --radius:12px; --shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px -8px rgba(0,0,0,.08); color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { :root { --bg:#0f141a; --bg-alt:#1b232c; --text:#e6ebf0; --text-soft:#a5b3c2; --border:#2d3b47; --brand:#5aa4ff; --brand-accent:#2d7dd3; --code-bg:#1f2730; --shadow:0 2px 4px rgba(0,0,0,.6),0 8px 24px -8px rgba(0,0,0,.6);} }
+
+header.site { backdrop-filter: blur(12px); background: linear-gradient(90deg,var(--bg-alt),var(--bg)); position:sticky; top:0; z-index:10; border-bottom:1px solid var(--border); padding:.75rem 1rem; display:flex; gap:1rem; align-items:center; }
+header.site a.brand { font-weight:600; font-size:1rem; color:var(--brand); text-decoration:none; }
+header.site a.brand:hover { color:var(--brand-accent); }
+header.site .meta { margin-left:auto; font-size:.75rem; color:var(--text-soft); white-space:nowrap; }
+
+main { max-width: 74ch; margin: clamp(1rem,4vw,3rem) auto 4rem; padding:0 1rem; }
+article { background: var(--bg-alt); border:1px solid var(--border); border-radius: var(--radius); padding: clamp(1.25rem,2.5vw,2.5rem); box-shadow: var(--shadow); }
+article h1 { font-size: clamp(1.9rem,4vw,2.6rem); line-height:1.15; margin:0 0 1.25rem; letter-spacing:-.5px; }
+article h2 { margin:2.4rem 0 1rem; font-size: clamp(1.35rem,2.3vw,1.85rem); line-height:1.25; }
+article h3 { margin:2rem 0 .75rem; font-size: clamp(1.15rem,2vw,1.4rem); }
+article h4 { margin:1.5rem 0 .5rem; font-size:1.05rem; letter-spacing:.5px; }
+article p { margin:0 0 1.15rem; text-wrap:pretty; }
+article p + p { text-indent:0; }
+
+article a { color:var(--brand); text-decoration:none; }
+article a:hover { text-decoration:underline; color:var(--brand-accent); }
+
+blockquote { margin:2rem 0; padding:1rem 1.25rem; border-left:5px solid var(--brand); background: linear-gradient(135deg,var(--code-bg),var(--bg)); border-radius:0 var(--radius) var(--radius) 0; font-style:italic; }
+
+code, pre { font-family: ui-monospace, SFMono-Regular, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace; font-size:.9rem; }
+pre { background: var(--code-bg); padding:1rem 1.25rem; border-radius: var(--radius); overflow-x:auto; line-height:1.4; position:relative; }
+pre code { background:transparent; padding:0; }
+code { background: var(--code-bg); padding:.25rem .5rem; border-radius:6px; }
+
+img, video { max-width:100%; height:auto; border-radius:6px; }
+figure { margin:2rem 0; }
+figcaption { text-align:center; font-size:.8rem; color:var(--text-soft); margin-top:.5rem; }
+
+table { border-collapse: collapse; width:100%; font-size:.95rem; }
+table thead th { background: var(--code-bg); }
+th, td { border:1px solid var(--border); padding:.6rem .75rem; text-align:left; vertical-align:top; }
+.table-wrapper { overflow-x:auto; margin:2rem 0; border:1px solid var(--border); border-radius:8px; }
+
+ul, ol { padding-left:1.4rem; margin:1.25rem 0 1.25rem; }
+li { margin:.4rem 0; }
+
+hr { border:none; border-top:1px solid var(--border); margin:3rem 0; }
+
+footer.site { margin:3rem auto 0; max-width:74ch; padding:2rem 1rem 4rem; font-size:.8rem; color:var(--text-soft); }
+footer.site a { color:inherit; text-decoration:none; }
+footer.site a:hover { color:var(--brand); }
+
+.reading-progress { position:fixed; top:0; left:0; height:4px; background:linear-gradient(90deg,var(--brand),var(--brand-accent)); width:0; z-index:999; box-shadow:0 0 0 1px rgba(0,0,0,.05); }
+
+/* Author box */
+.author-box{display:flex;align-items:center;gap:1rem;margin:2.5rem 0 0;padding:1rem 1.1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);}
+.author-box .author-photo{width:68px;height:68px;border-radius:50%;object-fit:cover;border:2px solid var(--border);background:var(--bg-alt);}
+.author-box .author-meta{font-size:.8rem;color:var(--text-soft);}
+.author-box .author-meta strong{display:block;color:var(--text);font-size:.85rem;}
+
+@media (max-width: 640px) {
+    article { padding:1.25rem 1.1rem; }
+    header.site { padding:.55rem .85rem; }
+    header.site a.brand { font-size:.9rem; }
+}</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark-dimmed.min.css" media="(prefers-color-scheme: dark)">
+<style>
+pre code { display:block; counter-reset: line; white-space: pre; }
+pre code span.ln { display:block; padding-left:.5rem; position:relative; }
+pre code span.ln:before { counter-increment: line; content: counter(line); position:absolute; left:-3.2rem; width:2.8rem; text-align:right; color:var(--text-soft); font-size:.7rem; user-select:none; }
+pre { position:relative; }
+pre .copy-btn { position:absolute; top:.4rem; right:.5rem; background:var(--bg-alt); border:1px solid var(--border); font-size:.65rem; padding:.25rem .5rem; border-radius:6px; cursor:pointer; opacity:.75; }
+pre:hover .copy-btn { opacity:1; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/java.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/xml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/json.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/bash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/python.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/vba.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('pre code').forEach(block=>{ hljs.highlightElement(block); addCopy(block); addLineNumbers(block); });
+    function addCopy(block){
+        if(block.parentElement.querySelector('.copy-btn')) return; const btn=document.createElement('button');btn.textContent='copiar';btn.className='copy-btn';btn.addEventListener('click',()=>{navigator.clipboard.writeText(block.innerText.trim());btn.textContent='copiado!';setTimeout(()=>btn.textContent='copiar',1600);});block.parentElement.appendChild(btn);}
+    function addLineNumbers(block){
+        const html = block.innerHTML.split(/
+/).map(l=>'<span class="ln">'+(l||' ')+'</span>').join('
+');
+        block.innerHTML = html; }
+});
+</script>
+<meta name="author" content="Christian Vladimir Uhdre Mulato" />
+<meta name="keywords" content="código, testes, teste, tdd, desenvolvimento, java, pode, software, escrever, integração, contínua, passar" />
+<link rel="canonical" href="https://example.com/2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java.html" />
+<meta property="og:title" content="2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java" />
+<meta property="og:description" content="TDD (Test-Driven Development) aplicado ao desenvolvimento Java TDD (Test-Driven Development) aplicado ao desenvolvimento Java Christian Mulato Desenvolvedor Java Sênior na Develcode 2 de junho de 2024 A Teoria do Desenvolvimento" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java.html" />
+<meta property="og:image" content="https://example.com/img/photo_autor/christian.jpg" />
+<meta property="article:author" content="Christian Vladimir Uhdre Mulato" />
+<meta property="article:published_time" content="2024-06-02" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java" />
+<meta name="twitter:description" content="TDD (Test-Driven Development) aplicado ao desenvolvimento Java TDD (Test-Driven Development) aplicado ao desenvolvimento Java Christian Mulato Desenvolvedor Java Sênior na Develcode 2 de junho de 2024 A Teoria do Desenvolvimento" />
+<meta name="twitter:image" content="https://example.com/img/photo_autor/christian.jpg" />
+<meta name="twitter:creator" content="Christian Vladimir Uhdre Mulato" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java", "description": "TDD (Test-Driven Development) aplicado ao desenvolvimento Java TDD (Test-Driven Development) aplicado ao desenvolvimento Java Christian Mulato Desenvolvedor Java Sênior na Develcode 2 de junho de 2024 A Teoria do Desenvolvimento", "author": {"@type": "Person", "name": "Christian Vladimir Uhdre Mulato", "image": "https://example.com/img/photo_autor/christian.jpg"}, "datePublished": "2024-06-02", "image": "https://example.com/img/photo_autor/christian.jpg", "wordCount": 1256, "url": "https://example.com/2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java.html"}</script>
+</head><body>
+<div class=reading-progress id=rp></div>
+<header class=site><a class=brand href="index.html">Início</a><span class=meta>6 min</span></header>
+<main><article>
+<p><img alt="2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java" src="img/2024-06-02-test-driven-development-aplicado-ao-desenvolvimento-java-01.png"/></p><p>TDD (Test-Driven Development) aplicado ao desenvolvimento Java</p><p><strong>TDD (Test-Driven Development) aplicado ao desenvolvimento Java</strong></p><p><a href="https://www.linkedin.com/in/chmulato/"><img alt="2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java" src="img/2024-06-02-test-driven-development-aplicado-ao-desenvolvimento-java-02.jpg"/></a></p><p><strong><a href="https://www.linkedin.com/in/chmulato/">Christian Mulato</a></strong></p><p>Desenvolvedor Java Sênior na Develcode</p><p>2 de junho de 2024</p><p>A <strong>Teoria do Desenvolvimento Orientado por Testes</strong> <strong>(TDD)</strong> é uma prática de engenharia de software que envolve a escrita de testes antes do código de produção. No desenvolvimento de aplicações Java, isso significa que, antes de escrever qualquer funcionalidade, você primeiro escreve um <strong>teste unitário (UT)</strong> que falha, depois escreve o código mínimo necessário para passar no teste e, finalmente, refina o código para padrões aceitáveis. Este ciclo é conhecido como <em>vermelho-verde-refatorar</em>. O TDD ajuda a garantir a qualidade do código, facilita a manutenção e pode conduzir a um design de software mais eficaz ao forçar o desenvolvedor a considerar a interface e a estrutura do código antes de sua implementação.</p><p>O desenvolvimento da aplicação alinhada com a teoria do desenvolvimento orientado por testes garante que o software funcione conforme o esperado. O ciclo TDD, conhecido como vermelho-verde-refatorar, começa com a escrita de um teste que falha (vermelho), seguido pela implementação do código mínimo necessário para passar no teste (verde), e finalmente a refatoração do código para melhorar a estrutura e a eficiência (refatorar). No contexto do desenvolvimento Java, isso pode envolver o uso de frameworks de teste, como <strong>JUnit</strong>, para escrever testes unitários. Por exemplo, você pode começar escrevendo um teste <strong>JUnit</strong> que falha para uma nova função, implementar a função em Java para passar no teste e, em seguida, refatorar o código Java para melhorar a qualidade e a eficiência.</p><p>Vamos enumerar algumas das ferramentas e frameworks mais utilizados para implementar TDD em Java:</p><p><strong>JUnit:</strong> É o framework de testes mais popular para Java. Ele fornece anotações para identificar métodos de teste e contém assertivas para testar o comportamento esperado.</p><p><strong>Mockito:</strong> É um framework de simulação popular que você pode usar para escrever testes para cenários complexos. Ele permite criar e configurar objetos fictícios (mocks), que podem ser usados para isolar o código sob teste para um ambiente mais controlado.</p><p><strong>TestNG:</strong> É outro framework de testes para Java. Embora seja semelhante ao JUnit, ele oferece algumas funcionalidades adicionais, como suporte para testes paralelos e flexibilidade na configuração de testes.</p><p><strong>Hamcrest:</strong> É uma biblioteca de assertivas que ajuda a escrever testes de maneira mais legível. Ela pode ser usada em conjunto com JUnit ou TestNG.</p><p><strong>PowerMock:</strong> É um framework que estende outras bibliotecas de simulação, como <strong>Mockito</strong>, para adicionar funcionalidades adicionais, como simular métodos estáticos, construtores, e métodos finais.</p><p>Essas ferramentas, quando usadas corretamente, podem ajudar a implementar a metodologia TDD de forma eficaz no desenvolvimento de aplicações Java. Cada uma delas tem suas próprias características e benefícios, então a escolha entre elas depende das necessidades específicas do seu projeto.</p><p>Vamos considerar um exemplo simples de uma classe Calculator em Java que tem um método <em>add()</em>. Aqui está como você pode aplicar TDD para desenvolver essa funcionalidade.</p><p>Primeiro, você escreveria um teste unitário que falha. Usando o JUnit, isso pode parecer algo assim:</p><p><img alt="2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java" src="img/2024-06-02-test-driven-development-aplicado-ao-desenvolvimento-java-03.png"/></p><p>Código de teste para a classe CalculatorTest.java</p><p>Neste ponto, o teste falhará porque a classe Calculator e o método <em>add()</em> ainda não foram implementados. Agora você escreveria o código mínimo necessário para passar no teste:</p><p><img alt="2024_06_02_Test-Driven Development aplicado ao desenvolvimento Java" src="img/2024-06-02-test-driven-development-aplicado-ao-desenvolvimento-java-04.png"/></p><p>Código da classe de Calculator.java.</p><p>Agora, o teste deve passar. A próxima etapa é refatorar o código, se necessário. Neste caso, o código é bastante simples, então não há muito a refatorar.</p><p>Para testes de integração, você pode querer testar como a classe <em>Calculator</em> interage com outras partes do seu sistema. Isso pode envolver o uso de bibliotecas de simulação, como <strong>Mockito</strong>, para simular essas interações.</p><p>Finalmente, para testes automatizados, você pode configurar uma ferramenta de integração contínua, como <em>Jenkins</em> ou <em>Travis CI (vide nota rodapé)</em>, para executar automaticamente seus testes sempre que você fizer uma alteração no código. Isso ajuda a garantir que seu código esteja sempre funcionando conforme o esperado.</p><p>Lembre-se, este é apenas um exemplo simples. Em um projeto real, você provavelmente terá muitos testes cobrindo diferentes aspectos do seu código. O importante é seguir o ciclo <em>vermelho-verde-refatorar</em>: escreva um teste que falha, escreva código para passar no teste e, em seguida, refatore o código para melhorar a qualidade.</p><p>As boas práticas para escrever testes eficazes em Java incluem escrever testes pequenos e focados, usar nomes descritivos para testes, evitar dependências entre testes e usar dados de teste representativos. É importante que cada teste verifique apenas uma coisa e que o conjunto de testes como um todo tenha uma boa cobertura de código. Ao adotar TDD em projetos reais, alguns desafios comuns incluem resistência cultural à mudança, a necessidade de refatoração constante, a dificuldade de aplicar TDD a certos tipos de código (como código de interface do usuário ou código de banco de dados) e a necessidade de um bom entendimento do problema antes de começar a escrever testes. Apesar desses desafios, muitos desenvolvedores acham que o TDD resulta em código de maior qualidade e mais fácil de manter.</p><p>Vamos lembrar a <strong>Integração Contínua (CI)</strong> e a <strong>Entrega Contínua (CD)</strong> são práticas fundamentais no desenvolvimento moderno de software que se alinham perfeitamente com o TDD. No contexto do desenvolvimento Java, após cada ciclo de TDD, as alterações de código são integradas a um repositório compartilhado e testadas automaticamente, garantindo que qualquer problema seja detectado e corrigido rapidamente. As ferramentas de <strong>CI/CD</strong>, como <em>Jenkins</em>, <em>Travis CI</em> ou <em>GitHub Actions</em>, podem ser configuradas para executar automaticamente os testes unitários e de integração sempre que o código é alterado, garantindo que o código em produção esteja sempre em um estado testável e implantável. Isso permite que as equipes de desenvolvimento entreguem novos recursos e correções de bugs de forma mais rápida e confiável.</p><p>Para maximizar os benefícios do TDD no desenvolvimento Java, é crucial manter os testes pequenos, focados e independentes. A refatoração deve ser uma prática constante para melhorar a qualidade do código. Além disso, a integração do <strong>TDD</strong> com práticas de <strong>CI/CD</strong> pode aumentar a eficiência do processo de desenvolvimento. Quanto às tendências futuras, a crescente adoção de práticas de <strong>DevOps</strong> e a popularidade de <strong>microserviços</strong> podem levar a novas abordagens e ferramentas para o TDD. Além disso, a crescente importância da automação de testes em ambientes de entrega contínua pode levar a um maior foco no TDD em todos os aspectos do desenvolvimento de software.</p><p>Nota:</p><p><strong><em>Jenkins</em></strong> é uma ferramenta de automação de código aberto, amplamente utilizada em ambientes <strong>DevOps</strong> para facilitar a integração contínua (CI) e a entrega contínua (CD) de projetos de software. Ele permite automatizar a compilação, o teste e a implantação de aplicações, além de gerenciar tarefas complexas e rotinas de trabalho. Sua flexibilidade e capacidade de se integrar com uma infinidade de ferramentas e plataformas de desenvolvimento tornam o Jenkins uma escolha popular. Além disso, seu extenso ecossistema de plugins permite que ele se adapte a quase qualquer necessidade de um projeto de software.</p><p><strong><em>Travis CI</em></strong> é uma plataforma de integração contínua usada para testar e implantar códigos. Ele é integrado ao GitHub e é gratuito para repositórios com código aberto. O Travis CI permite que você escreva uma série de testes para garantir que seus códigos funcionem conforme o esperado através de testes unitários. Toda vez que você atualiza seu repositório, o Travis CI executa esses testes nos ambientes que você configurou. Ele suporta muitas linguagens e tecnologias, permitindo a realização de diferentes tipos de testes. Desde 15 de Junho de 2021, todos os processos foram unificados no domínio travis-ci ponto com.</p><section class="author-box"><img src="img/photo_autor/christian.jpg" alt="Christian Vladimir Uhdre Mulato" class="author-photo" loading="lazy"><div class="author-meta"><strong>Christian Vladimir Uhdre Mulato</strong>Autor</div></section>
+</article></main>
+<footer class=site>Gerado automaticamente. Leitura estimada: 6 min. &middot; <a href="index.html">Voltar ao índice</a></footer>
+<script>"use strict";const rp=document.getElementById('rp');const h=document.documentElement;addEventListener('scroll',()=>{const st=h.scrollTop;const sh=h.scrollHeight-h.clientHeight;const p=sh?(st/sh)*100:0;rp.style.width=p+'%';},{passive:true});</script>
+</body></html>
