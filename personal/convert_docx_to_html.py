@@ -237,6 +237,47 @@ def slugify(text: str) -> str:
     return text_norm or 'artigo'
 
 
+def underscore_slug(text: str, max_words: int = 10, max_len: int = 80) -> str:
+    """Gera slug em minúsculas usando '_' como separador.
+
+    - Remove acentos / caracteres não ASCII.
+    - Mantém apenas [a-z0-9]+ separados por '_'.
+    - Limita a quantidade de palavras e tamanho total.
+    """
+    norm = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('ascii')
+    # Substitui separadores por espaço
+    norm = re.sub(r'[^a-zA-Z0-9]+', ' ', norm).strip().lower()
+    words = [w for w in norm.split() if w]
+    if max_words:
+        words = words[:max_words]
+    slug = '_'.join(words)
+    if len(slug) > max_len:
+        slug = slug[:max_len].rstrip('_')
+    return slug or 'artigo'
+
+
+def build_html_filename(docx_path: Path, title: str) -> str:
+    """Constrói nome final do arquivo HTML seguindo padrão:
+    YYYY_MM_DD_slug_sem_espacos.html (se houver prefixo de data no nome do DOCX)
+    ou slug_sem_espacos.html caso contrário.
+
+    Usa parte após o prefixo do arquivo; se muito curta, usa título.
+    """
+    stem = docx_path.stem
+    date_part = ''
+    rest = ''
+    m = re.match(r'^(\d{4}_\d{2}_\d{2})_(.+)$', stem)
+    if m:
+        date_part, rest = m.group(1), m.group(2)
+    base_source = rest if rest else title or stem
+    slug = underscore_slug(base_source)
+    if date_part:
+        filename = f"{date_part}_{slug}.html"
+    else:
+        filename = f"{slug}.html"
+    return filename
+
+
 def sha1_file(path: Path) -> str:
     h = hashlib.sha1()
     with path.open('rb') as f:
@@ -503,7 +544,7 @@ def convert_file(docx_path: Path, out_dir: Path):
         "url": None,  # preenchido após conhecer filename final
     }
 
-    safe_name = docx_path.stem + '.html'
+    safe_name = build_html_filename(docx_path, title)
     base_url = BASE_URL.rstrip('/')
     canonical = f"{base_url}/{safe_name}"
     json_ld["url"] = canonical
@@ -537,7 +578,8 @@ def convert_file(docx_path: Path, out_dir: Path):
         body_html = body_html + author_block
     final_html = HTML_SHELL.format(title=title, css=CUSTOM_CSS, body=body_html, description=description, reading_time=reading_time, script=PROGRESS_SCRIPT, extra_head=HIGHLIGHT_HEAD + "\n" + seo_head)
 
-    safe_name = docx_path.stem + '.html'
+    # Nome final do arquivo HTML baseado em data + slug simplificado
+    safe_name = build_html_filename(docx_path, title)
     out_path = out_dir / safe_name
     out_path.write_text(final_html, encoding='utf-8')
     return out_path, title, description, published_iso or "", keywords
@@ -1036,9 +1078,9 @@ def main():
             h = sha1_file(path)
             rec = manifest.get('files', {}).get(path.name)
             if rec and rec.get('hash') == h and not FORCE_REBUILD:
-                # Reutiliza
+                # Reutiliza (mantém nome previamente gerado; se ausente, recalcula)
                 title = rec.get('title', path.stem)
-                html_name = rec.get('html', path.stem + '.html')
+                html_name = rec.get('html') or build_html_filename(path, title)
                 description = rec.get('description', title)
                 published = rec.get('published', '')
                 keywords = rec.get('keywords', [])

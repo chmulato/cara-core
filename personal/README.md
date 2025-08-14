@@ -4,6 +4,36 @@ Este repositório fornece um único script Python (`convert_docx_to_html.py`) qu
 
 > Pense nele como um “mini Make” especializado em artigos: entrada = documentos Word; saída = site completo com SEO, feeds, tags e código destacado.
 
+## Mudanças Recentes (Agosto/2025)
+
+- NOVO: Convenção de nomes simplificados de arquivos HTML (`YYYY_MM_DD_slug_simplificado.html`).
+- Impacto: URLs antigas (baseadas no nome completo original do DOCX) deixam de existir após rebuild.
+- Ação recomendada: configurar redirects 301 das URLs antigas para as novas, preservando SEO e backlinks.
+
+### Estratégia de Redirects
+
+1. Capture a lista de arquivos HTML antigos antes de adotar a nova convenção (se ainda tiver backup/deploy anterior).
+2. Gere um mapa manual (old -> new). Para cada DOCX o padrão anterior era: `NOME_ORIGINAL_DO_DOCX.html` (substituindo apenas a extensão).
+3. Crie um arquivo `redirects.txt` ou regra no seu servidor/CDN.
+
+Exemplo (formato genérico):
+```
+/2024_07_14_Java 8 Transformando a Programação com Expressões Lambda e java time.html  /2024_07_14_java_8_transformando_a_programacao_com_expressoes_lambda_e_java.html  301
+/2024_03_17_Solução de aplicação nas nuvens.html  /2024_03_17_solucao_de_aplicacao_nas_nuvens.html  301
+```
+
+Para Nginx (bloco de server):
+```
+rewrite ^/2024_03_17_Solução%20de%20aplicação%20nas%20nuvens\.html$ /2024_03_17_solucao_de_aplicacao_nas_nuvens.html permanent;
+```
+
+Se quiser páginas stub, crie um HTML mínimo antigo contendo:
+```html
+<!doctype html><meta http-equiv="refresh" content="0; url=NOVO.html">Se não redirecionar, <a href="NOVO.html">clique aqui</a>.
+```
+
+> Dica: Caso precise gerar automaticamente um mapa futuro, pode-se estender o script para exportar um `redirect_map.json` contendo `docx_original` + `novo_html`.
+
 ## Visão de Builder
 
 O pipeline é composto por fases encadeadas. Cada fase recebe o estado produzido pela anterior e gera artefatos específicos:
@@ -127,6 +157,34 @@ python convert_docx_to_html.py
 ## Convenção de Datas
 
 Prefixo `YYYY_MM_DD_` no nome define a data (ordenando índice e feeds). Sem prefixo → seção "Sem Data".
+
+## Convenção de Nomes de Arquivos HTML
+
+Os arquivos gerados agora seguem o padrão simples:
+
+```
+YYYY_MM_DD_slug_simplificado.html
+```
+
+Regras:
+
+1. Se o DOCX possuir prefixo de data `YYYY_MM_DD_`, ele é preservado no início.
+2. A parte após a data (ou o título se a parte estiver vazia) é normalizada:
+  - Remoção de acentos / caracteres não ASCII.
+  - Separadores não alfanuméricos viram espaço.
+  - Palavras são unidas por `_` (underscore) em minúsculas.
+  - Limitado às primeiras 10 palavras e máx. 80 caracteres.
+3. Sem prefixo de data → apenas `slug_simplificado.html`.
+
+Exemplos:
+
+| Nome DOCX Original | Arquivo HTML |
+|--------------------|--------------|
+| `2024_07_14_Java 8 Transformando a Programação.docx` | `2024_07_14_java_8_transformando_a_programacao.html` |
+| `2024_03_17_Solução de aplicação nas nuvens.docx` | `2024_03_17_solucao_de_aplicacao_nas_nuvens.html` |
+| `Ferramentas Modernas para Java.docx` | `ferramentas_modernas_para_java.html` |
+
+Motivação: nomes mais estáveis, legíveis e sem hífens múltiplos ou espaços, facilitando URL direta e buscas locais.
 
 ## Imagem do Autor
 
