@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MVP Sistema Odontológico: Experiência Humana + IA — Cara Core Informática</title>
+  <meta name="description" content="Como desenvolvemos um MVP de sistema odontológico combinando experiência humana e IA. Spring Boot, PostgreSQL, testes e conformidade LGPD." />
+  <meta name="keywords" content="MVP, Sistema Odontológico, Spring Boot, IA, Desenvolvimento Colaborativo, PostgreSQL, LGPD, Agendamento Médico" />
+  <meta name="author" content="Cara Core Informática" />
+  <link rel="canonical" href="https://caracore.com.br/publications/articles/2025_08_31_article_44.html" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="MVP Sistema Odontológico: Experiência Humana + IA" />
+  <meta property="og:description" content="Desenvolvimento colaborativo de sistema médico com Spring Boot, IA e arquitetura sólida." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://caracore.com.br/publications/articles/2025_08_31_article_44.html" />
+  <meta property="og:image" content="https://caracore.com.br/publications/articles/media/article_44_01.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MVP Sistema Odontológico: Experiência Humana + IA" />
+  <meta name="twitter:description" content="Sistema médico profissional com Spring Boot e desenvolvimento colaborativo." />
+  <meta name="twitter:image" content="https://caracore.com.br/publications/articles/media/article_44_01.png" />
+  <link rel="stylesheet" href="css/articles.css" />
+  <style>
+    body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif; line-height:1.55; color:#1f2937; margin:0; }
+    .container { max-width: 980px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+    h1 { line-height:1.2; font-size:clamp(1.9rem,2.4vw,2.5rem); margin-top:0; }
+    h2 { margin-top:2.25rem; line-height:1.25; }
+    pre { background:#0f172a; color:#f1f5f9; padding:1rem 1.1rem; overflow:auto; border-radius:8px; font-size:.85rem; }
+    code { font-family: ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace; }
+    figure img { max-width:100%; height:auto; }
+    ul,ol { padding-left:1.1rem; }
+    .back-link { text-decoration:none; font-size:.85rem; color:#2563eb; }
+    .note { background:#f8f9fa; padding:1rem 1.25rem; border-left:4px solid #10B981; border-radius:6px; }
+    .hash-box { background:#f8f9fa; padding:1rem 1.25rem; border-left:4px solid #0EA5E9; border-radius:6px; font-size:.85rem; line-height:1.5; }
+    .repo-box { background:#f8f9fa; padding:1.25rem 1.25rem 1rem; border-left:4px solid #10B981; border-radius:6px; }
+    .repo-box a { color:#10B981; font-weight:600; text-decoration:none; }
+    hr { border:none; border-top:1px solid #e5e7eb; margin:3rem 0 2rem; }
+    @media (max-width:640px){ pre { font-size:.78rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../articles.html">&larr; Voltar para publicações</a>
+    <img src="media/article_44_01.png" alt="MVP Sistema Odontológico" style="max-width:300px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.08);" />
+    <h1>MVP Sistema Odontológico: A Combinação Perfeita entre Experiência Humana e IA</h1>
+    <div class="linkedin-box" style="margin-bottom: 1.5rem; display: flex; align-items: center;">
+        <img src="media/logo.png" alt="Logo Cara Core" style="width:33%; max-width:40px; margin-right:10px;">
+        <a href="https://www.linkedin.com/company/cara-core/" target="_blank" rel="noopener">Cara Core Informática</a>
+        <span style="margin-left: 1.5rem;">82 seguidores<br>31 de agosto de 2025</span>
+    </div>
+
+    <p>Este artigo apresenta o desenvolvimento do <strong>Cara Core Dental</strong>, um MVP de sistema odontológico que demonstra como a colaboração entre desenvolvimento experiente e inteligência artificial pode acelerar significativamente a entrega de produtos tecnológicos de qualidade no setor médico.</p>
+
+    <div class="note"><strong>Projeto implementado:</strong> Sistema completo de agendamento odontológico com Spring Boot 3.2.6, PostgreSQL, 545 testes unitários, conformidade LGPD, autenticação robusta e dashboard analítico. Tempo de desenvolvimento reduzido em 60%.</div>
+
+    <h2>O Desafio: Modernizar a Gestão Odontológica</h2>
+    <p>O setor odontológico brasileiro ainda enfrenta desafios significativos na digitalização de seus processos. Muitos consultórios ainda dependem de agendas físicas, planilhas Excel e sistemas legados que não atendem às demandas modernas de:</p>
+    <ul>
+      <li><strong>Experiência do paciente</strong> digitalizada e intuitiva</li>
+      <li><strong>Gestão eficiente</strong> de consultas e prontuários</li>
+      <li><strong>Conformidade com a LGPD</strong> e segurança de dados</li>
+      <li><strong>Escalabilidade</strong> para clínicas de diferentes portes</li>
+      <li><strong>Integração</strong> com ferramentas modernas de comunicação</li>
+    </ul>
+
+    <h2>A Estratégia: MVP com Foco em Resultados Rápidos</h2>
+    <p>Em vez de desenvolver um sistema complexo que levaria anos para chegar ao mercado, optamos pela abordagem <strong>MVP (Produto Mínimo Viável)</strong>:</p>
+
+    <h3>Funcionalidades Core Implementadas:</h3>
+    <ul>
+      <li><strong>Sistema de Agendamento Completo</strong> - CRUD com controle de conflitos</li>
+      <li><strong>Gestão de Pacientes e Dentistas</strong> - Cadastros completos com especialidades</li>
+      <li><strong>Sistema de Prontuários</strong> - Upload de imagens radiológicas</li>
+      <li><strong>Dashboard Analítico</strong> - Métricas em tempo real</li>
+      <li><strong>Autenticação Robusta</strong> - Spring Security 6 com controle de acesso</li>
+      <li><strong>Multi-Ambiente</strong> - H2 para desenvolvimento, PostgreSQL para produção</li>
+      <li><strong>Conformidade LGPD</strong> - Controle de consentimento e auditoria</li>
+    </ul>
+
+    <h3>Stack Tecnológica Moderna:</h3>
+    <ul>
+      <li><strong>Backend:</strong> Spring Boot 3.2.6 + Java 17</li>
+      <li><strong>Frontend:</strong> Thymeleaf + Bootstrap 5.3 + Chart.js</li>
+      <li><strong>Banco:</strong> PostgreSQL 15 + Flyway migrations</li>
+      <li><strong>Infraestrutura:</strong> Docker + docker-compose</li>
+      <li><strong>Qualidade:</strong> 545 testes unitários (100% aprovação)</li>
+    </ul>
+
+    <h2>O Diferencial: Desenvolvedor Experiente + IA</h2>
+
+    <h3>O Que Trouxe a Experiência Humana:</h3>
+    <ul>
+      <li><strong>Arquitetura Sólida:</strong> Decisões fundamentadas sobre padrões, estruturas e tecnologias</li>
+      <li><strong>Boas Práticas:</strong> Implementação correta de segurança, testes e versionamento</li>
+      <li><strong>Visão de Negócio:</strong> Compreensão das necessidades reais do setor odontológico</li>
+      <li><strong>Debugging Experiente:</strong> Resolução rápida de problemas complexos de integração</li>
+    </ul>
+
+    <h3>Como a IA Acelerou o Desenvolvimento:</h3>
+    <ul>
+      <li><strong>Produtividade:</strong> Geração rápida de código boilerplate e estruturas repetitivas</li>
+      <li><strong>Qualidade:</strong> Sugestões de melhorias e detecção de possíveis problemas</li>
+      <li><strong>Documentação:</strong> Criação automática de documentação técnica e de usuário</li>
+      <li><strong>Testes:</strong> Geração de casos de teste abrangentes e cenários edge</li>
+    </ul>
+
+    <div class="note"><strong>Resultado da Sinergia:</strong> Tempo de desenvolvimento reduzido em 60% comparado a um desenvolvimento tradicional, mantendo alta qualidade e robustez técnica.</div>
+
+    <h2>Lições Aprendidas</h2>
+
+    <h3>1. IA como Acelerador, Não Substituto</h3>
+    <p>A inteligência artificial se mostrou uma ferramenta poderosa para:</p>
+    <ul>
+      <li>Acelerar tarefas repetitivas</li>
+      <li>Sugerir implementações alternativas</li>
+      <li>Documentar processos automaticamente</li>
+    </ul>
+    <p>Mas a <strong>experiência humana continua insubstituível</strong> para:</p>
+    <ul>
+      <li>Decisões arquiteturais críticas</li>
+      <li>Compreensão de requisitos de negócio</li>
+      <li>Validação de qualidade e segurança</li>
+    </ul>
+
+    <h3>2. MVP Bem Estruturado Facilita Evolução</h3>
+    <p>Ao focar nas funcionalidades essenciais com uma base técnica sólida:</p>
+    <ul>
+      <li><strong>22 migrações Flyway</strong> garantem evolução controlada do banco</li>
+      <li><strong>Pool de conexões otimizado</strong> prepara para escalabilidade</li>
+      <li><strong>Padrão DTO consistente</strong> facilita manutenção futura</li>
+      <li><strong>Multi-perfil</strong> permite desenvolvimento ágil</li>
+    </ul>
+
+    <h3>3. Importância da Documentação desde o Início</h3>
+    <p>A documentação técnica e de usuário foi desenvolvida paralelamente ao código, resultando em:</p>
+    <ul>
+      <li>Onboarding mais rápido de novos desenvolvedores</li>
+      <li>Facilidade para demonstrações comerciais</li>
+      <li>Base sólida para treinamento de usuários finais</li>
+    </ul>
+
+    <h2>O Próximo Passo: Investimento em UX/UI</h2>
+    <p><strong>Transparência total:</strong> Este é um MVP funcional que demonstra todas as capacidades técnicas, mas <strong>requer investimento adicional em design e experiência do usuário</strong> para chegar ao produto final.</p>
+
+    <h3>Melhorias Identificadas para a Próxima Fase:</h3>
+    <ul>
+      <li><strong>Design Profissional:</strong> Refinamento visual e identidade de marca</li>
+      <li><strong>UX Mobile:</strong> Otimização completa para dispositivos móveis</li>
+      <li><strong>Fluxos Intuitivos:</strong> Simplificação da navegação complexa</li>
+      <li><strong>Performance:</strong> Otimização de tempos de resposta</li>
+      <li><strong>Calendário Avançado:</strong> Interface visual com drag-and-drop</li>
+    </ul>
+
+    <h2>Impacto Esperado no Mercado</h2>
+    <p>Com uma base técnica sólida e foco nas necessidades reais do setor, esperamos contribuir para:</p>
+    <ol>
+      <li><strong>Digitalização Acessível:</strong> Sistema robusto com custo acessível para clínicas de todos os portes</li>
+      <li><strong>Experiência do Paciente:</strong> Interface moderna que facilita agendamentos e acompanhamento</li>
+      <li><strong>Eficiência Operacional:</strong> Automação de processos manuais e redução de retrabalho</li>
+      <li><strong>Conformidade Regulatória:</strong> Atendimento completo às exigências de proteção de dados</li>
+    </ol>
+
+    <h2>Conclusão: O Futuro é Colaborativo</h2>
+    <p>Este projeto demonstra que o futuro do desenvolvimento de software não está na substituição do desenvolvedor pela IA, mas na <strong>colaboração inteligente</strong> entre ambos:</p>
+    <ul>
+      <li><strong>Experiência humana</strong> traz visão estratégica, conhecimento de domínio e qualidade técnica</li>
+      <li><strong>Inteligência artificial</strong> acelera implementação, sugere melhorias e automatiza tarefas repetitivas</li>
+      <li><strong>Resultado:</strong> Produtos de maior qualidade entregues em menos tempo</li>
+    </ul>
+
+    <div class="repo-box">
+      <strong>Código Open Source:</strong><br />
+      Para consultórios odontológicos interessados em modernizar sua gestão ou desenvolvedores curiosos sobre esta abordagem colaborativa, o código está disponível como open source. <a href="https://github.com/chmulato/caracore-dental.git" target="_blank" rel="noopener">Ver repositório</a>
+    </div>
+
+    <h2>Hashtags</h2>
+    <div class="hash-box">#MVPOdontológico #SpringBoot #IA #DesenvolvimentoColaborativo #PostgreSQL #LGPD #AgendamentoMédico #JavaSpring #TecnologiaMédica #IntelienciaArtificial #SistemaMédico</div>
+
+    <hr />
+    <h3>Contato</h3>
+    <ul>
+      <li><strong>E-mail:</strong> suporte@caracore.com.br</li>
+      <li><strong>Site:</strong> <a href="https://www.caracore.com.br" target="_blank" rel="noopener">www.caracore.com.br</a></li>
+      <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/cara-core/" target="_blank" rel="noopener">Cara Core Informática</a></li>
+    </ul>
+
+    <div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:1.5rem 1.25rem; border-radius:8px; margin:2rem 0; text-align:center;">
+      <strong>🤝 Gostou do conteúdo?</strong><br />
+      <span style="font-size:.85rem;">Conecte-se conosco no LinkedIn para mais conteúdos sobre desenvolvimento e inovação tecnológica!</span><br />
+      <a href="https://www.linkedin.com/company/cara-core/" target="_blank" rel="noopener" style="display:inline-block; margin-top:.75rem; background:rgba(255,255,255,.2); color:white; padding:.5rem 1rem; border-radius:6px; text-decoration:none; font-weight:600;">Seguir no LinkedIn</a>
+    </div>
+  </div>
+</body>
+</html>
