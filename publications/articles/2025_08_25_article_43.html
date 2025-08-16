@@ -1,291 +1,214 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Como Montar um Dashboard de Vendas em Python para sua Loja — Cara Core Informática</title>
-	<meta name="description" content="Guia prático (e acessível) para criar um dashboard de vendas em Python: organização de dados, métricas-chave, gráficos e publicação simples. Inclui história, exemplos e checklist.">
-	<meta name="keywords" content="Dashboard de Vendas, Python, Análise de Dados, Varejo, KPIs, Loja, Automação, Visualização, Pandas, Plotly">
-	<meta name="author" content="Cara Core Informática">
-	<link rel="canonical" href="https://caracore.com.br/publications/articles/2025_08_28_article_43.html">
-	<!-- Open Graph -->
-	<meta property="og:title" content="Como Montar um Dashboard de Vendas em Python para sua Loja — Cara Core Informática">
-	<meta property="og:description" content="Passo a passo para transformar planilhas de vendas em um painel claro com KPIs e gráficos visuais em Python.">
-	<meta property="og:type" content="article">
-	<meta property="og:url" content="https://caracore.com.br/publications/articles/2025_08_28_article_43.html">
-	<meta property="og:image" content="https://caracore.com.br/publications/articles/media/article_43_01.png">
-	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:title" content="Como Montar um Dashboard de Vendas em Python para sua Loja — Cara Core Informática">
-	<meta name="twitter:description" content="Passo a passo para transformar planilhas de vendas em um painel claro com KPIs e gráficos visuais.">
-	<meta name="twitter:image" content="https://caracore.com.br/publications/articles/media/article_43_01.png">
-	<link rel="stylesheet" href="css/articles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard de Vendas em Tempo Real com Python, FastAPI e WebSockets — Cara Core Informática</title>
+  <meta name="description" content="Dashboard de vendas e estoque em tempo real com FastAPI, WebSockets e Chart.js. Layout responsivo, atualização automática e arquitetura profissional." />
+  <meta name="keywords" content="Dashboard Tempo Real, FastAPI, WebSockets, Python, Chart.js, Vendas, Estoque, Data Visualization" />
+  <meta name="author" content="Cara Core Informática" />
+  <link rel="canonical" href="https://caracore.com.br/publications/articles/2025_08_25_article_43.html" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dashboard de Vendas em Tempo Real com Python, FastAPI e WebSockets" />
+  <meta property="og:description" content="Sistema completo de dashboard com atualizações em tempo real, gráficos interativos e arquitetura profissional." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://caracore.com.br/publications/articles/2025_08_25_article_43.html" />
+  <meta property="og:image" content="https://caracore.com.br/publications/articles/media/article_43_01.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dashboard de Vendas em Tempo Real com Python, FastAPI e WebSockets" />
+  <meta name="twitter:description" content="Sistema profissional com FastAPI, WebSockets e Chart.js." />
+  <meta name="twitter:image" content="https://caracore.com.br/publications/articles/media/article_43_01.png" />
+  <link rel="stylesheet" href="css/articles.css" />
+  <style>
+    body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif; line-height:1.55; color:#1f2937; margin:0; }
+    .container { max-width: 980px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+    h1 { line-height:1.2; font-size:clamp(1.9rem,2.4vw,2.5rem); margin-top:0; }
+    h2 { margin-top:2.25rem; line-height:1.25; }
+    pre { background:#0f172a; color:#f1f5f9; padding:1rem 1.1rem; overflow:auto; border-radius:8px; font-size:.85rem; }
+    code { font-family: ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace; }
+    figure img { max-width:100%; height:auto; }
+    ul,ol { padding-left:1.1rem; }
+    .back-link { text-decoration:none; font-size:.85rem; color:#2563eb; }
+    .note { background:#f8f9fa; padding:1rem 1.25rem; border-left:4px solid #10B981; border-radius:6px; }
+    .hash-box { background:#f8f9fa; padding:1rem 1.25rem; border-left:4px solid #0EA5E9; border-radius:6px; font-size:.85rem; line-height:1.5; }
+    .repo-box { background:#f8f9fa; padding:1.25rem 1.25rem 1rem; border-left:4px solid #10B981; border-radius:6px; }
+    .repo-box a { color:#10B981; font-weight:600; text-decoration:none; }
+    hr { border:none; border-top:1px solid #e5e7eb; margin:3rem 0 2rem; }
+    @media (max-width:640px){ pre { font-size:.78rem; } }
+  </style>
 </head>
 <body>
-	<div class="container">
-		<a href="../articles.html" class="back-link">&larr; Voltar para publicações</a>
-		<img src="media/article_43_01.png" alt="Dashboard de vendas em Python" style="max-width:320px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-		<h1>Como Montar um Dashboard de Vendas em Python para sua Loja</h1>
-		<div class="linkedin-box" style="margin-bottom: 1.5rem; display: flex; align-items: center;">
-			<img src="media/logo.png" alt="Logo Cara Core" style="width:33%; max-width:40px; margin-right:10px;">
-			<a href="https://www.linkedin.com/company/cara-core/" target="_blank" rel="noopener">Cara Core Informática</a>
-			<span style="margin-left: 1.5rem;">82 seguidores<br>25 de agosto de 2025</span>
-		</div>
+  <div class="container">
+    <a class="back-link" href="../articles.html">&larr; Voltar para publicações</a>
+    <img src="media/article_43_01.png" alt="Dashboard de vendas em tempo real" style="max-width:300px; float:right; margin:0 0 1.5rem 2rem; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.08);" />
+    <h1>Dashboard de Vendas em Tempo Real com Python, FastAPI e WebSockets</h1>
+    <div style="display:flex; align-items:center; gap:.75rem; margin-bottom:1.25rem;">
+      <img src="media/logo.png" alt="Logo Cara Core" style="width:42px; height:42px; object-fit:contain;" />
+      <div style="font-size:.82rem; color:#555;">
+        <strong>Cara Core Informática</strong><br />82 seguidores • 25 de agosto de 2025
+      </div>
+    </div>
 
-		<p>
-			Este guia mostra, de forma simples, como transformar suas planilhas de vendas em um painel visual usando Python. Mesmo que você não seja analista de dados, vai conseguir montar uma visão clara para tomar decisões melhores.
-		</p>
+    <p>Este artigo apresenta um sistema completo de dashboard de vendas que atualiza automaticamente em tempo real. Usando FastAPI, WebSockets e Chart.js v4.4.1, construímos uma solução profissional para monitorar vendas e estoque de maneira contínua.</p>
 
-		<p style="background:#f8f9fa; padding:1rem 1.25rem; border-left:4px solid #10B981; border-radius:6px;">
-			<strong>História rápida:</strong> uma pequena loja de produtos naturais tinha 8 planilhas mensais diferentes. O dono só sabia “se vendeu bem” olhando o saldo bancário no fim da semana. Depois de organizar e visualizar dados em um dashboard simples (ticket médio, produtos que mais giram e horas de pico), ele ajustou estoque e reduziu perda de itens perecíveis em 22% em 2 meses.
-		</p>
+    <div class="note"><strong>Projeto implementado:</strong> Monitoramento de arquivo CSV exportado do Excel, detecção de alterações, push via WebSocket para todos os navegadores conectados, layout responsivo, gráficos (pizza + séries temporais) e fallback automático para polling.</div>
 
-		<h2>Objetivo do Dashboard</h2>
-		<ul>
-			<li>Responder rápido: “Como estão as vendas do mês vs. mês passado?”</li>
-			<li>Encontrar produtos campeões e encalhados.</li>
-			<li>Prever necessidade de reposição básica.</li>
-			<li>Monitorar ticket médio e número de pedidos.</li>
-		</ul>
+    <h2>Arquitetura do Sistema</h2>
+    <ul>
+      <li>Monitoramento automático de arquivo CSV (watchdog + polling)</li>
+      <li>API REST para snapshot e histórico</li>
+      <li>Canal WebSocket para atualizações em tempo real</li>
+      <li>Interface responsiva com Chart.js (v4.4.1)</li>
+      <li>Fallback inteligente para polling</li>
+      <li>Logging estruturado JSON com rotação</li>
+      <li>Layout "dashboard-layout" focado em visualização</li>
+    </ul>
 
-		<h2>Principais KPIs (indicadores)</h2>
-		<ul>
-			<li><strong>Faturamento Total</strong></li>
-			<li><strong>Número de Pedidos</strong></li>
-			<li><strong>Ticket Médio</strong> (Faturamento ÷ Pedidos)</li>
-			<li><strong>Top 5 Produtos</strong> (por receita ou quantidade)</li>
-			<li><strong>Percentual por Categoria</strong></li>
-			<li><strong>Curva Horária ou Diário</strong></li>
-			<li><strong>Margem Bruta (%)</strong> (opcional se tiver custo)</li>
-		</ul>
+    <h2>Objetivos</h2>
+    <ul>
+      <li>Comparar vendas em janelas de tempo</li>
+      <li>Identificar produtos com maior e menor giro</li>
+      <li>Antecipar reposição de estoque</li>
+      <li>Expor métricas de forma simples e clara</li>
+    </ul>
 
-		<h2>Organizando os Dados</h2>
-		<p>Estruture sua base (CSV ou Excel) com colunas claras:</p>
-		<figure style="margin:1.25rem 0 1.75rem; text-align:center;">
-			<img src="media/article_43_02.png" alt="Fluxo de dados: planilhas de vendas entrando em um processo em Python que limpa, calcula KPIs e gera gráficos do dashboard" style="max-width:780px; width:100%; border-radius:10px; box-shadow:0 4px 18px -4px rgba(0,0,0,0.12);">
-			<figcaption style="font-size:.85rem; color:#555; margin-top:.6rem;">Figura 1 – Pipeline simples: ingestão de planilhas → limpeza → cálculo de métricas → visualização (dashboard).</figcaption>
-		</figure>
-		<pre><code class="language-text">data,pedido_id,produto,categoria,quantidade,preco_unitario,custo_unitario,cliente_id
-2025-08-01,1001,Granola 500g,Alimentos,2,18.90,9.00,cli_01
-2025-08-01,1002,Mel Orgânico 300g,Alimentos,1,29.00,14.00,cli_02
-2025-08-01,1003,Shaker 700ml,Acessorios,1,45.00,20.00,cli_03
-...</code></pre>
+    <h2>Componentes da Interface</h2>
+    <ul>
+      <li>Cards de métricas (vendas totais, linhas, última atualização)</li>
+      <li>Gráfico de pizza principal (distribuição por produto)</li>
+      <li>Gráficos de linha (histórico de vendas e estoque)</li>
+      <li>Sidebar de tabelas (vendas e estoque por produto)</li>
+      <li>Status de conexão (WebSocket / Polling)</li>
+      <li>Atualização reativa em segundos após alterações</li>
+    </ul>
 
-		<h2>Ambiente Python</h2>
-		<pre><code class="language-bash">python -m venv venv
-venv\Scripts\activate
-pip install pandas plotly openpyxl</code></pre>
+    <h2>Estrutura de Dados</h2>
+    <p>O arquivo CSV segue a estrutura:</p>
+    <pre><code>timestamp,produto,vendas,estoque
+2025-08-15 14:30:00,Produto A,120,45
+2025-08-15 14:33:00,Produto B,85,32
+2025-08-15 14:36:00,Produto C,95,28
+2025-08-15 14:39:00,Produto D,110,15
+2025-08-15 14:42:00,Produto E,75,22</code></pre>
 
-		<h2>Carregando e Preparando os Dados</h2>
-		<pre><code class="language-python">import pandas as pd
-from pathlib import Path
+    <h2>Configuração Rápida</h2>
+    <pre><code class="language-bash">git clone https://github.com/chmulato/cara-core-dashboard.git
+cd cara-core-dashboard
+pip install -r requirements.txt
+python main.py</code></pre>
 
-def carregar_vendas(arquivo):
-    """Carrega dados de vendas e retorna DataFrame preparado."""
-    df = (pd.read_excel(arquivo, parse_dates=["data"])
-            .assign(
-                receita=lambda x: x["quantidade"] * x["preco_unitario"],
-                custo_total=lambda x: x["quantidade"] * x["custo_unitario"]
-            )
-            .assign(margem=lambda x: x["receita"] - x["custo_total"])
-            .astype({
-                "pedido_id": "str",
-                "produto": "str", 
-                "categoria": "str",
-                "cliente_id": "str"
-            }))
-    return df
+    <h2>Backend (Trecho Simplificado)</h2>
+    <pre><code class="language-python">from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+import asyncio
 
-# Uso
-df = carregar_vendas("vendas.xlsx")
-print(f"Dados carregados: {len(df)} linhas, {df.columns.tolist()}")
-</code></pre>
+app = FastAPI()
 
-		<h2>Calculando Métricas</h2>
-		<pre><code class="language-python">def gerar_resumo(df):
-    """Pipeline de métricas usando pandas fluido."""
-    return {
-        "faturamento": df["receita"].sum(),
-        "pedidos": df["pedido_id"].nunique(),
-        "ticket_medio": df["receita"].sum() / df["pedido_id"].nunique(),
-        "margem_pct": (df["margem"].sum() / df["receita"].sum()) * 100,
-        "produtos_únicos": df["produto"].nunique(),
+class Manager:
+    def __init__(self):
+        self.clients: list[WebSocket] = []
+        self._lock = asyncio.Lock()
+
+    async def connect(self, ws: WebSocket):
+        await ws.accept()
+        async with self._lock:
+            self.clients.append(ws)
+
+    async def disconnect(self, ws: WebSocket):
+        async with self._lock:
+            if ws in self.clients:
+                self.clients.remove(ws)
+
+manager = Manager()
+
+@app.websocket('/ws')
+async def ws_endpoint(ws: WebSocket):
+    await manager.connect(ws)
+    try:
+        while True:
+            await ws.receive_text()  # keep-alive
+    except WebSocketDisconnect:
+        await manager.disconnect(ws)</code></pre>
+
+    <h2>Frontend (Trecho)</h2>
+    <pre><code class="language-javascript">const state = { ws:null, charts:{}, reconnect:0, maxReconnect:10 };
+function connect(){
+  state.ws = new WebSocket(`ws://${location.host}/ws`);
+  state.ws.onopen = () => { state.reconnect = 0; };
+  state.ws.onclose = () => {
+    if(state.reconnect < state.maxReconnect){
+      setTimeout(connect, 1500); state.reconnect++; return;
     }
+    // fallback: iniciar polling
+  };
+}
+connect();</code></pre>
 
-def top_produtos(df, n=5):
-    return (df.groupby("produto", as_index=False)["receita"]
-              .sum()
-              .sort_values("receita", ascending=False)
-              .head(n))
+    <h2>Layout (CSS Core)</h2>
+    <pre><code class="language-css">.dashboard-layout{display:grid;grid-template-columns:1fr 300px;gap:2rem}
+.chart-pizza{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.chart-container{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.25rem}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+@media (max-width:780px){.dashboard-layout{grid-template-columns:1fr}.chart-row{grid-template-columns:1fr}}</code></pre>
 
-def serie_temporal(df, freq="D"):
-    return (df.groupby(df["data"].dt.date)["receita"]
-              .sum()
-              .reset_index())
+    <h2>Estrutura do Projeto</h2>
+    <pre><code class="language-text">cara-core-dashboard/
+├── main.py
+├── app/
+│   ├── main.py
+│   ├── data_loader.py
+│   ├── logging_setup.py
+│   ├── sample_data.csv
+│   ├── templates/index.html
+│   └── static/
+├── src/
+│   ├── generate_batch_data.py
+│   ├── update_simulator.py
+│   └── quick_demo_data.py
+├── tests/
+├── requirements.txt
+├── Dockerfile
+└── README.md</code></pre>
 
-# Executar pipeline
-metricas = gerar_resumo(df)
-top_5 = top_produtos(df)
-vendas_diarias = serie_temporal(df)
+    <h2>Execução & Deploy</h2>
+    <pre><code class="language-bash">python main.py                          # Porta 8000 (ou próxima livre)
+LOG_LEVEL=DEBUG LOG_FORMAT=plain python main.py  # Logs detalhados
+docker build -t dashboard-vendas .
+docker run -p 8001:8000 dashboard-vendas</code></pre>
 
-print(f"Faturamento: R$ {metricas['faturamento']:,.2f}")
-print(f"{metricas['pedidos']} pedidos, ticket médio R$ {metricas['ticket_medio']:.2f}")
-</code></pre>		<h2>Visualizando com Plotly</h2>
-		<pre><code class="language-python">import plotly.express as px
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+    <figure style="margin:2rem 0; text-align:center;">
+      <img src="media/article_43_03.png" alt="Screenshot final do dashboard" style="max-width:820px; width:100%; border-radius:10px; box-shadow:0 4px 20px -4px rgba(0,0,0,0.15);" />
+      <figcaption style="font-size:.8rem; color:#555; margin-top:.55rem;">Interface final responsiva (gráfico pizza, séries temporais e tabelas).</figcaption>
+    </figure>
 
-def criar_dashboard(df):
-    """Cria figuras do dashboard em uma função fluida."""
-    
-    # Dados para gráficos
-    top_5 = top_produtos(df)
-    cats = df.groupby("categoria")["receita"].sum().reset_index()
-    temporal = serie_temporal(df)
-    
-    # Subplot com 3 gráficos
-    fig = make_subplots(
-        rows=2, cols=2,
-        specs=[[{"colspan": 2}, None], 
-               [{}, {}]],
-        subplot_titles=("Receita Diária", "Top Produtos", "Por Categoria")
-    )
-    
-    # Linha temporal
-    fig.add_trace(
-        go.Scatter(x=temporal["data"], y=temporal["receita"], 
-                   mode="lines+markers", name="Receita"),
-        row=1, col=1
-    )
-    
-    # Barras top produtos
-    fig.add_trace(
-        go.Bar(x=top_5["produto"], y=top_5["receita"], name="Top 5"),
-        row=2, col=1
-    )
-    
-    # Pizza categorias
-    fig.add_trace(
-        go.Pie(labels=cats["categoria"], values=cats["receita"], name="Categorias"),
-        row=2, col=2
-    )
-    
-    fig.update_layout(height=600, showlegend=False, title="Dashboard de Vendas")
-    return fig
+    <h2>Checklist</h2>
+    <ul>
+      <li>✅ CSV padronizado</li>
+      <li>✅ Watchdog + Polling</li>
+      <li>✅ WebSocket com reconexão</li>
+      <li>✅ Gráficos Chart.js</li>
+      <li>✅ Layout responsivo</li>
+      <li>✅ Logging estruturado</li>
+      <li>✅ Dockerfile</li>
+    </ul>
 
-# Gerar e exibir
-dashboard = criar_dashboard(df)
-dashboard.show()
-</code></pre>
+    <h2>Repositório</h2>
+    <div class="repo-box">
+      <p style="margin:0 0 .5rem 0; font-weight:600;">GitHub:</p>
+      <a href="https://github.com/chmulato/cara-core-dashboard" target="_blank" rel="noopener">https://github.com/chmulato/cara-core-dashboard</a>
+      <p style="margin:.75rem 0 0; font-size:.8rem; color:#555;">Licença MIT • Python • FastAPI • Chart.js</p>
+    </div>
 
-		<h2>Dashboard Simples em Página Única</h2>
-		<p>Podemos juntar tudo em um único HTML exportado:</p>
-		<pre><code class="language-python">from pathlib import Path
-from datetime import datetime
+    <h2>Hashtags</h2>
+    <div class="hash-box">#DashboardTempoReal #FastAPI #WebSockets #ChartJS #PythonDashboard #DataVisualization #RealtimeDashboard #BusinessIntelligence #DataAnalytics #PythonWeb #DashboardInterativo</div>
 
-def exportar_dashboard(df, destino="dashboard_vendas.html"):
-    """Pipeline completo: dados → dashboard → HTML."""
-    
-    # Gerar componentes
-    metricas = gerar_resumo(df)
-    fig = criar_dashboard(df)
-    
-    # Template com f-string
-    template = f"""&lt;!DOCTYPE html&gt;
-&lt;html lang='pt-br'&gt;
-&lt;head&gt;
-    &lt;meta charset='utf-8'&gt;
-    &lt;title&gt;Dashboard Vendas - {datetime.now().strftime('%d/%m/%Y')}&lt;/title&gt;
-    &lt;style&gt;body{{font-family:Segoe UI,sans-serif;margin:20px;}}&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;Dashboard de Vendas&lt;/h1&gt;
-    &lt;div style="display:flex;gap:20px;margin:20px 0;"&gt;
-        &lt;div&gt;Faturamento: R$ {metricas['faturamento']:,.2f}&lt;/div&gt;
-        &lt;div&gt;Pedidos: {metricas['pedidos']}&lt;/div&gt;
-        &lt;div&gt;Ticket Médio: R$ {metricas['ticket_medio']:.2f}&lt;/div&gt;
-    &lt;/div&gt;
-    {fig.to_html(include_plotlyjs='cdn', div_id='dashboard')}
-&lt;/body&gt;
-&lt;/html&gt;"""
-    
-    Path(destino).write_text(template, encoding="utf-8")
-    print(f"Dashboard salvo: {destino}")
-    return destino
-
-# Executar pipeline completo
-arquivo = exportar_dashboard(df)
-</code></pre>
-
-		<p>
-			O resultado final é um dashboard interativo que transforma dados brutos em insights visuais claros. A função <code>exportar_dashboard()</code> automatiza todo o processo: carrega os dados, calcula métricas, gera gráficos e exporta um arquivo HTML pronto para uso.
-		</p>
-
-		<figure style="margin:1.75rem 0 2rem; text-align:center;">
-			<img src="media/article_43_03.png" alt="Transformação de dados brutos desorganizados em um dashboard claro com gráficos e KPIs" style="max-width:820px; width:100%; border-radius:10px; box-shadow:0 4px 20px -4px rgba(0,0,0,0.15);">
-			<figcaption style="font-size:.85rem; color:#555; margin-top:.6rem;">Figura 2 – Evolução visual: dados dispersos sendo consolidados em um painel único com métricas e gráficos.</figcaption>
-		</figure>
-
-		<h2>Checklist Rápido</h2>
-		<ul>
-			<li>Dados limpos (sem colunas misturadas)</li>
-			<li>Nomes consistentes de produtos</li>
-			<li>Datas parseadas corretamente</li>
-			<li>KPI básicos calculados</li>
-			<li>Gráficos gerados sem erro</li>
-			<li>HTML exportado</li>
-			<li>Backup do arquivo fonte</li>
-		</ul>
-
-		<h2>Extensões Possíveis</h2>
-		<ul>
-			<li>Adicionar filtro de período (ex.: Streamlit)</li>
-			<li>Previsão de vendas (média móvel simples)</li>
-			<li>Envio automático diário por e-mail</li>
-			<li>Comparação com meta mensal</li>
-			<li>Integração com banco de dados</li>
-		</ul>
-
-		<h2>Glossário Rápido</h2>
-		<ul>
-			<li><strong>Dashboard</strong>: tela que resume informações em gráficos.</li>
-			<li><strong>KPI</strong>: indicador-chave (número que mostra desempenho).</li>
-			<li><strong>Ticket Médio</strong>: valor médio que cada pedido gera.</li>
-			<li><strong>Categoria</strong>: grupo de produtos (ex.: bebidas, acessórios).</li>
-			<li><strong>Margem Bruta</strong>: receita menos custo direto.</li>
-		</ul>
-
-		<h2>Resumo Final</h2>
-		<p>
-			Com poucas linhas de código você transforma dados soltos em visão clara. Comece pequeno (3 KPIs + 2 gráficos) e evolua. O mais importante é manter dados limpos e consistente atualização.
-		</p>
-
-		<h2>Próximos Passos Sugeridos</h2>
-		<ol>
-			<li>Organizar planilha única consolidada</li>
-			<li>Rodar script de base (cálculo de métricas)</li>
-			<li>Gerar gráficos e validar números</li>
-			<li>Exportar dashboard HTML</li>
-			<li>Agendar atualização (tarefa diária ou semanal)</li>
-			<li>Adicionar filtros ou metas</li>
-		</ol>
-
-		<h2>Hashtags para Compartilhamento</h2>
-		<p style="background:#f8f9fa; padding:1rem 1.25rem; border-left:4px solid #0EA5E9; border-radius:6px; font-size:.9rem; line-height:1.6;">
-			<strong>Redes sociais:</strong> #DashboardVendas #PythonAnalytics #DataVisualization #BusinessIntelligence #Pandas #Plotly #VendasData #AnaliseVendas #DashboardPython #DataScience #AutomacaoVendas #KPIs #MetricasVendas #PythonParaNegocios #DataDriven
-		</p>
-		<p style="color:#6b7280; font-size:.85rem; margin-top:.5rem;">
-			<em>Use essas hashtags ao compartilhar o artigo para alcançar profissionais interessados em análise de dados e automação de vendas.</em>
-		</p>
-
-		<hr style="margin: 40px 0; border: none; border-top: 1px solid #eee;">
-
-		<h3>Contato</h3>
-		<ul>
-			<li><strong>E-mail:</strong> suporte@caracore.com.br</li>
-			<li><strong>Site:</strong> <a href="https://www.caracore.com.br" target="_blank" rel="noopener">www.caracore.com.br</a></li>
-			<li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/cara-core/" target="_blank" rel="noopener">Cara Core Informática</a></li>
-		</ul>
-	</div>
+    <hr />
+    <h3>Contato</h3>
+    <ul>
+      <li><strong>E-mail:</strong> suporte@caracore.com.br</li>
+      <li><strong>Site:</strong> <a href="https://www.caracore.com.br" target="_blank" rel="noopener">www.caracore.com.br</a></li>
+      <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/cara-core/" target="_blank" rel="noopener">Cara Core Informática</a></li>
+    </ul>
+  </div>
 </body>
 </html>
